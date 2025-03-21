@@ -38,31 +38,39 @@ function Categoria() {
   };
   const modules = [
     {
-        name: "Configuracion",
-        submenus: [
-          { name: "Usuarios", path: "/usuarios" },
-          { name: "Roles", path: "/roles" },
-          { name: "Permisos", path: "/permisos" },
-          
-        ],
-      },
-      
-      {
-        name: "Compras",
-        submenus: [
-          { name: "Compras", path: "/compras" },
-          { name: "Proveedores", path: "/proveedores" },
-          { name: "Categoria", path: "/Categoria" },
-          { name: "Productos", path: "/productos" },
-        ],
-      },
-      {
-        name: "Ventas",
-        submenus: [
-          { name: "Clientes", path: "/clientes" },
-          { name: "Ventas", path: "/ventas" }, // Nuevo módulo de Ventas con submenú Clientes
-        ],
-      },
+      name: "Dasboard",
+      submenus: [
+        { name: "Dasboard", path: "/dasboard" },
+       
+        
+      ],
+    },
+
+    {
+      name: "Configuracion",
+      submenus: [
+        { name: "Usuarios", path: "/usuarios" },
+        { name: "Roles", path: "/roles" },
+        { name: "Permisos", path: "/permisos" },
+        
+      ],
+    },
+    
+    {
+      name: "Compras",
+      submenus: [
+        { name: "Compras", path: "/compras" },
+        { name: "Proveedores", path: "/proveedores" },
+        { name: "Categoria", path: "/Categoria" },
+        { name: "Productos", path: "/productos" },
+      ],
+    },
+    {
+      name: "Ventas",
+      submenus: [
+        { name: "Clientes", path: "/clientes" }, // Nuevo módulo de Ventas con submenú Clientes
+      ],
+    },
   ];
 
 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./css/App.css";
 import LoginForm from "./page/LoginForm";
 import RegisterForm from "./page/RegisterForm";
-import AdminPanel from "./page/AdminPanel";
+import Dasboard from "./page/Dasboard";
 import Proveedores from "./page/Proveedores";
 import Clientes from "./page/Clientes";
 import Categoria from "./page/Categoria";
@@ -17,6 +17,7 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate(); // Hook para la navegación
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem("isLoggedIn");
@@ -29,57 +30,63 @@ function App() {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", "true");
     setShowLogin(false);
+    navigate("/dasboard"); // Redirigir al usuario a /dasboard
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
+    navigate("/"); // Redirigir al usuario a la página de inicio
   };
 
   return (
-    <Router>
-      <div className="container">
-        {!isLoggedIn && (
-          <nav>
-            <Link to="/" className="logo">
-              🛒 Postware
-            </Link>
-            <div>
-              <button className="btn" onClick={() => setShowLogin(true)}>
-                Iniciar Sesión
-              </button>
-              <button className="btn" onClick={() => setShowRegister(true)}>
-                Registrarse
-              </button>
-            </div>
-          </nav>
-        )}
-
-        {showLogin ? (
-          <LoginForm onBackToHome={() => setShowLogin(false)} onLogin={handleLogin} />
-        ) : showRegister ? (
-          <RegisterForm 
-            onBackToHome={() => setShowRegister(false)} 
-            onLogin={handleLogin} 
-          />
+    <div className="container">
+      {/* Navbar siempre visible */}
+      <nav>
+        <Link to="/" className="logo">
+          🛒 Postware
+        </Link>
+        {!isLoggedIn ? (
+          <div>
+            <button className="btn" onClick={() => setShowLogin(true)}>
+              Iniciar Sesión
+            </button>
+            <button className="btn" onClick={() => setShowRegister(true)}>
+              Registrarse
+            </button>
+          </div>
         ) : (
-          <Routes>
-            <Route path="/" element={isLoggedIn ? <AdminPanel /> : <HomePage />} />
-            <Route path="/proveedores" element={<Proveedores />} />
-            <Route path="/clientes" element={<Clientes />} />
-            <Route path="/Categoria" element={<Categoria />} />
-            <Route 
-              path="/login" 
-              element={<LoginForm onLogin={handleLogin} />} 
-            />
-            <Route 
-              path="/register" 
-              element={<RegisterForm onLogin={handleLogin} />} 
-            />
-          </Routes>
+          <button className="btn btn-danger" onClick={handleLogout}>
+            Cerrar Sesión
+          </button>
         )}
-      </div>
-    </Router>
+      </nav>
+
+      {showLogin ? (
+        <LoginForm onBackToHome={() => setShowLogin(false)} onLogin={handleLogin} />
+      ) : showRegister ? (
+        <RegisterForm 
+          onBackToHome={() => setShowRegister(false)} 
+          onLogin={handleLogin} 
+        />
+      ) : (
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/dasboard" element={<Dasboard />} />
+          <Route path="/proveedores" element={<Proveedores />} />
+          <Route path="/clientes" element={<Clientes />} />
+          <Route path="/Categoria" element={<Categoria />} />
+          <Route 
+            path="/login" 
+            element={<LoginForm onLogin={handleLogin} />} 
+          />
+          <Route 
+            path="/register" 
+            element={<RegisterForm onLogin={handleLogin} />} 
+          />
+        </Routes>
+      )}
+    </div>
   );
 }
 
@@ -117,4 +124,10 @@ function HomePage() {
   );
 }
 
-export default App;
+export default function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
