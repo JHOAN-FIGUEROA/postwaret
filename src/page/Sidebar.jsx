@@ -19,6 +19,14 @@ function Sidebar({ modules }) {
     navigate(path); // Navegar a la ruta correspondiente
   };
 
+  // Función para cerrar sesión
+  const handleCerrarSesion = () => {
+    // Aquí puedes agregar la lógica para cerrar sesión, como limpiar el localStorage, etc.
+    localStorage.removeItem("token"); // Ejemplo: Eliminar el token de autenticación
+    localStorage.removeItem("user"); // Ejemplo: Eliminar la información del usuario
+    navigate("/"); // Redirigir al usuario a la página de inicio
+  };
+
   return (
     <div className="sidebar">
       <h3>Módulos</h3>
@@ -49,6 +57,11 @@ function Sidebar({ modules }) {
           </li>
         ))}
       </ul>
+      <div>
+        <button className="btn btn-danger" onClick={handleCerrarSesion}>
+          Cerrar Sesión
+        </button>
+      </div>
     </div>
   );
 }

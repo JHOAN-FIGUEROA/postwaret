@@ -37,6 +37,15 @@ function Clientes() {
   // Definir los módulos para el Sidebar
   const modules = [
     {
+      name: "Dasboard",
+      submenus: [
+        { name: "Dasboard", path: "/dasboard" },
+       
+        
+      ],
+    },
+
+    {
       name: "Configuracion",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
@@ -58,8 +67,7 @@ function Clientes() {
     {
       name: "Ventas",
       submenus: [
-        { name: "Clientes", path: "/clientes" },
-        { name: "Ventas", path: "/ventas" }, // Nuevo módulo de Ventas con submenú Clientes
+        { name: "Clientes", path: "/clientes" }, // Nuevo módulo de Ventas con submenú Clientes
       ],
     },
   ];
