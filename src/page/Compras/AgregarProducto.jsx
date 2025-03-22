@@ -41,7 +41,7 @@ function AgregarProductos() {
 
   // Función para guardar y regresar a la página de crear compra
   const handleGuardar = () => {
-    navigate("/crear-compra", { state: { productos } });
+    navigate("/compras/agregar", { state: { productos } });
   };
 
   return (

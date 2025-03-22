@@ -16,6 +16,8 @@ import VerDetalleCliente from "./page/Clientes/VerDetalleCliente";
 import EditarCliente from "./page/Clientes/EditarCliente";
 import Categoria from "./page/Categoria";
 import Ventas from "./page/Ventas";
+import AgregarVenta from "./page/Ventas/AgregarVenta";
+import AgregarProductoss from "./page/Ventas/AgregarProductov";
 
 
 
@@ -93,6 +95,8 @@ function App() {
           <Route path="/clientes/detalle/" element={<VerDetalleCliente />} />
           <Route path="/Categoria" element={<Categoria />} />
           <Route path="/ventas" element={<Ventas />} />
+          <Route path="/ventas/agregar" element={<AgregarVenta />} />
+          <Route path="/productos/agregarr" element={<AgregarProductoss />} />
 
 
 
