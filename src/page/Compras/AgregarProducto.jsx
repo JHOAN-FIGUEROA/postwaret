@@ -1,4 +1,3 @@
-// src/page/AgregarProductos.jsx
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Table, Row, Col, InputGroup } from "react-bootstrap";
@@ -18,18 +17,39 @@ function AgregarProductos() {
 
   // Función para agregar un producto
   const handleAgregarProducto = () => {
-    const subtotal = nuevoProducto.cantidad * nuevoProducto.precioUnitario;
+    // Convertir precioUnitario y cantidad a números
+    const precioUnitario = parseFloat(nuevoProducto.precioUnitario);
+    const cantidad = parseInt(nuevoProducto.cantidad, 10);
+
+    // Validar que los valores sean números válidos
+    if (isNaN(precioUnitario)) {
+      alert("El precio unitario debe ser un número válido.");
+      return;
+    }
+    if (isNaN(cantidad)) {
+      alert("La cantidad debe ser un número válido.");
+      return;
+    }
+
+    // Calcular subtotal, IVA y total
+    const subtotal = cantidad * precioUnitario;
     const iva = subtotal * 0.19;
     const total = subtotal + iva;
 
+    // Crear el nuevo producto
     const producto = {
       ...nuevoProducto,
+      precioUnitario,
+      cantidad,
       subtotal,
       iva,
       total,
     };
 
+    // Agregar el producto a la lista
     setProductos([...productos, producto]);
+
+    // Reiniciar el formulario
     setNuevoProducto({ nombre: "", cantidad: 1, precioUnitario: 0 });
   };
 
@@ -41,7 +61,7 @@ function AgregarProductos() {
 
   // Función para guardar y regresar a la página de crear compra
   const handleGuardar = () => {
-    navigate("/crear-compra", { state: { productos } });
+    navigate("/compras/agregar", { state: { productos } });
   };
 
   return (

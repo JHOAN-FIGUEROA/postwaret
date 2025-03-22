@@ -1,11 +1,14 @@
 // src/components/Proveedores.jsx
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom"; // Importa useNavigate
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import "../css/Proveedores.css";
 import Sidebar from "./Sidebar";
 
+
 function Proveedores() {
+  const navigate = useNavigate(); // Hook para la navegación
+
   // Estado para almacenar la lista de proveedores
   const [proveedores, setProveedores] = useState([
     { id: 1, nombre: "Proveedor A", contacto: "contacto@proveedora.com", telefono: "123456789" },
@@ -22,16 +25,20 @@ function Proveedores() {
   );
 
   // Funciones para manejar las acciones
-  const handleAnular = (id) => {
-    alert(`Anular proveedor con ID: ${id}`);
+  const handleAnulaProveedor = () => {
+    navigate("/proveedor/anular")
+  }
+
+  const handleAgregarProveedor = () => {
+    navigate("/proveedor/agregar"); // Redirige a la ruta "proveedor/agregar"
   };
 
-  const handleEditar = (id) => {
-    alert(`Editar proveedor con ID: ${id}`);
+  const handleEditarProveedor = () => {
+    navigate("/proveedor/editar");
   };
 
-  const handleVerDetalle = (id) => {
-    alert(`Ver detalle del proveedor con ID: ${id}`);
+  const handleVerDetalleProveedor = (id) => {
+    navigate("/proveedor/ver-detalle");
   };
 
   // Definir los módulos para el Sidebar
@@ -40,21 +47,16 @@ function Proveedores() {
       name: "Dasboard",
       submenus: [
         { name: "Dasboard", path: "/dasboard" },
-       
-        
       ],
     },
-
     {
       name: "Configuracion",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
         { name: "Permisos", path: "/permisos" },
-        
       ],
     },
-    
     {
       name: "Compras",
       submenus: [
@@ -68,14 +70,14 @@ function Proveedores() {
       name: "Ventas",
       submenus: [
         { name: "Ventas", path: "/ventas" },
-        { name: "Clientes", path: "/clientes" }, // Nuevo módulo de Ventas con submenú Clientes
+        { name: "Clientes", path: "/clientes" },
       ],
     },
   ];
 
   return (
     <div>
-      <div className="main-content with-sidebar">
+      <div className="main-content">
         <h2>Proveedores Registrados</h2>
         {/* Pasa la prop modules al Sidebar */}
         <Sidebar modules={modules} />
@@ -92,7 +94,9 @@ function Proveedores() {
             </InputGroup>
           </Col>
           <Col className="text-end">
-            <Button variant="primary">Agregar Proveedor</Button>
+            <Button variant="primary" onClick={handleAgregarProveedor}>
+              Agregar Proveedor
+            </Button>
           </Col>
         </Row>
         <Table striped bordered hover>
@@ -113,14 +117,26 @@ function Proveedores() {
                 <td>{proveedor.contacto}</td>
                 <td>{proveedor.telefono}</td>
                 <td>
-                  <Button variant="info" size="sm" onClick={() => handleVerDetalle(proveedor.id)}>
-                    Ver Detalle
-                  </Button>{" "}
-                  <Button variant="warning" size="sm" onClick={() => handleEditar(proveedor.id)}>
-                    Editar
-                  </Button>{" "}
-                  <Button variant="danger" size="sm" onClick={() => handleAnular(proveedor.id)}>
-                    Anular
+                  <Button
+                   variant="info"
+                      size="sm"
+                      onClick={handleVerDetalleProveedor}
+                      >
+                      Ver Detalle
+                  </Button>
+                  <Button
+                      variant="warning"
+                      size="sm"
+                      onClick={handleEditarProveedor}
+                      >
+                      Editar
+                  </Button>
+                  <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={handleAnulaProveedor} 
+                      >
+                      Anular
                   </Button>
                 </td>
               </tr>

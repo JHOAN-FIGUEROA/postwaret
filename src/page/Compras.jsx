@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 function Compras() {
   const navigate = useNavigate(); // Hook para la navegación
 
-  // Estado para almacenar la lista de compras (simulación)
+  // Estado para almacenar la lista de compras
   const [compras, setCompras] = useState([
     {
       id: 1,
@@ -56,21 +56,25 @@ function Compras() {
   );
 
   // Funciones para manejar las acciones
-  const handleAnular = (id) => {
-    alert(`Anular compra con ID: ${id}`);
+  const handleAnular = () => {
+    navigate("/compras/anular"); // Redirige a la página de anular
   };
 
-  const handleEditar = (id) => {
-    alert(`Editar compra con ID: ${id}`);
+  const handleEditar = () => {
+    navigate("/compras/editar");
   };
 
   const handleVerDetalle = (id) => {
-    alert(`Ver detalle de la compra con ID: ${id}`);
+    navigate(`/compras/ver-detalle/${id}`);
   };
 
-  // Función para navegar a la página de crear compra
+  const handleGenerarPDF = (id) => {
+    navigate(`/compras/GenerarPDF`);
+  };
+
+  // Función para redirigir a la página de agregar compra
   const handleAgregarCompra = () => {
-    navigate("/compras/agregar"); // Redirige a la página de Crear Compra
+    navigate("/compras/agregar");
   };
 
   // Definir los módulos para el Sidebar
@@ -161,16 +165,24 @@ function Compras() {
                   <Button
                     variant="warning"
                     size="sm"
-                    onClick={() => handleEditar(compra.id)}
+                    onClick={handleEditar} // Redirige a la página de editar
                   >
                     Editar
                   </Button>{" "}
                   <Button
                     variant="danger"
                     size="sm"
-                    onClick={() => handleAnular(compra.id)}
+                    onClick={handleAnular} // Redirige a la página de anular
                   >
                     Anular
+                  </Button>
+                  <Button
+                    variant="info"
+                    size="sm"
+                    onClick={handleGenerarPDF}
+                    
+                  >
+                    Generar PDF
                   </Button>
                 </td>
               </tr>
