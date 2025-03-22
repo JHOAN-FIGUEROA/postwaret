@@ -68,6 +68,7 @@ function Categoria() {
     {
       name: "Ventas",
       submenus: [
+        { name: "Ventas", path: "/ventas" },
         { name: "Clientes", path: "/clientes" }, // Nuevo módulo de Ventas con submenú Clientes
       ],
     },

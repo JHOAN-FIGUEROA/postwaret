@@ -1,60 +1,55 @@
 // src/components/Proveedores.jsx
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import "../css/Proveedores.css";
 import Sidebar from "./Sidebar";
 
 function Clientes() {
-  // Estado para almacenar la lista de proveedores
-  const [clientes, setclientes] = useState([
+  const [clientes, setClientes] = useState([
     { id: 1, nombre: "Cliente A", contacto: "contacto@cliente.com", telefono: "123456789" },
     { id: 2, nombre: "Cliente B", contacto: "contacto@Cliente.com", telefono: "987654321" },
     { id: 3, nombre: "Cliente C", contacto: "contacto@Cliente.com", telefono: "987654345" },
   ]);
 
-  // Estado para manejar la búsqueda
   const [busqueda, setBusqueda] = useState("");
+  const navigate = useNavigate(); // Hook para la navegación
 
-  // Filtrar proveedores basados en la búsqueda
-  const clientesFiltrados = clientes.filter((clientes) =>
-    clientes.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  const clientesFiltrados = clientes.filter((cliente) =>
+    cliente.nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  // Funciones para manejar las acciones
+  const handleAgregar = () => {
+    navigate("/clientes/agregar"); // Redirigir a la ruta de agregar cliente
+  };
+
+  const handleEditar = (id) => {
+    navigate(`/clientes/editar/`); // Redirigir a la ruta de editar cliente
+  };
+
+  const handleVerDetalle = (id) => {
+    navigate(`/clientes/detalle/`); // Redirigir a la ruta de ver detalle
+  };
+
   const handleAnular = (id) => {
     alert(`Anular Cliente con ID: ${id}`);
   };
 
-  const handleEditar = (id) => {
-    alert(`Editar Cliente con ID: ${id}`);
-  };
-
-  const handleVerDetalle = (id) => {
-    alert(`Ver detalle del Cliente con ID: ${id}`);
-  };
-
-  // Definir los módulos para el Sidebar
   const modules = [
     {
       name: "Dasboard",
       submenus: [
         { name: "Dasboard", path: "/dasboard" },
-       
-        
       ],
     },
-
     {
       name: "Configuracion",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
         { name: "Permisos", path: "/permisos" },
-        
       ],
     },
-    
     {
       name: "Compras",
       submenus: [
@@ -67,7 +62,8 @@ function Clientes() {
     {
       name: "Ventas",
       submenus: [
-        { name: "Clientes", path: "/clientes" }, // Nuevo módulo de Ventas con submenú Clientes
+        { name: "Ventas", path: "/ventas" },
+        { name: "Clientes", path: "/clientes" },
       ],
     },
   ];
@@ -76,7 +72,6 @@ function Clientes() {
     <div>
       <div className="main-content">
         <h2>Clientes Registrados</h2>
-        {/* Pasa la prop modules al Sidebar */}
         <Sidebar modules={modules} />
         <Row className="mb-3">
           <Col>
@@ -91,7 +86,9 @@ function Clientes() {
             </InputGroup>
           </Col>
           <Col className="text-end">
-            <Button variant="primary">Agregar Cliente</Button>
+            <Button variant="primary" onClick={handleAgregar}>
+              Agregar Cliente
+            </Button>
           </Col>
         </Row>
         <Table striped bordered hover>
@@ -105,20 +102,20 @@ function Clientes() {
             </tr>
           </thead>
           <tbody>
-            {clientesFiltrados.map((clientes) => (
-              <tr key={clientes.id}>
-                <td>{clientes.id}</td>
-                <td>{clientes.nombre}</td>
-                <td>{clientes.contacto}</td>
-                <td>{clientes.telefono}</td>
+            {clientesFiltrados.map((cliente) => (
+              <tr key={cliente.id}>
+                <td>{cliente.id}</td>
+                <td>{cliente.nombre}</td>
+                <td>{cliente.contacto}</td>
+                <td>{cliente.telefono}</td>
                 <td>
-                  <Button variant="info" size="sm" onClick={() => handleVerDetalle(clientes.id)}>
+                  <Button variant="info" size="sm" onClick={() => handleVerDetalle(cliente.id)}>
                     Ver Detalle
                   </Button>{" "}
-                  <Button variant="warning" size="sm" onClick={() => handleEditar(clientes.id)}>
+                  <Button variant="warning" size="sm" onClick={() => handleEditar(cliente.id)}>
                     Editar
                   </Button>{" "}
-                  <Button variant="danger" size="sm" onClick={() => handleAnular(clientes.id)}>
+                  <Button variant="danger" size="sm" onClick={() => handleAnular(cliente.id)}>
                     Anular
                   </Button>
                 </td>
@@ -126,6 +123,8 @@ function Clientes() {
             ))}
           </tbody>
         </Table>
+        {/* Renderizar las rutas anidadas */}
+        <Outlet />
       </div>
     </div>
   );

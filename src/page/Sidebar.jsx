@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 function Sidebar({ modules }) {
   const [expandedModule, setExpandedModule] = useState(null); // Estado para el módulo expandido
   const navigate = useNavigate(); // Hook para la navegación

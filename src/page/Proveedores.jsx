@@ -67,6 +67,7 @@ function Proveedores() {
     {
       name: "Ventas",
       submenus: [
+        { name: "Ventas", path: "/ventas" },
         { name: "Clientes", path: "/clientes" }, // Nuevo módulo de Ventas con submenú Clientes
       ],
     },
@@ -74,7 +75,7 @@ function Proveedores() {
 
   return (
     <div>
-      <div className="main-content">
+      <div className="main-content with-sidebar">
         <h2>Proveedores Registrados</h2>
         {/* Pasa la prop modules al Sidebar */}
         <Sidebar modules={modules} />
