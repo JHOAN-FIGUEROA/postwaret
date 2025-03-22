@@ -7,6 +7,9 @@ import LoginForm from "./page/LoginForm";
 import RegisterForm from "./page/RegisterForm";
 import Dasboard from "./page/Dasboard";
 import Proveedores from "./page/Proveedores";
+import Compras from "./page/Compras";
+import AgregarCompra from "./page/Compras/AgregarCompra"
+import AgregarProductos from "./page/Compras/AgregarProducto";
 import Clientes from "./page/Clientes";
 import AgregarCliente from "./page/Clientes/AgregarCliente";
 import VerDetalleCliente from "./page/Clientes/VerDetalleCliente";
@@ -20,7 +23,7 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate(); // Hook para la navegación
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem("isLoggedIn");
@@ -33,13 +36,13 @@ function App() {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", "true");
     setShowLogin(false);
-    navigate("/dasboard"); // Redirigir al usuario a /dasboard
+    navigate("/dasboard"); 
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
-    navigate("/"); // Redirigir al usuario a la página de inicio
+    navigate("/"); 
   };
 
   return (
@@ -77,6 +80,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/dasboard" element={<Dasboard />} />
           <Route path="/proveedores" element={<Proveedores />} />
+          <Route path="/compras" element={<Compras />} />
+          <Route path="/compras/agregar" element={<AgregarCompra />} />
+          <Route path="/productos/agregar" element={<AgregarProductos />} />
           <Route path="/clientes" element={<Clientes />} />
           <Route path="/clientes/agregar" element={<AgregarCliente />} />
           <Route path="/clientes/editar/" element={<EditarCliente />} />
