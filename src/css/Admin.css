@@ -1,4 +1,7 @@
 /* Estilos generales */
+.titulodasboard{
+align-items: 1 ;
+}
 .admin-panel {
     display: flex;
     min-height: 100vh;
