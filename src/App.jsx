@@ -15,6 +15,10 @@ import AgregarCliente from "./page/Clientes/AgregarCliente";
 import VerDetalleCliente from "./page/Clientes/VerDetalleCliente";
 import EditarCliente from "./page/Clientes/EditarCliente";
 import Categoria from "./page/Categoria";
+import Ventas from "./page/Ventas";
+
+
+
 import pasillo from './img/pasillo.jpg'; 
 import supermercado2 from './img/supermercado2.jpg';
 import supermercado3 from './img/supermercado3.jpg';
@@ -88,6 +92,11 @@ function App() {
           <Route path="/clientes/editar/" element={<EditarCliente />} />
           <Route path="/clientes/detalle/" element={<VerDetalleCliente />} />
           <Route path="/Categoria" element={<Categoria />} />
+          <Route path="/ventas" element={<Ventas />} />
+
+
+
+
           <Route 
             path="/login" 
             element={<LoginForm onLogin={handleLogin} />} 
