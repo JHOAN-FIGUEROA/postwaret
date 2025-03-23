@@ -1,0 +1,103 @@
+// src/page/AgregarProducto.jsx
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Form, Button, Row, Col } from "react-bootstrap";
+
+function AgregarProductoo() {
+  const navigate = useNavigate();
+
+  // Estado para almacenar los datos del producto
+  const [producto, setProducto] = useState({
+    nombre: "",
+    categoria: "",
+    precioUnitarioCOP: "",
+    descripcion: "",
+  });
+
+  // Función para manejar cambios en los campos del formulario
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProducto({ ...producto, [name]: value });
+  };
+
+  // Función para simular el guardado del producto
+  const handleGuardarProducto = () => {
+    alert("Producto guardado exitosamente (simulación)");
+    navigate("/productos"); // Redirige a la página de productos
+  };
+
+  return (
+    <div className="main-content with-sidebar">
+      <h2>Agregar Nuevo Producto</h2>
+      <Form>
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="nombre">
+              <Form.Label>Nombre</Form.Label>
+              <Form.Control
+                type="text"
+                name="nombre"
+                value={producto.nombre}
+                onChange={handleChange}
+                placeholder="Ingrese el nombre del producto"
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="categoria">
+              <Form.Label>Categoría</Form.Label>
+              <Form.Control
+                type="text"
+                name="categoria"
+                value={producto.categoria}
+                onChange={handleChange}
+                placeholder="Ingrese la categoría del producto"
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="precioUnitarioCOP">
+              <Form.Label>Precio Unitario (COP)</Form.Label>
+              <Form.Control
+                type="number"
+                name="precioUnitarioCOP"
+                value={producto.precioUnitarioCOP}
+                onChange={handleChange}
+                placeholder="Ingrese el precio unitario en COP"
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="descripcion">
+              <Form.Label>Descripción</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="descripcion"
+                value={producto.descripcion}
+                onChange={handleChange}
+                placeholder="Ingrese una descripción del producto"
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col className="text-end">
+            <Button variant="success" onClick={handleGuardarProducto}>
+              Guardar Producto
+            </Button>{" "}
+            <Button variant="secondary" onClick={() => navigate("/productos")}>
+              Cancelar
+            </Button>
+          </Col>
+        </Row>
+      </Form>
+    </div>
+  );
+}
+
+export default AgregarProductoo;

@@ -3,6 +3,7 @@ import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import "../css/Proveedores.css";
 import Sidebar from "./Sidebar";
+import EstadoSwitch from "./EstadoSwitch"; // Importa el componente
 
 function Compras() {
   const navigate = useNavigate(); // Hook para la navegación
@@ -20,6 +21,7 @@ function Compras() {
       subtotal: 155.0,
       iva: 29.45,
       total: 184.45,
+      Estado: "Activa", // Agregamos el estado
     },
     {
       id: 2,
@@ -32,6 +34,7 @@ function Compras() {
       subtotal: 100.0,
       iva: 19.0,
       total: 119.0,
+      Estado: "Inactiva", // Agregamos el estado
     },
     {
       id: 3,
@@ -44,6 +47,7 @@ function Compras() {
       subtotal: 102.0,
       iva: 19.38,
       total: 121.38,
+      Estado: "Activa", // Agregamos el estado
     },
   ]);
 
@@ -54,6 +58,20 @@ function Compras() {
   const comprasFiltradas = compras.filter((compra) =>
     compra.producto.toLowerCase().includes(busqueda.toLowerCase())
   );
+
+  // Función para cambiar el estado de una compra
+  const handleCambiarEstado = (id) => {
+    setCompras((prevCompras) =>
+      prevCompras.map((compra) =>
+        compra.id === id
+          ? {
+              ...compra,
+              Estado: compra.Estado === "Activa" ? "Inactiva" : "Activa",
+            }
+          : compra
+      )
+    );
+  };
 
   // Funciones para manejar las acciones
   const handleAnular = () => {
@@ -142,6 +160,7 @@ function Compras() {
               <th>Proveedor</th>
               <th>Fecha de Compra</th>
               <th>Total</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -154,6 +173,12 @@ function Compras() {
                 <td>{compra.proveedor}</td>
                 <td>{compra.fechaCompra}</td>
                 <td>${compra.total.toFixed(2)}</td>
+                <td>
+                  <EstadoSwitch
+                    estado={compra.Estado}
+                    onChange={() => handleCambiarEstado(compra.id)}
+                  />
+                </td>
                 <td>
                   <Button
                     variant="info"
@@ -180,7 +205,6 @@ function Compras() {
                     variant="info"
                     size="sm"
                     onClick={handleGenerarPDF}
-                    
                   >
                     Generar PDF
                   </Button>
