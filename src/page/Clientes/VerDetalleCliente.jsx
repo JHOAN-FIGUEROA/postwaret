@@ -35,7 +35,7 @@ function VerDetalleCliente() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        { name: "Permisos", path: "/permisos" },
+        
       ],
     },
     {

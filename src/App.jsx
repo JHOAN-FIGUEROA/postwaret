@@ -1,104 +1,121 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./css/App.css";
-import LoginForm from "./page/LoginForm";
-import RegisterForm from "./page/RegisterForm";
-import Dasboard from "./page/Dasboard";
-import Proveedores from "./page/Proveedores";
-import Compras from "./page/Compras";
+"use client"
+
+import { useState, useEffect } from "react"
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from "react-router-dom"
+import { Carousel } from "react-responsive-carousel"
+import "react-responsive-carousel/lib/styles/carousel.min.css"
+import "./css/App.css"
+import LoginForm from "./page/LoginForm"
+import RegisterForm from "./page/RegisterForm"
+import Dasboard from "./page/Dasboard"
+import Proveedores from "./page/Proveedores"
+import Compras from "./page/Compras"
 import AgregarCompra from "./page/Compras/AgregarCompra"
 import VerDetalleCompra from "./page/Compras/VerDetalleCompra"
-import AnularCompra from "./page/Compras/AnularCompra";
-import GenerarPDF from "./page/Compras/GenerarPDF";
-import AgregarProductos from "./page/Compras/AgregarProducto";
-import AgregarProveedor from "./page/Proveedores/AgregarProveedor";
-import EditarProveedor from "./page/Proveedores/EditarProveedor";
-import VerDetalleProveedor from "./page/Proveedores/VerDetalleProveedor";
-import AnularProveedor from "./page/Proveedores/AnularProveedor";
-import Clientes from "./page/Clientes";
-import AgregarCliente from "./page/Clientes/AgregarCliente";
-import VerDetalleCliente from "./page/Clientes/VerDetalleCliente";
-import EditarCliente from "./page/Clientes/EditarCliente";
-import Categoria from "./page/Categoria";
-import AgregarCategoria from "./page/Categorias/AgregarCategoria";
-import VerDetalleCategoria from "./page/Categorias/VerDetalleCategoria";
-import EditarCategoria from "./page/Categorias/EditarCategoria";
-import AnularCategoria from "./page/Categorias/AnularCategoria";
-import Productos from "./page/Productos";
-import AgregarProductoo from "./page/Productos/AgregarProductoo";
-import EditarProductoo from "./page/Productos/EditarProducto";
-import VerDetalleProducto from "./page/Productos/VerDetalleProducto";
-import AnularProducto from "./page/Productos/AnularProducto";
-import Ventas from "./page/Ventas";
-import AgregarVenta from "./page/Ventas/AgregarVenta";
-import AgregarProductoss from "./page/Ventas/AgregarProductov";
-import VerDetalleVenta from "./page/Ventas/VerDetalleVenta";
-import GenerarPDFVenta from "./page/Ventas/GenerarPdfventa";
+import AnularCompra from "./page/Compras/AnularCompra"
+import GenerarPDF from "./page/Compras/GenerarPDF"
+import AgregarProductos from "./page/Compras/AgregarProducto"
+import AgregarProveedor from "./page/Proveedores/AgregarProveedor"
+import EditarProveedor from "./page/Proveedores/EditarProveedor"
+import VerDetalleProveedor from "./page/Proveedores/VerDetalleProveedor"
+import AnularProveedor from "./page/Proveedores/AnularProveedor"
+import Clientes from "./page/Clientes"
+import AgregarCliente from "./page/Clientes/AgregarCliente"
+import VerDetalleCliente from "./page/Clientes/VerDetalleCliente"
+import EditarCliente from "./page/Clientes/EditarCliente"
+import Categoria from "./page/Categoria"
+import AgregarCategoria from "./page/Categorias/AgregarCategoria"
+import VerDetalleCategoria from "./page/Categorias/VerDetalleCategoria"
+import EditarCategoria from "./page/Categorias/EditarCategoria"
+import AnularCategoria from "./page/Categorias/AnularCategoria"
+import Productos from "./page/Productos"
+import AgregarProductoo from "./page/Productos/AgregarProductoo"
+import EditarProductoo from "./page/Productos/EditarProducto"
+import VerDetalleProducto from "./page/Productos/VerDetalleProducto"
+import AnularProducto from "./page/Productos/AnularProducto"
+import Ventas from "./page/Ventas"
 import Usuarios from "./page/Usuarios";
 import Roles from "./page/Roles";
-import pasillo from './img/pasillo.jpg'; 
-import supermercado2 from './img/supermercado2.jpg';
-import supermercado3 from './img/supermercado3.jpg';
-
+import AgregarVenta from "./page/Ventas/AgregarVenta"
+import AgregarProductoss from "./page/Ventas/AgregarProductov"
+import VerDetalleVenta from "./page/Ventas/VerDetalleVenta"
+import GenerarPDFVenta from "./page/Ventas/GenerarPdfventa"
+import pasillo from "./img/pasillo.jpg"
+import supermercado2 from "./img/supermercado2.jpg"
+import supermercado3 from "./img/supermercado3.jpg"
 
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate(); 
+  const [showLogin, setShowLogin] = useState(false)
+  const [showRegister, setShowRegister] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation() // Get current location
+  const isHomePage = location.pathname === "/" // Check if we're on the home page
 
   useEffect(() => {
-    const loggedInStatus = localStorage.getItem("isLoggedIn");
+    const loggedInStatus = localStorage.getItem("isLoggedIn")
     if (loggedInStatus === "true") {
-      setIsLoggedIn(true);
+      setIsLoggedIn(true)
+    } else {
+      setIsLoggedIn(false)
     }
-  }, []);
+
+    // Add event listener for storage changes
+    const handleStorageChange = () => {
+      const currentLoggedInStatus = localStorage.getItem("isLoggedIn")
+      setIsLoggedIn(currentLoggedInStatus === "true")
+    }
+
+
+    window.addEventListener("storage", handleStorageChange)
+
+    // Also listen for a custom event
+    window.addEventListener("logout", handleStorageChange)
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange)
+      window.removeEventListener("logout", handleStorageChange)
+    }
+  }, [])
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
-    localStorage.setItem("isLoggedIn", "true");
-    setShowLogin(false);
-    navigate("/dasboard"); 
-  };
+    setIsLoggedIn(true)
+    localStorage.setItem("isLoggedIn", "true")
+    setShowLogin(false)
+    navigate("/dasboard")
+  }
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem("isLoggedIn");
-    navigate("/"); 
-  };
+    setIsLoggedIn(false)
+    localStorage.removeItem("isLoggedIn")
+    navigate("/")
+  }
 
   return (
     <div className="container">
-      {/* Navbar siempre visible */}
-      <nav>
-        <Link to="/" className="logo">
-          🛒 Postware
-        </Link>
-        {!isLoggedIn ? (
-          <div>
-            <button className="btn" onClick={() => setShowLogin(true)}>
-              Iniciar Sesión
-            </button>
-            <button className="btn" onClick={() => setShowRegister(true)}>
-              Registrarse
-            </button>
-          </div>
-        ) : (
-          <button className="btn btn-danger" onClick={handleLogout}>
-            Cerrar Sesión
-          </button>
-        )}
-      </nav>
+      {/* Navbar only visible on home page */}
+      {isHomePage && (
+        <nav>
+          <Link to="/" className="logo">
+            🛒 Postware
+          </Link>
+          {!isLoggedIn ? (
+            <div>
+              <button className="btn" onClick={() => setShowLogin(true)}>
+                Iniciar Sesión
+              </button>
+              <button className="btn" onClick={() => setShowRegister(true)}>
+                Registrarse
+              </button>
+            </div>
+          ) : null}
+        </nav>
+      )}
 
       {showLogin ? (
         <LoginForm onBackToHome={() => setShowLogin(false)} onLogin={handleLogin} />
       ) : showRegister ? (
-        <RegisterForm 
-          onBackToHome={() => setShowRegister(false)} 
-          onLogin={handleLogin} 
-        />
+        <RegisterForm onBackToHome={() => setShowRegister(false)} onLogin={handleLogin} />
       ) : (
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -137,9 +154,6 @@ function App() {
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/roles" element={<Roles />} />
 
-
-
-
           <Route 
             path="/login" 
             element={<LoginForm onLogin={handleLogin} />} 
@@ -151,7 +165,7 @@ function App() {
         </Routes>
       )}
     </div>
-  );
+  )
 }
 
 function HomePage() {
@@ -159,9 +173,15 @@ function HomePage() {
     <>
       <div className="carousel-container">
         <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
-          <div><img src={pasillo} alt="Supermercado 1" className="carousel-img" /></div>
-          <div><img src={supermercado2} alt="Supermercado 2" className="carousel-img" /></div>
-          <div><img src={supermercado3} alt="Supermercado 3" className="carousel-img" /></div>
+          <div>
+            <img src={pasillo || "/placeholder.svg"} alt="Supermercado 1" className="carousel-img" />
+          </div>
+          <div>
+            <img src={supermercado2 || "/placeholder.svg"} alt="Supermercado 2" className="carousel-img" />
+          </div>
+          <div>
+            <img src={supermercado3 || "/placeholder.svg"} alt="Supermercado 3" className="carousel-img" />
+          </div>
         </Carousel>
       </div>
       <section>
@@ -185,7 +205,7 @@ function HomePage() {
         <p>&copy; Postware 2025 - Todos los derechos reservados</p>
       </footer>
     </>
-  );
+  )
 }
 
 export default function AppWrapper() {
@@ -193,5 +213,6 @@ export default function AppWrapper() {
     <Router>
       <App />
     </Router>
-  );
+  )
 }
+
