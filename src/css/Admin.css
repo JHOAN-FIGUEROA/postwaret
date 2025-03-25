@@ -62,7 +62,7 @@ align-items: 1 ;
   
   /* Contenido principal */
   .main-content {
-    margin-left: 250px; /* Desplaza el contenido principal a la derecha */
+    margin-left: 100px; /* Desplaza el contenido principal a la derecha */
     padding: 20px;
     flex-grow: 1;
     transition: margin-left 0.3s ease-in-out;
