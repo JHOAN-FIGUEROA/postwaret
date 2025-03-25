@@ -10,7 +10,6 @@ import Proveedores from "./page/Proveedores";
 import Compras from "./page/Compras";
 import AgregarCompra from "./page/Compras/AgregarCompra"
 import VerDetalleCompra from "./page/Compras/VerDetalleCompra"
-import EditarCompra from "./page/Compras/EditarCompra";
 import AnularCompra from "./page/Compras/AnularCompra";
 import GenerarPDF from "./page/Compras/GenerarPDF";
 import AgregarProductos from "./page/Compras/AgregarProducto";
@@ -35,6 +34,8 @@ import AnularProducto from "./page/Productos/AnularProducto";
 import Ventas from "./page/Ventas";
 import AgregarVenta from "./page/Ventas/AgregarVenta";
 import AgregarProductoss from "./page/Ventas/AgregarProductov";
+import VerDetalleVenta from "./page/Ventas/VerDetalleVenta";
+import GenerarPDFVenta from "./page/Ventas/GenerarPdfventa";
 
 
 
@@ -107,7 +108,6 @@ function App() {
           <Route path="/compras" element={<Compras />} />
           <Route path="/compras/agregar" element={<AgregarCompra />} />
           <Route path="/compras/ver-detalle/:id" element={<VerDetalleCompra />} />
-          <Route path="/compras/editar" element={<EditarCompra />} />
           <Route path="/compras/anular" element={<AnularCompra />} />
           <Route path="/compras/GenerarPDF" element={<GenerarPDF />} />
           <Route path="/productos/agregar" element={<AgregarProductos />} />
@@ -133,6 +133,10 @@ function App() {
           <Route path="/ventas" element={<Ventas />} />
           <Route path="/ventas/agregar" element={<AgregarVenta />} />
           <Route path="/productos/agregarr" element={<AgregarProductoss />} />
+          <Route path="/ventas/ver-detalle/:id" element={<VerDetalleVenta />} />
+          <Route path="/ventas/Generarpdf" element={<GenerarPDFVenta />} />
+          
+
 
 
 
