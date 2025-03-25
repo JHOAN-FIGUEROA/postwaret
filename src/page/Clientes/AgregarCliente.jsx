@@ -1,15 +1,33 @@
-// src/page/AgregarCliente.jsx
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "././../Sidebar";// Importa el Sidebar
+import Sidebar from "./../Sidebar"; // Importa el Sidebar
 
 function AgregarCliente() {
   const navigate = useNavigate();
 
+  const [cliente, setCliente] = useState({
+    documentoIdentidad: "",
+    nombre: "",
+    apellido: "",
+    direccion: "",
+    email: "",
+    numeroContacto: "",
+    estado: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setCliente({
+      ...cliente,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
   const handleGuardar = () => {
-    // Lógica para guardar (no funcional)
+    // Lógica para guardar (simulación)
+    console.log("Cliente guardado:", cliente);
     alert("Cliente guardado (simulación)");
-    navigate("/clientes"); // Redirigir de vuelta a la lista de clientes
+    navigate("/clientes"); // Redirigir a la lista de clientes
   };
 
   // Definir los módulos para el Sidebar
@@ -50,16 +68,73 @@ function AgregarCliente() {
       <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
       <form>
         <div>
-          <label>Nombre:</label>
-          <input type="text" placeholder="Nombre del cliente" />
+          <label>Documento de Identidad:</label>
+          <input
+            type="number"
+            name="documentoIdentidad"
+            value={cliente.documentoIdentidad}
+            onChange={handleChange}
+            placeholder="Ingrese el documento"
+          />
         </div>
         <div>
-          <label>Contacto:</label>
-          <input type="email" placeholder="contacto@cliente.com" />
+          <label>Nombre:</label>
+          <input
+            type="text"
+            name="nombre"
+            value={cliente.nombre}
+            onChange={handleChange}
+            placeholder="Nombre del cliente"
+          />
+        </div>
+        <div>
+          <label>Apellido:</label>
+          <input
+            type="text"
+            name="apellido"
+            value={cliente.apellido}
+            onChange={handleChange}
+            placeholder="Apellido del cliente"
+          />
+        </div>
+        <div>
+          <label>Dirección:</label>
+          <input
+            type="text"
+            name="direccion"
+            value={cliente.direccion}
+            onChange={handleChange}
+            placeholder="Dirección del cliente"
+          />
+        </div>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={cliente.email}
+            onChange={handleChange}
+            placeholder="contacto@cliente.com"
+          />
         </div>
         <div>
           <label>Teléfono:</label>
-          <input type="text" placeholder="123456789" />
+          <input
+            type="text"
+            name="numeroContacto"
+            value={cliente.numeroContacto}
+            onChange={handleChange}
+            placeholder="123456789"
+          />
+        </div>
+        <div>
+          <label>Estado:</label>
+          <input
+            type="checkbox"
+            name="estado"
+            checked={cliente.estado}
+            onChange={handleChange}
+          />
         </div>
         <button type="button" onClick={handleGuardar}>
           Guardar
