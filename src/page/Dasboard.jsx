@@ -1,11 +1,14 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import "../css/Admin.css";
+import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, AreaChart, Area } from "recharts";
 
 function Dasboard() {
+
+  const navigate = useNavigate();
   const modules = [
     {
       name: "Dasboard",

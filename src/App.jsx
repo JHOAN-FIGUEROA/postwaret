@@ -34,11 +34,12 @@ import EditarProductoo from "./page/Productos/EditarProducto"
 import VerDetalleProducto from "./page/Productos/VerDetalleProducto"
 import AnularProducto from "./page/Productos/AnularProducto"
 import Ventas from "./page/Ventas"
+import Usuarios from "./page/Usuarios";
+import Roles from "./page/Roles";
 import AgregarVenta from "./page/Ventas/AgregarVenta"
 import AgregarProductoss from "./page/Ventas/AgregarProductov"
 import VerDetalleVenta from "./page/Ventas/VerDetalleVenta"
 import GenerarPDFVenta from "./page/Ventas/GenerarPdfventa"
-
 import pasillo from "./img/pasillo.jpg"
 import supermercado2 from "./img/supermercado2.jpg"
 import supermercado3 from "./img/supermercado3.jpg"
@@ -64,6 +65,7 @@ function App() {
       const currentLoggedInStatus = localStorage.getItem("isLoggedIn")
       setIsLoggedIn(currentLoggedInStatus === "true")
     }
+
 
     window.addEventListener("storage", handleStorageChange)
 
@@ -149,8 +151,17 @@ function App() {
           <Route path="/productos/agregarr" element={<AgregarProductoss />} />
           <Route path="/ventas/ver-detalle/:id" element={<VerDetalleVenta />} />
           <Route path="/ventas/Generarpdf" element={<GenerarPDFVenta />} />
-          <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
-          <Route path="/register" element={<RegisterForm onLogin={handleLogin} />} />
+          <Route path="/usuarios" element={<Usuarios />} />
+          <Route path="/roles" element={<Roles />} />
+
+          <Route 
+            path="/login" 
+            element={<LoginForm onLogin={handleLogin} />} 
+          />
+          <Route 
+            path="/register" 
+            element={<RegisterForm onLogin={handleLogin} />} 
+          />
         </Routes>
       )}
     </div>
