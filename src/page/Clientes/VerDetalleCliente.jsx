@@ -1,14 +1,30 @@
-// src/page/VerDetalleCliente.jsx
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Importa useNavigate
-import Sidebar from "././../Sidebar";
- // Importa el Sidebar
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Sidebar from "./../Sidebar";
 
 function VerDetalleCliente() {
-  const { id } = useParams(); // Obtener el ID del cliente desde la URL
-  const navigate = useNavigate(); // Hook para la navegación
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [cliente, setCliente] = useState(null);
 
-  // Definir los módulos para el Sidebar
+  useEffect(() => {
+    // Simulación de carga de datos (Reemplazar con una petición real)
+    const clienteEjemplo = {
+      documentoIdentidad: "12345678",
+      nombre: "Juan",
+      apellido: "Pérez",
+      direccion: "Calle Falsa 123",
+      email: "juan.perez@example.com",
+      numeroContacto: "987654321",
+      estado: true,
+    };
+    setCliente(clienteEjemplo);
+  }, [id]);
+
+  const handleContinuar = () => {
+    navigate("/clientes");
+  };
+
   const modules = [
     {
       name: "Dashboard",
@@ -40,22 +56,26 @@ function VerDetalleCliente() {
     },
   ];
 
-  // Función para manejar el clic en el botón "Continuar"
-  const handleContinuar = () => {
-    navigate("/clientes"); // Redirigir a la lista de clientes
-  };
-
   return (
     <div className="main-content with-sidebar">
       <h2>Detalle del Cliente</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
-      <p>ID: {id}</p>
-      <p>Nombre: Cliente {id}</p>
-      <p>Contacto: contacto@cliente.com</p>
-      <p>Teléfono: 123456789</p>
-      <button type="button" onClick={handleContinuar}>
-        Continuar
-      </button>
+      <Sidebar modules={modules} />
+      {cliente ? (
+        <div>
+          <p><strong>ID:</strong> {id}</p>
+          <p><strong>Documento de Identidad:</strong> {cliente.documentoIdentidad}</p>
+          <p><strong>Nombre:</strong> {cliente.nombre} {cliente.apellido}</p>
+          <p><strong>Dirección:</strong> {cliente.direccion}</p>
+          <p><strong>Email:</strong> {cliente.email}</p>
+          <p><strong>Teléfono:</strong> {cliente.numeroContacto}</p>
+          <p><strong>Estado:</strong> {cliente.estado ? "Activo" : "Inactivo"}</p>
+          <button type="button" onClick={handleContinuar}>
+            Continuar
+          </button>
+        </div>
+      ) : (
+        <p>Cargando...</p>
+      )}
     </div>
   );
 }

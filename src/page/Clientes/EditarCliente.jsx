@@ -1,21 +1,48 @@
-import Sidebar from "././../Sidebar";
-
-// src/page/EditarCliente.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import Sidebar from "./../Sidebar";
 
 function EditarCliente() {
-  const { id } = useParams(); // Obtener el ID del cliente desde la URL
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [cliente, setCliente] = useState({
+    documentoIdentidad: "",
+    nombre: "",
+    apellido: "",
+    direccion: "",
+    email: "",
+    numeroContacto: "",
+    estado: false,
+  });
 
-  const handleGuardar = () => {
-    // Lógica para guardar (no funcional)
-    alert(`Cliente con ID ${id} editado (simulación)`);
-    navigate("/clientes"); // Redirigir de vuelta a la lista de clientes
+  useEffect(() => {
+    // Simulación de carga de datos (Reemplazar con una petición real)
+    const clienteEjemplo = {
+      documentoIdentidad: "12345678",
+      nombre: "Juan",
+      apellido: "Pérez",
+      direccion: "Calle Falsa 123",
+      email: "juan.perez@example.com",
+      numeroContacto: "987654321",
+      estado: true,
+    };
+    setCliente(clienteEjemplo);
+  }, [id]);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setCliente({
+      ...cliente,
+      [name]: type === "checkbox" ? checked : value,
+    });
   };
 
-  // Definir los módulos para el Sidebar
+  const handleGuardar = () => {
+    console.log("Cliente editado:", cliente);
+    alert(`Cliente con ID ${id} editado (simulación)`);
+    navigate("/clientes");
+  };
+
   const modules = [
     {
       name: "Dashboard",
@@ -50,19 +77,76 @@ function EditarCliente() {
   return (
     <div className="main-content with-sidebar">
       <h2>Editar Cliente</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
+      <Sidebar modules={modules} />
       <form>
         <div>
-          <label>Nombre:</label>
-          <input type="text" placeholder="Nombre del cliente" />
+          <label>Documento de Identidad:</label>
+          <input
+            type="number"
+            name="documentoIdentidad"
+            value={cliente.documentoIdentidad}
+            onChange={handleChange}
+            placeholder="Ingrese el documento"
+          />
         </div>
         <div>
-          <label>Contacto:</label>
-          <input type="email" placeholder="contacto@cliente.com" />
+          <label>Nombre:</label>
+          <input
+            type="text"
+            name="nombre"
+            value={cliente.nombre}
+            onChange={handleChange}
+            placeholder="Nombre del cliente"
+          />
+        </div>
+        <div>
+          <label>Apellido:</label>
+          <input
+            type="text"
+            name="apellido"
+            value={cliente.apellido}
+            onChange={handleChange}
+            placeholder="Apellido del cliente"
+          />
+        </div>
+        <div>
+          <label>Dirección:</label>
+          <input
+            type="text"
+            name="direccion"
+            value={cliente.direccion}
+            onChange={handleChange}
+            placeholder="Dirección del cliente"
+          />
+        </div>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={cliente.email}
+            onChange={handleChange}
+            placeholder="contacto@cliente.com"
+          />
         </div>
         <div>
           <label>Teléfono:</label>
-          <input type="text" placeholder="123456789" />
+          <input
+            type="text"
+            name="numeroContacto"
+            value={cliente.numeroContacto}
+            onChange={handleChange}
+            placeholder="123456789"
+          />
+        </div>
+        <div>
+          <label>Estado:</label>
+          <input
+            type="checkbox"
+            name="estado"
+            checked={cliente.estado}
+            onChange={handleChange}
+          />
         </div>
         <button type="button" onClick={handleGuardar}>
           Guardar
