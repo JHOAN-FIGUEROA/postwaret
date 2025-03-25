@@ -36,9 +36,8 @@ import AgregarVenta from "./page/Ventas/AgregarVenta";
 import AgregarProductoss from "./page/Ventas/AgregarProductov";
 import VerDetalleVenta from "./page/Ventas/VerDetalleVenta";
 import GenerarPDFVenta from "./page/Ventas/GenerarPdfventa";
-
-
-
+import Usuarios from "./page/Usuarios";
+import Roles from "./page/Roles";
 import pasillo from './img/pasillo.jpg'; 
 import supermercado2 from './img/supermercado2.jpg';
 import supermercado3 from './img/supermercado3.jpg';
@@ -135,8 +134,8 @@ function App() {
           <Route path="/productos/agregarr" element={<AgregarProductoss />} />
           <Route path="/ventas/ver-detalle/:id" element={<VerDetalleVenta />} />
           <Route path="/ventas/Generarpdf" element={<GenerarPDFVenta />} />
-          
-
+          <Route path="/usuarios" element={<Usuarios />} />
+          <Route path="/roles" element={<Roles />} />
 
 
 
