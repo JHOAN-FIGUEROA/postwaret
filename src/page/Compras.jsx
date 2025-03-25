@@ -78,9 +78,7 @@ function Compras() {
     navigate("/compras/anular"); // Redirige a la página de anular
   };
 
-  const handleEditar = () => {
-    navigate("/compras/editar");
-  };
+ 
 
   const handleVerDetalle = (id) => {
     navigate(`/compras/ver-detalle/${id}`);
@@ -186,13 +184,7 @@ function Compras() {
                     onClick={() => handleVerDetalle(compra.id)}
                   >
                     Ver Detalle
-                  </Button>{" "}
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    onClick={handleEditar} // Redirige a la página de editar
-                  >
-                    Editar
+                  
                   </Button>{" "}
                   <Button
                     variant="danger"

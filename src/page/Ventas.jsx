@@ -1,15 +1,13 @@
-// Ventas.js
 import React, { useState } from "react";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../css/Proveedores.css";
 import Sidebar from "./Sidebar";
-import EstadoSwitch from "./EstadoSwitch"; // Importa el componente
+import EstadoSwitch from "./EstadoSwitch";
 
 function Ventas() {
   const navigate = useNavigate();
 
-  // Estado para almacenar la lista de ventas
   const [ventas, setVentas] = useState([
     {
       id: 1,
@@ -46,15 +44,12 @@ function Ventas() {
     },
   ]);
 
-  // Estado para manejar la búsqueda
   const [busqueda, setBusqueda] = useState("");
 
-  // Filtrar ventas basadas en la búsqueda
   const ventasFiltradas = ventas.filter((venta) =>
     venta.producto.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  // Función para cambiar el estado de una venta
   const handleCambiarEstado = (id) => {
     setVentas((prevVentas) =>
       prevVentas.map((venta) =>
@@ -68,25 +63,22 @@ function Ventas() {
     );
   };
 
-  // Funciones para manejar las acciones
   const handleAnular = (id) => {
     alert(`Anular Venta con ID: ${id}`);
   };
 
-  const handleEditar = (id) => {
-    alert(`Editar Venta con ID: ${id}`);
+  const handleGenerarPDF = (id) => {
+    navigate(`/ventas/Generarpdf`);
   };
 
   const handleVerDetalle = (id) => {
-    alert(`Ver detalle de la Venta con ID: ${id}`);
+    navigate(`/ventas/ver-detalle/${id}`);
   };
 
-  // Función para navegar a la página de crear venta
   const handleAgregarVenta = () => {
     navigate("/ventas/agregar");
   };
 
-  // Definir los módulos para el Sidebar
   const modules = [
     {
       name: "Dashboard",
@@ -175,9 +167,9 @@ function Ventas() {
                 <Button
                   variant="warning"
                   size="sm"
-                  onClick={() => handleEditar(venta.id)}
+                  onClick={() => handleGenerarPDF(venta.id)}
                 >
-                  Editar
+                  Generar Pdf
                 </Button>{" "}
                 <Button
                   variant="danger"
