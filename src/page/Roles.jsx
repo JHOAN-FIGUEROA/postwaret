@@ -28,7 +28,7 @@ function Roles() {
   const handlePermisosAsociados = () => navigate("/roles/permisos-asociados");
 
 
-  const modules = [
+  const modules = [ 
     {
       name: "Dasboard",
       submenus: [{ name: "Dasboard", path: "/dasboard" }],

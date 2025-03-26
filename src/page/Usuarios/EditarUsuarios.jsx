@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Sidebar from "./../Sidebar";
 
-function AgregarUsuario() {
+function EditarUsuario() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Obtener los datos del usuario desde el estado de navegación
+  const usuarioInicial = location.state?.usuario || {
+    id: 1,
+    nombre: "Juan",
+    apellido: "Pérez",
+    documentoIdentidad: "12345678",
+    telefono: "987654321",
+    direccion: "Av. Principal 123",
+    email: "juan.perez@example.com",
+    password: "password123",
+    rol: "Admin"
+  };
 
   // Estado para almacenar los datos del usuario
-  const [usuario, setUsuario] = useState({
-    nombre: "",
-    apellido: "",
-    documentoIdentidad: "", 
-    telefono: "",
-    direccion: "",
-    email: "",
-    password: "",
-    rol: "Cajero" // Valor por defecto
-  });
+  const [usuario, setUsuario] = useState(usuarioInicial);
 
   // Función para manejar cambios en los campos del formulario
   const handleChange = (e) => {
@@ -24,9 +29,14 @@ function AgregarUsuario() {
     setUsuario({ ...usuario, [name]: value });
   };
 
-  // Función para simular el guardado del usuario
-  const handleGuardarUsuario = () => {
-    alert("Usuario guardado exitosamente (simulación)");
+  // Función para manejar la edición del usuario
+  const handleEditar = () => {
+    alert("Usuario editado exitosamente (simulación)");
+    navigate("/usuarios"); // Redirige a la página de usuarios
+  };
+
+  // Función para cancelar la edición
+  const handleCancelar = () => {
     navigate("/usuarios"); // Redirige a la página de usuarios
   };
 
@@ -62,7 +72,7 @@ function AgregarUsuario() {
 
   return (
     <div className="main-content with-sidebar">
-      <h2>Agregar Nuevo Usuario</h2>
+      <h2>Editar Usuario</h2>
       <Sidebar modules={modules} />
       <Form>
         <Row className="mb-3">
@@ -74,7 +84,6 @@ function AgregarUsuario() {
                 name="nombre"
                 value={usuario.nombre}
                 onChange={handleChange}
-                placeholder="Ingrese el nombre"
                 required
               />
             </Form.Group>
@@ -87,7 +96,6 @@ function AgregarUsuario() {
                 name="apellido"
                 value={usuario.apellido}
                 onChange={handleChange}
-                placeholder="Ingrese el apellido"
                 required
               />
             </Form.Group>
@@ -103,7 +111,6 @@ function AgregarUsuario() {
                 name="documentoIdentidad"
                 value={usuario.documentoIdentidad}
                 onChange={handleChange}
-                placeholder="Ingrese el documento de identidad"
                 required
               />
             </Form.Group>
@@ -116,7 +123,6 @@ function AgregarUsuario() {
                 name="telefono"
                 value={usuario.telefono}
                 onChange={handleChange}
-                placeholder="Ingrese el teléfono"
               />
             </Form.Group>
           </Col>
@@ -131,7 +137,6 @@ function AgregarUsuario() {
                 name="direccion"
                 value={usuario.direccion}
                 onChange={handleChange}
-                placeholder="Ingrese la dirección"
               />
             </Form.Group>
           </Col>
@@ -146,7 +151,6 @@ function AgregarUsuario() {
                 name="email"
                 value={usuario.email}
                 onChange={handleChange}
-                placeholder="Ingrese el email"
                 required
               />
             </Form.Group>
@@ -159,8 +163,7 @@ function AgregarUsuario() {
                 name="password"
                 value={usuario.password}
                 onChange={handleChange}
-                placeholder="Ingrese la contraseña"
-                required
+                placeholder="Dejar en blanco para no cambiar"
               />
             </Form.Group>
           </Col>
@@ -185,8 +188,11 @@ function AgregarUsuario() {
 
         <Row className="mb-3">
           <Col className="text-end">
-            <Button variant="success" onClick={handleGuardarUsuario}>
-              Guardar Usuario
+            <Button variant="success" onClick={handleEditar}>
+              Guardar Cambios
+            </Button>{" "}
+            <Button variant="secondary" onClick={handleCancelar}>
+              Cancelar
             </Button>
           </Col>
         </Row>
@@ -195,4 +201,4 @@ function AgregarUsuario() {
   );
 }
 
-export default AgregarUsuario;
+export default EditarUsuario;

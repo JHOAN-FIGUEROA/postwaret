@@ -1,7 +1,6 @@
-// src/components/Usuarios.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Table, Form, Button, InputGroup, Row, Col, Pagination } from "react-bootstrap";
+import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 
 function Usuarios() {
@@ -33,7 +32,13 @@ function Usuarios() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleAnularUsuario = () => navigate("/usuarios/anular");
+  const handleEliminarUsuario = (id) => {
+    if (window.confirm("¿Está seguro que desea eliminar este usuario?")) {
+      setUsuarios(usuarios.filter(usuario => usuario.id !== id));
+      alert("Usuario eliminado exitosamente");
+    }
+  };
+
   const handleEditarUsuario = () => navigate("/usuarios/editar");
   const handleAgregarUsuario = () => navigate("/usuarios/agregar");
   const handleVerDetalleUsuario = () => navigate("/usuarios/ver-detalle");
@@ -115,17 +120,19 @@ function Usuarios() {
                   <Button variant="info" size="sm" onClick={handleVerDetalleUsuario}>
                     Ver Detalle
                   </Button>{" "}
-
                   <Button
                     variant="warning"
                     size="sm"
                     onClick={handleEditarUsuario}
                   >
-
                     Editar
                   </Button>{" "}
-                  <Button variant="danger" size="sm" onClick={handleAnularUsuario}>
-                    Anular
+                  <Button 
+                    variant="danger" 
+                    size="sm" 
+                    onClick={() => handleEliminarUsuario(usuario.id)}
+                  >
+                    Eliminar
                   </Button>
                 </td>
               </tr>
@@ -134,23 +141,24 @@ function Usuarios() {
         </Table>
 
         <div className="pagination-container">
-  <button 
-    onClick={() => paginate(currentPage - 1)}
-    disabled={currentPage === 1}
-  >
-    Anterior
-  </button>
+          <Button 
+            variant="outline-primary"
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Anterior
+          </Button>
 
-  <span className="pagination-text">Página {currentPage} de {totalPages}</span>
+          <span className="mx-3">Página {currentPage} de {totalPages}</span>
 
-  <button 
-    onClick={() => paginate(currentPage + 1)}
-    disabled={currentPage === totalPages || totalPages === 0}
-  >
-    Siguiente
-  </button>
-</div>
-
+          <Button 
+            variant="outline-primary"
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages || totalPages === 0}
+          >
+            Siguiente
+          </Button>
+        </div>
 
         <div className="text-center mt-2 pagination-info">
           Mostrando usuarios {indexOfFirstItem + 1} a {Math.min(indexOfLastItem, usuariosFiltrados.length)} de {usuariosFiltrados.length}
