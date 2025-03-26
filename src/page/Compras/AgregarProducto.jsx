@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Table, Row, Col, InputGroup } from "react-bootstrap";
+import Sidebar from "./../Sidebar"; 
 
 function AgregarProductos() {
   const navigate = useNavigate();
@@ -64,9 +65,41 @@ function AgregarProductos() {
     navigate("/compras/agregar", { state: { productos } });
   };
 
+  const modules = [
+    {
+      name: "Dashboard",
+      submenus: [{ name: "Dashboard", path: "/dasboard" }],
+    },
+    {
+      name: "Configuración",
+      submenus: [
+        { name: "Usuarios", path: "/usuarios" },
+        { name: "Roles", path: "/roles" },
+        
+      ],
+    },
+    {
+      name: "Compras",
+      submenus: [
+        { name: "Compras", path: "/compras" },
+        { name: "Proveedores", path: "/proveedores" },
+        { name: "Categoría", path: "/categoria" },
+        { name: "Productos", path: "/productos" },
+      ],
+    },
+    {
+      name: "Ventas",
+      submenus: [
+        { name: "Ventas", path: "/ventas" },
+        { name: "Clientes", path: "/clientes" },
+      ],
+    },
+  ];
+
   return (
     <div className="main-content with-sidebar">
       <h2>Agregar Productos</h2>
+      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
       <Form>
         <Row className="mb-3">
           <Col>

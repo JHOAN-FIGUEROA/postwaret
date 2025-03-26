@@ -97,7 +97,7 @@ function Compras() {
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dashboard" }],
+      submenus: [{ name: "Dashboard", path: "/dasboard" }],
     },
     {
       name: "Configuración",

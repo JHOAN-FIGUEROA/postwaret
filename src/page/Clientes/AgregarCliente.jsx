@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./../Sidebar"; // Importa el Sidebar
+import Sidebar from "./../Sidebar"; 
 
 function AgregarCliente() {
   const navigate = useNavigate();
