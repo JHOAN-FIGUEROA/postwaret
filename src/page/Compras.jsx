@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"; // Importa useNavigate
-import "../css/Proveedores.css";
 import Sidebar from "./Sidebar";
 import EstadoSwitch from "./EstadoSwitch"; // Importa el componente
 

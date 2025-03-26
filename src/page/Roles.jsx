@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
-import "../css/Proveedores.css";
 import Sidebar from "./Sidebar";
 
 function Roles() {
