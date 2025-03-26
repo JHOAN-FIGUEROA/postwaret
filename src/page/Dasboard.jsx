@@ -86,7 +86,7 @@ function Dasboard() {
       {isDashboardPath && (
         <>
           <div className="titulodasboard">
-            <h1>Dasboard</h1>
+            <h1>Dashboard</h1>
           </div>
 
           {/* Gráfica de productos */}
