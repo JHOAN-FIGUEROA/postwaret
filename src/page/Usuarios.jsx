@@ -124,34 +124,6 @@ function Usuarios() {
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>
-          {currentItems.map((usuario) => (
-            <tr key={usuario.id}>
-              <td>{usuario.id}</td>
-              <td>{usuario.nombre}</td>
-              <td>{usuario.numeroDocumento}</td>
-              <td>{usuario.rol}</td>
-              <td>
-                <EstadoSwitch
-                  estado={usuario.estado}
-                  onChange={() => handleCambiarEstado(usuario.id)}
-                />
-              </td>
-              <td>
-                <Button variant="info" size="sm" onClick={() => handleVerDetalleUsuario(usuario.id)}>
-                  Ver Detalle
-                </Button>{' '}
-                <Button variant="warning" size="sm" onClick={() => handleEditarUsuario(usuario.id)}>
-                  Editar
-                </Button>{' '}
-                <Button variant="danger" size="sm" onClick={() => handleAnularUsuario(usuario.id)}>
-                  Anular
-                </Button>
-              </td>
-            </tr>
-
-          ))}
-          </thead>
           <tbody>
             {currentItems.map((usuario) => (
               <tr key={usuario.id}>
@@ -159,6 +131,12 @@ function Usuarios() {
                 <td>{usuario.nombre}</td>
                 <td>{usuario.numeroDocumento}</td>
                 <td>{usuario.rol}</td>
+                <td>
+                <EstadoSwitch
+                  estado={usuario.estado}
+                  onChange={() => handleCambiarEstado(usuario.id)}
+                />
+              </td>
                 <td>
                   <Button variant="info" size="sm" onClick={handleVerDetalleUsuario}>
                     Ver Detalle
@@ -203,12 +181,9 @@ function Usuarios() {
           </Button>
         </div>
 
-        <div className="text-center mt-2 pagination-info">
-          Mostrando usuarios {indexOfFirstItem + 1} a {Math.min(indexOfLastItem, usuariosFiltrados.length)} de {usuariosFiltrados.length}
-        </div>
-
+        
       </div>
-    </div>
+ 
   );
 }
 
