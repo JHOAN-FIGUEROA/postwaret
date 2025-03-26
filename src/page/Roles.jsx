@@ -25,6 +25,8 @@ function Roles() {
   const handleEditarRol = () => navigate("/roles/editar");
   const handleAgregarRol = () => navigate("/roles/agregar");
   const handleVerDetalleRol = () => navigate("/roles/ver-detalle");
+  const handlePermisosAsociados = () => navigate("/roles/permisos-asociados");
+
 
   const modules = [
     {
@@ -103,6 +105,13 @@ function Roles() {
                   >
                     Ver Detalle
                   </Button>{" "}
+                     <Button
+                      variant="info"
+                      size="sm"
+                      onClick={handlePermisosAsociados}
+                      >
+                      Permisos Asociados
+                      </Button>{" "}
                   <Button
                     variant="warning"
                     size="sm"

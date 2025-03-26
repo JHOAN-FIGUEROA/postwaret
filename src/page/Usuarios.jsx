@@ -115,10 +115,13 @@ function Usuarios() {
                   <Button variant="info" size="sm" onClick={handleVerDetalleUsuario}>
                     Ver Detalle
                   </Button>{" "}
-                  <Button variant="info" size="sm" onClick={handleVerDetalleUsuario}>
-                    Permisos Asociados
-                  </Button>{" "}
-                  <Button variant="warning" size="sm" onClick={handleEditarUsuario}>
+
+                  <Button
+                    variant="warning"
+                    size="sm"
+                    onClick={handleEditarUsuario}
+                  >
+
                     Editar
                   </Button>{" "}
                   <Button variant="danger" size="sm" onClick={handleAnularUsuario}>

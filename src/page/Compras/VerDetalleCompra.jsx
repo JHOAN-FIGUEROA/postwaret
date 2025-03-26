@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Table } from "react-bootstrap";
+import Sidebar from "./../Sidebar"; 
 
 function VerDetalleCompra() {
   const { id } = useParams(); // Obtiene el ID de la compra desde la URL
@@ -40,9 +41,41 @@ function VerDetalleCompra() {
     navigate("/compras");
   };
 
+  const modules = [
+    {
+      name: "Dashboard",
+      submenus: [{ name: "Dashboard", path: "/dasboard" }],
+    },
+    {
+      name: "Configuración",
+      submenus: [
+        { name: "Usuarios", path: "/usuarios" },
+        { name: "Roles", path: "/roles" },
+        
+      ],
+    },
+    {
+      name: "Compras",
+      submenus: [
+        { name: "Compras", path: "/compras" },
+        { name: "Proveedores", path: "/proveedores" },
+        { name: "Categoría", path: "/categoria" },
+        { name: "Productos", path: "/productos" },
+      ],
+    },
+    {
+      name: "Ventas",
+      submenus: [
+        { name: "Ventas", path: "/ventas" },
+        { name: "Clientes", path: "/clientes" },
+      ],
+    },
+  ];
+
   return (
     <div className="main-content with-sidebar">
       <h2>Detalle de la Compra</h2>
+      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
       <div>
         <h4>Información General</h4>
         <p>

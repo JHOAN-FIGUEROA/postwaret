@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -76,4 +74,3 @@ function Sidebar({ modules }) {
 }
 
 export default Sidebar
-
