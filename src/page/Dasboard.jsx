@@ -2,7 +2,6 @@
 
 import { useEffect } from "react"
 import Sidebar from "./Sidebar"
-import "../css/Admin.css"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Outlet } from "react-router-dom"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, AreaChart, Area } from "recharts"
