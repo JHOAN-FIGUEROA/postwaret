@@ -80,7 +80,7 @@ function Roles() {
   const handleVerDetalleRol = (id) => navigate(`/roles/ver-detalle/${id}`);
   const handlePermisosAsociados = (id) => navigate(`/roles/permisos-asociados/${id}`);
 
-  const modules = [
+  const modules = [ 
     {
       name: "Dashboard",
       submenus: [{ name: "Dashboard", path: "/dashboard" }],
