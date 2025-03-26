@@ -4,53 +4,61 @@ import { useState } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap"
 import Sidebar from "./Sidebar"
-import EstadoSwitch from "./EstadoSwitch" // Importa el componente
+import EstadoSwitch from "./EstadoSwitch"
 
 function Clientes() {
   const [clientes, setClientes] = useState([
     { id: 1, nombre: "Cliente A", contacto: "contacto@cliente.com", telefono: "123456789", Estado: "Activa" },
     { id: 2, nombre: "Cliente B", contacto: "contacto@Cliente.com", telefono: "987654321", Estado: "Activa" },
     { id: 3, nombre: "Cliente C", contacto: "contacto@Cliente.com", telefono: "987654345", Estado: "Inactiva" },
+    { id: 4, nombre: "Cliente D", contacto: "contacto@clienteD.com", telefono: "555555555", Estado: "Activa" },
+    { id: 5, nombre: "Cliente E", contacto: "contacto@ClienteE.com", telefono: "666666666", Estado: "Inactiva" },
+    { id: 6, nombre: "Cliente F", contacto: "contacto@ClienteF.com", telefono: "777777777", Estado: "Activa" },
   ])
 
   const [busqueda, setBusqueda] = useState("")
-  const navigate = useNavigate() // Hook para la navegación
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(3)
+  const navigate = useNavigate()
 
-  const clientesFiltrados = clientes.filter((cliente) => cliente.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+  const clientesFiltrados = clientes.filter((cliente) => 
+    cliente.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  )
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = clientesFiltrados.slice(indexOfFirstItem, indexOfLastItem)
+  const totalPages = Math.ceil(clientesFiltrados.length / itemsPerPage)
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   const handleAgregar = () => {
-    navigate("/clientes/agregar") // Redirigir a la ruta de agregar cliente
+    navigate("/clientes/agregar")
   }
 
   const handleEditar = (id) => {
-    navigate(`/clientes/editar/`) // Redirigir a la ruta de editar cliente
+    navigate(`/clientes/editar/`)
   }
 
   const handleVerDetalle = (id) => {
-    navigate(`/clientes/detalle/`) // Redirigir a la ruta de ver detalle
+    navigate(`/clientes/detalle/`)
   }
 
   const handleAnular = (id) => {
     alert(`Anular Cliente con ID: ${id}`)
   }
 
-  // Función para cambiar el estado del cliente específico por ID
   const handleCambiarEstado = (clienteId) => {
-    console.log(`Cambiando estado del cliente con ID: ${clienteId}`)
-
     setClientes((prevClientes) => {
       return prevClientes.map((cliente) => {
-        // Solo modificar el cliente con el ID específico
         if (cliente.id === clienteId) {
-          console.log(`Cliente encontrado: ${cliente.nombre}, Estado actual: ${cliente.Estado}`)
           const nuevoEstado = cliente.Estado === "Activa" ? "Inactiva" : "Activa"
-          console.log(`Nuevo estado: ${nuevoEstado}`)
           return {
             ...cliente,
             Estado: nuevoEstado,
           }
         }
-        // Devolver los demás clientes sin cambios
         return cliente
       })
     })
@@ -98,7 +106,10 @@ function Clientes() {
                 type="text"
                 placeholder="Buscar Cliente..."
                 value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
+                onChange={(e) => {
+                  setBusqueda(e.target.value)
+                  setCurrentPage(1) // Reset to first page on search
+                }}
               />
               <Button variant="outline-secondary">Buscar</Button>
             </InputGroup>
@@ -121,21 +132,17 @@ function Clientes() {
             </tr>
           </thead>
           <tbody>
-            {clientesFiltrados.map((cliente) => (
+            {currentItems.map((cliente) => (
               <tr key={cliente.id}>
                 <td>{cliente.id}</td>
                 <td>{cliente.nombre}</td>
                 <td>{cliente.contacto}</td>
                 <td>{cliente.telefono}</td>
                 <td>
-                  {/* Crear un componente EstadoSwitch único para cada cliente */}
                   <EstadoSwitch
                     key={`estado-switch-${cliente.id}`}
                     estado={cliente.Estado}
-                    onChange={() => {
-                      console.log(`Switch clicked for cliente ID: ${cliente.id}`)
-                      handleCambiarEstado(cliente.id)
-                    }}
+                    onChange={() => handleCambiarEstado(cliente.id)}
                   />
                 </td>
                 <td>
@@ -153,7 +160,26 @@ function Clientes() {
             ))}
           </tbody>
         </Table>
-        {/* Renderizar las rutas anidadas */}
+
+        {/* Pagination controls */}
+        <div className="pagination-container">
+          <button 
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Anterior
+          </button>
+
+          <span className="pagination-text">Página {currentPage} de {totalPages}</span>
+
+          <button 
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages || totalPages === 0}
+          >
+            Siguiente
+          </button>
+        </div>
+
         <Outlet />
       </div>
     </div>
@@ -161,4 +187,3 @@ function Clientes() {
 }
 
 export default Clientes
-

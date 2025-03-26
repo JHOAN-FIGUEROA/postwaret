@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import EstadoSwitch from "./EstadoSwitch"; // Importa el componente
+import EstadoSwitch from "./EstadoSwitch";
 
 function Compras() {
-  const navigate = useNavigate(); // Hook para la navegación
+  const navigate = useNavigate();
 
-  // Estado para almacenar la lista de compras
   const [compras, setCompras] = useState([
     {
       id: 1,
@@ -20,7 +19,7 @@ function Compras() {
       subtotal: 155.0,
       iva: 29.45,
       total: 184.45,
-      Estado: "Activa", // Agregamos el estado
+      Estado: "Activa",
     },
     {
       id: 2,
@@ -33,7 +32,7 @@ function Compras() {
       subtotal: 100.0,
       iva: 19.0,
       total: 119.0,
-      Estado: "Inactiva", // Agregamos el estado
+      Estado: "Inactiva",
     },
     {
       id: 3,
@@ -46,19 +45,27 @@ function Compras() {
       subtotal: 102.0,
       iva: 19.38,
       total: 121.38,
-      Estado: "Activa", // Agregamos el estado
+      Estado: "Activa",
     },
+    
   ]);
 
-  // Estado para manejar la búsqueda
   const [busqueda, setBusqueda] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
 
-  // Filtrar compras basadas en la búsqueda
   const comprasFiltradas = compras.filter((compra) =>
     compra.producto.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  // Función para cambiar el estado de una compra
+  // Paginación
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = comprasFiltradas.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(comprasFiltradas.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const handleCambiarEstado = (id) => {
     setCompras((prevCompras) =>
       prevCompras.map((compra) =>
@@ -72,38 +79,18 @@ function Compras() {
     );
   };
 
-  // Funciones para manejar las acciones
-  const handleAnular = () => {
-    navigate("/compras/anular"); // Redirige a la página de anular
-  };
+  const handleAnular = () => navigate("/compras/anular");
+  const handleVerDetalle = (id) => navigate(`/compras/ver-detalle/${id}`);
+  const handleGenerarPDF = () => navigate(`/compras/GenerarPDF`);
+  const handleAgregarCompra = () => navigate("/compras/agregar");
 
- 
-
-  const handleVerDetalle = (id) => {
-    navigate(`/compras/ver-detalle/${id}`);
-  };
-
-  const handleGenerarPDF = (id) => {
-    navigate(`/compras/GenerarPDF`);
-  };
-
-  // Función para redirigir a la página de agregar compra
-  const handleAgregarCompra = () => {
-    navigate("/compras/agregar");
-  };
-
-  // Definir los módulos para el Sidebar
   const modules = [
-    {
-      name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dasboard" }],
-    },
+    { name: "Dashboard", submenus: [{ name: "Dashboard", path: "/dashboard" }] },
     {
       name: "Configuración",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -128,7 +115,6 @@ function Compras() {
     <div>
       <div className="main-content with-sidebar">
         <h2>Compras Registradas</h2>
-        {/* Pasa la prop modules al Sidebar */}
         <Sidebar modules={modules} />
         <Row className="mb-3">
           <Col>
@@ -137,7 +123,10 @@ function Compras() {
                 type="text"
                 placeholder="Buscar compra por producto..."
                 value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
+                onChange={(e) => {
+                  setBusqueda(e.target.value);
+                  setCurrentPage(1);
+                }}
               />
               <Button variant="outline-secondary">Buscar</Button>
             </InputGroup>
@@ -148,6 +137,7 @@ function Compras() {
             </Button>
           </Col>
         </Row>
+
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -162,7 +152,7 @@ function Compras() {
             </tr>
           </thead>
           <tbody>
-            {comprasFiltradas.map((compra) => (
+            {currentItems.map((compra) => (
               <tr key={compra.id}>
                 <td>{compra.numeroCompra}</td>
                 <td>{compra.producto}</td>
@@ -177,26 +167,13 @@ function Compras() {
                   />
                 </td>
                 <td>
-                  <Button
-                    variant="info"
-                    size="sm"
-                    onClick={() => handleVerDetalle(compra.id)}
-                  >
+                  <Button variant="info" size="sm" onClick={() => handleVerDetalle(compra.id)}>
                     Ver Detalle
-                  
                   </Button>{" "}
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={handleAnular} // Redirige a la página de anular
-                  >
+                  <Button variant="danger" size="sm" onClick={handleAnular}>
                     Anular
-                  </Button>
-                  <Button
-                    variant="info"
-                    size="sm"
-                    onClick={handleGenerarPDF}
-                  >
+                  </Button>{" "}
+                  <Button variant="info" size="sm" onClick={handleGenerarPDF}>
                     Generar PDF
                   </Button>
                 </td>
@@ -204,6 +181,25 @@ function Compras() {
             ))}
           </tbody>
         </Table>
+
+        {/* Paginación */}
+        <div className="pagination-container">
+          <button 
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Anterior
+          </button>
+
+          <span className="pagination-text">Página {currentPage} de {totalPages}</span>
+
+          <button 
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages || totalPages === 0}
+          >
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   );
