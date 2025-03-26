@@ -1,15 +1,17 @@
-// src/components/LoginForm.jsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 
 function LoginForm({ onBackToHome, onLogin }) {
+  const navigate = useNavigate();
+
   return (
     <div className="form-container">
       <h2>Iniciar Sesión</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onLogin(); // Simula el inicio de sesión
+          onLogin();
         }}
       >
         <div>
@@ -20,10 +22,11 @@ function LoginForm({ onBackToHome, onLogin }) {
           <label>Contraseña:</label>
           <input type="password" required />
         </div>
-        <button class="logii" type="submit">Iniciar Sesión</button>
+        <button className="logii" type="submit">Iniciar Sesión</button>
       </form>
-      <button className="btn" onClick={onBackToHome}>
-        Volver al Inicio
+      <button className="btn" onClick={onBackToHome}>Volver al Inicio</button>
+      <button className="forgot-password" onClick={() => navigate("/reset-password")}>
+        ¿Olvidaste tu contraseña?
       </button>
     </div>
   );

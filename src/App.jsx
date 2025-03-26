@@ -40,6 +40,7 @@ import VerDetalleVenta from "./page/Ventas/VerDetalleVenta"
 import GenerarPDFVenta from "./page/Ventas/GenerarPdfventa"
 import Usuarios from "./page/Usuarios";
 import Roles from "./page/Roles";
+import ResetPassword from "./page/ResetPassword"
 import pasillo from "./img/pasillo.jpg"
 import supermercado2 from "./img/supermercado2.jpg"
 import supermercado3 from "./img/supermercado3.jpg"
@@ -84,6 +85,7 @@ function App() {
     navigate("/dasboard")
   }
 
+
   const handleLogout = () => {
     setIsLoggedIn(false)
     localStorage.removeItem("isLoggedIn")
@@ -100,7 +102,7 @@ function App() {
           </Link>
           {!isLoggedIn ? (
             <div>
-              <button className="btn" onClick={() => setShowLogin(true)}>
+              <button className="btn" onClick={() => navigate("/login")}>
                 Iniciar Sesión
               </button>
               <button className="btn" onClick={() => setShowRegister(true)}>
@@ -154,6 +156,7 @@ function App() {
           <Route path="/register" element={<RegisterForm onLogin={handleLogin} />} />
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/roles" element={<Roles />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
       )}
     </div>
