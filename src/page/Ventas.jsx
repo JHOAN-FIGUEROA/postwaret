@@ -41,13 +41,57 @@ function Ventas() {
       Estado: "Activa",
       total: 4.000,
     },
+    // Add more sample data to demonstrate pagination
+    {
+      id: 4,
+      Cliente: "Cliente D",
+      fechaventa: "18/02/2025",
+      producto: "Producto D",
+      Cantidad: "3",
+      precioUnitario: 15.0,
+      subtotal: 45.0,
+      Estado: "Activa",
+      total: 52.65,
+    },
+    {
+      id: 5,
+      Cliente: "Cliente E",
+      fechaventa: "19/02/2025",
+      producto: "Producto E",
+      Cantidad: "7",
+      precioUnitario: 25.0,
+      subtotal: 175.0,
+      Estado: "Inactiva",
+      total: 203.00,
+    },
+    {
+      id: 6,
+      Cliente: "Cliente F",
+      fechaventa: "20/02/2025",
+      producto: "Producto F",
+      Cantidad: "2",
+      precioUnitario: 30.0,
+      subtotal: 60.0,
+      Estado: "Activa",
+      total: 70.20,
+    },
   ]);
 
   const [busqueda, setBusqueda] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
 
   const ventasFiltradas = ventas.filter((venta) =>
     venta.producto.toLowerCase().includes(busqueda.toLowerCase())
   );
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = ventasFiltradas.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(ventasFiltradas.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleCambiarEstado = (id) => {
     setVentas((prevVentas) =>
@@ -88,7 +132,6 @@ function Ventas() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -120,7 +163,10 @@ function Ventas() {
               type="text"
               placeholder="Buscar Venta por producto..."
               value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
+              onChange={(e) => {
+                setBusqueda(e.target.value);
+                setCurrentPage(1); // Reset to first page when searching
+              }}
             />
             <Button variant="outline-secondary">Buscar</Button>
           </InputGroup>
@@ -143,7 +189,7 @@ function Ventas() {
           </tr>
         </thead>
         <tbody>
-          {ventasFiltradas.map((venta) => (
+          {currentItems.map((venta) => (
             <tr key={venta.id}>
               <td>{venta.id}</td>
               <td>{venta.Cliente}</td>
@@ -182,6 +228,24 @@ function Ventas() {
           ))}
         </tbody>
       </Table>
+
+      <div className="pagination-container">
+        <button 
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Anterior
+        </button>
+
+        <span className="pagination-text">Página {currentPage} de {totalPages}</span>
+
+        <button 
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === totalPages || totalPages === 0}
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
   );
 }

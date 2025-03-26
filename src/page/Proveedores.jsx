@@ -1,43 +1,72 @@
 // src/components/Proveedores.jsx
 import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom"; // Importa useNavigate
+import { Outlet, useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import Sidebar from "./Sidebar";
-
+import EstadoSwitch from "./EstadoSwitch";
 
 function Proveedores() {
-  const navigate = useNavigate(); // Hook para la navegación
+  const navigate = useNavigate();
 
   // Estado para almacenar la lista de proveedores
   const [proveedores, setProveedores] = useState([
-    { id: 1, nombre: "Proveedor A", contacto: "contacto@proveedora.com", telefono: "123456789" },
-    { id: 2, nombre: "Proveedor B", contacto: "contacto@proveedorb.com", telefono: "987654321" },
-    { id: 3, nombre: "Proveedor C", contacto: "contacto@proveedorc.com", telefono: "987654345" },
+    { id: 1, nombre: "Proveedor A", contacto: "contacto@proveedora.com", telefono: "123456789", Estado: "Activa" },
+    { id: 2, nombre: "Proveedor B", contacto: "contacto@proveedorb.com", telefono: "987654321", Estado: "Activa" },
+    { id: 3, nombre: "Proveedor C", contacto: "contacto@proveedorc.com", telefono: "987654345", Estado: "Inactiva" },
+    { id: 4, nombre: "Proveedor D", contacto: "contacto@proveedord.com", telefono: "555555555", Estado: "Activa" },
+    { id: 5, nombre: "Proveedor E", contacto: "contacto@proveedore.com", telefono: "666666666", Estado: "Inactiva" },
+    { id: 6, nombre: "Proveedor F", contacto: "contacto@proveedorf.com", telefono: "777777777", Estado: "Activa" },
   ]);
 
-  // Estado para manejar la búsqueda
+  // Estados para manejar la búsqueda y paginación
   const [busqueda, setBusqueda] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
 
   // Filtrar proveedores basados en la búsqueda
   const proveedoresFiltrados = proveedores.filter((proveedor) =>
     proveedor.nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  // Funciones para manejar las acciones
-  const handleAnulaProveedor = () => {
-    navigate("/proveedor/anular")
-  }
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = proveedoresFiltrados.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(proveedoresFiltrados.length / itemsPerPage);
 
-  const handleAgregarProveedor = () => {
-    navigate("/proveedor/agregar"); // Redirige a la ruta "proveedor/agregar"
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Función para cambiar el estado del proveedor
+  const handleCambiarEstado = (proveedorId) => {
+    setProveedores((prevProveedores) => {
+      return prevProveedores.map((proveedor) => {
+        if (proveedor.id === proveedorId) {
+          const nuevoEstado = proveedor.Estado === "Activa" ? "Inactiva" : "Activa";
+          return {
+            ...proveedor,
+            Estado: nuevoEstado,
+          };
+        }
+        return proveedor;
+      });
+    });
   };
 
-  const handleEditarProveedor = () => {
-    navigate("/proveedor/editar");
+  // Funciones para manejar las acciones
+  const handleAnulaProveedor = (id) => {
+    alert(`Anular Proveedor con ID: ${id}`);
+  };
+
+  const handleAgregarProveedor = () => {
+    navigate("/proveedor/agregar");
+  };
+
+  const handleEditarProveedor = (id) => {
+    navigate(`/proveedor/editar/${id}`);
   };
 
   const handleVerDetalleProveedor = (id) => {
-    navigate("/proveedor/ver-detalle");
+    navigate(`/proveedor/ver-detalle/${id}`);
   };
 
   // Definir los módulos para el Sidebar
@@ -53,7 +82,6 @@ function Proveedores() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -78,7 +106,6 @@ function Proveedores() {
     <div>
       <div className="main-content">
         <h2>Proveedores Registrados</h2>
-        {/* Pasa la prop modules al Sidebar */}
         <Sidebar modules={modules} />
         <Row className="mb-3">
           <Col>
@@ -87,7 +114,10 @@ function Proveedores() {
                 type="text"
                 placeholder="Buscar proveedor..."
                 value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
+                onChange={(e) => {
+                  setBusqueda(e.target.value);
+                  setCurrentPage(1); // Reset to first page on search
+                }}
               />
               <Button variant="outline-secondary">Buscar</Button>
             </InputGroup>
@@ -105,43 +135,72 @@ function Proveedores() {
               <th>Nombre</th>
               <th>Contacto</th>
               <th>Teléfono</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {proveedoresFiltrados.map((proveedor) => (
+            {currentItems.map((proveedor) => (
               <tr key={proveedor.id}>
                 <td>{proveedor.id}</td>
                 <td>{proveedor.nombre}</td>
                 <td>{proveedor.contacto}</td>
                 <td>{proveedor.telefono}</td>
                 <td>
+                  <EstadoSwitch
+                    key={`estado-switch-${proveedor.id}`}
+                    estado={proveedor.Estado}
+                    onChange={() => handleCambiarEstado(proveedor.id)}
+                  />
+                </td>
+                <td>
                   <Button
-                   variant="info"
-                      size="sm"
-                      onClick={handleVerDetalleProveedor}
-                      >
-                      Ver Detalle
-                  </Button>
+                    variant="info"
+                    size="sm"
+                    onClick={() => handleVerDetalleProveedor(proveedor.id)}
+                  >
+                    Ver Detalle
+                  </Button>{" "}
                   <Button
-                      variant="warning"
-                      size="sm"
-                      onClick={handleEditarProveedor}
-                      >
-                      Editar
-                  </Button>
+                    variant="warning"
+                    size="sm"
+                    onClick={() => handleEditarProveedor(proveedor.id)}
+                  >
+                    Editar
+                  </Button>{" "}
                   <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={handleAnulaProveedor} 
-                      >
-                      Anular
+                    variant="danger"
+                    size="sm"
+                    onClick={() => handleAnulaProveedor(proveedor.id)}
+                  >
+                    Anular
                   </Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
+
+        {/* Pagination controls */}
+        <div className="pagination-container">
+          <button 
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Anterior
+          </button>
+
+          <span className="pagination-text">Página {currentPage} de {totalPages}</span>
+
+          <button 
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages || totalPages === 0}
+          >
+            Siguiente
+          </button>
+        </div>
+
+        <Outlet />
       </div>
     </div>
   );

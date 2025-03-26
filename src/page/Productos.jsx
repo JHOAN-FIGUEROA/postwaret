@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import Sidebar from "./Sidebar";
+import EstadoSwitch from "./EstadoSwitch";
 
 function Productos() {
   const navigate = useNavigate();
@@ -13,59 +14,109 @@ function Productos() {
       id: 1,
       nombre: "Producto A",
       categoria: "Categoría A",
-      precioUnitarioCOP: 50000, // Precio en pesos colombianos
+      precioUnitarioCOP: 50000,
+      Estado: "Activo"
     },
     {
       id: 2,
       nombre: "Producto B",
       categoria: "Categoría B",
-      precioUnitarioCOP: 75000, // Precio en pesos colombianos
+      precioUnitarioCOP: 75000,
+      Estado: "Activo"
     },
     {
       id: 3,
       nombre: "Producto C",
       categoria: "Categoría C",
-      precioUnitarioCOP: 120000, // Precio en pesos colombianos
+      precioUnitarioCOP: 120000,
+      Estado: "Inactivo"
+    },
+    {
+      id: 4,
+      nombre: "Producto D",
+      categoria: "Categoría A",
+      precioUnitarioCOP: 80000,
+      Estado: "Activo"
+    },
+    {
+      id: 5,
+      nombre: "Producto E",
+      categoria: "Categoría B",
+      precioUnitarioCOP: 95000,
+      Estado: "Inactivo"
+    },
+    {
+      id: 6,
+      nombre: "Producto F",
+      categoria: "Categoría C",
+      precioUnitarioCOP: 150000,
+      Estado: "Activo"
     },
   ]);
 
-  // Estado para manejar la búsqueda
+  // Estados para manejar la búsqueda y paginación
   const [busqueda, setBusqueda] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
 
   // Filtrar productos basados en la búsqueda
   const productosFiltrados = productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(busqueda.toLowerCase())
+    producto.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+    producto.categoria.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  // Funciones para manejar las acciones
-  const handleAnularProducto = () => {
-    navigate("/productos/anular");
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = productosFiltrados.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(productosFiltrados.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Función para cambiar el estado del producto
+  const handleCambiarEstado = (productoId) => {
+    setProductos((prevProductos) => {
+      return prevProductos.map((producto) => {
+        if (producto.id === productoId) {
+          const nuevoEstado = producto.Estado === "Activo" ? "Inactivo" : "Activo";
+          return {
+            ...producto,
+            Estado: nuevoEstado,
+          };
+        }
+        return producto;
+      });
+    });
   };
 
-  const handleEditarProducto = () => {
-    navigate("/productos/editarr");
+  // Funciones para manejar las acciones
+  const handleAnularProducto = (id) => {
+    alert(`Anular Producto con ID: ${id}`);
+  };
+
+  const handleEditarProducto = (id) => {
+    navigate(`/productos/editar/${id}`);
   };
 
   const handleAgregarProducto = () => {
-    navigate("/productos/agregarr");
+    navigate("/productos/agregar");
   };
 
-  const handleVerDetalleProducto = () => {
-    navigate("/productos/ver-detalle");
+  const handleVerDetalleProducto = (id) => {
+    navigate(`/productos/ver-detalle/${id}`);
   };
 
   // Definir los módulos para el Sidebar
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dasboard" }],
+      submenus: [{ name: "Dashboard", path: "/dashboard" }],
     },
     {
       name: "Configuración",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -98,7 +149,10 @@ function Productos() {
                 type="text"
                 placeholder="Buscar Producto..."
                 value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
+                onChange={(e) => {
+                  setBusqueda(e.target.value);
+                  setCurrentPage(1); // Reset to first page on search
+                }}
               />
               <Button variant="outline-secondary">Buscar</Button>
             </InputGroup>
@@ -116,16 +170,24 @@ function Productos() {
               <th>Nombre</th>
               <th>Categoría</th>
               <th>Precio Unitario (COP)</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {productosFiltrados.map((producto) => (
+            {currentItems.map((producto) => (
               <tr key={producto.id}>
                 <td>{producto.id}</td>
                 <td>{producto.nombre}</td>
                 <td>{producto.categoria}</td>
                 <td>${producto.precioUnitarioCOP.toLocaleString()}</td>
+                <td>
+                  <EstadoSwitch
+                    key={`estado-switch-${producto.id}`}
+                    estado={producto.Estado}
+                    onChange={() => handleCambiarEstado(producto.id)}
+                  />
+                </td>
                 <td>
                   <Button
                     variant="info"
@@ -137,14 +199,14 @@ function Productos() {
                   <Button
                     variant="warning"
                     size="sm"
-                    onClick={handleEditarProducto}
+                    onClick={() => handleEditarProducto(producto.id)}
                   >
                     Editar
                   </Button>{" "}
                   <Button
                     variant="danger"
                     size="sm"
-                    onClick={handleAnularProducto}
+                    onClick={() => handleAnularProducto(producto.id)}
                   >
                     Anular
                   </Button>
@@ -153,6 +215,25 @@ function Productos() {
             ))}
           </tbody>
         </Table>
+
+        {/* Pagination controls */}
+        <div className="pagination-container">
+          <button 
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Anterior
+          </button>
+
+          <span className="pagination-text">Página {currentPage} de {totalPages}</span>
+
+          <button 
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages || totalPages === 0}
+          >
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   );
