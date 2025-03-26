@@ -200,7 +200,7 @@ footer p {
   z-index: 1000; /* Asegura que esté por encima del contenido */
 }
 
-.sidebar h3 {
+.sidebar h2 {
   margin-bottom: 20px; /* Espaciado inferior para el título */
 }
 

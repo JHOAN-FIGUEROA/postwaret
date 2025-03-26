@@ -32,7 +32,7 @@ function AgregarVenta() {
 
   // Función para navegar a la página de agregar productos
   const handleAgregarProductos = () => {
-    navigate("/productos/agregarr", {
+    navigate("/productos/agregarrr", {
       state: { productos: venta.productos, origen: "ventas" }, // Indicar que viene de ventas
     });
   };

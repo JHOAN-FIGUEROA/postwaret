@@ -1,53 +1,72 @@
-// src/components/Proveedores.jsx
-import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
-import "../css/Proveedores.css";
-import Sidebar from "./Sidebar";
+"use client"
+
+import { useState } from "react"
+import { Outlet, useNavigate } from "react-router-dom"
+import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap"
+import "../css/Proveedores.css"
+import Sidebar from "./Sidebar"
+import EstadoSwitch from "./EstadoSwitch" // Importa el componente
 
 function Clientes() {
   const [clientes, setClientes] = useState([
-    { id: 1, nombre: "Cliente A", contacto: "contacto@cliente.com", telefono: "123456789" },
-    { id: 2, nombre: "Cliente B", contacto: "contacto@Cliente.com", telefono: "987654321" },
-    { id: 3, nombre: "Cliente C", contacto: "contacto@Cliente.com", telefono: "987654345" },
-  ]);
+    { id: 1, nombre: "Cliente A", contacto: "contacto@cliente.com", telefono: "123456789", Estado: "Activa" },
+    { id: 2, nombre: "Cliente B", contacto: "contacto@Cliente.com", telefono: "987654321", Estado: "Activa" },
+    { id: 3, nombre: "Cliente C", contacto: "contacto@Cliente.com", telefono: "987654345", Estado: "Inactiva" },
+  ])
 
-  const [busqueda, setBusqueda] = useState("");
-  const navigate = useNavigate(); // Hook para la navegación
+  const [busqueda, setBusqueda] = useState("")
+  const navigate = useNavigate() // Hook para la navegación
 
-  const clientesFiltrados = clientes.filter((cliente) =>
-    cliente.nombre.toLowerCase().includes(busqueda.toLowerCase())
-  );
+  const clientesFiltrados = clientes.filter((cliente) => cliente.nombre.toLowerCase().includes(busqueda.toLowerCase()))
 
   const handleAgregar = () => {
-    navigate("/clientes/agregar"); // Redirigir a la ruta de agregar cliente
-  };
+    navigate("/clientes/agregar") // Redirigir a la ruta de agregar cliente
+  }
 
   const handleEditar = (id) => {
-    navigate(`/clientes/editar/`); // Redirigir a la ruta de editar cliente
-  };
+    navigate(`/clientes/editar/`) // Redirigir a la ruta de editar cliente
+  }
 
   const handleVerDetalle = (id) => {
-    navigate(`/clientes/detalle/`); // Redirigir a la ruta de ver detalle
-  };
+    navigate(`/clientes/detalle/`) // Redirigir a la ruta de ver detalle
+  }
 
   const handleAnular = (id) => {
-    alert(`Anular Cliente con ID: ${id}`);
-  };
+    alert(`Anular Cliente con ID: ${id}`)
+  }
+
+  // Función para cambiar el estado del cliente específico por ID
+  const handleCambiarEstado = (clienteId) => {
+    console.log(`Cambiando estado del cliente con ID: ${clienteId}`)
+
+    setClientes((prevClientes) => {
+      return prevClientes.map((cliente) => {
+        // Solo modificar el cliente con el ID específico
+        if (cliente.id === clienteId) {
+          console.log(`Cliente encontrado: ${cliente.nombre}, Estado actual: ${cliente.Estado}`)
+          const nuevoEstado = cliente.Estado === "Activa" ? "Inactiva" : "Activa"
+          console.log(`Nuevo estado: ${nuevoEstado}`)
+          return {
+            ...cliente,
+            Estado: nuevoEstado,
+          }
+        }
+        // Devolver los demás clientes sin cambios
+        return cliente
+      })
+    })
+  }
 
   const modules = [
     {
       name: "Dasboard",
-      submenus: [
-        { name: "Dasboard", path: "/dasboard" },
-      ],
+      submenus: [{ name: "Dasboard", path: "/dasboard" }],
     },
     {
       name: "Configuracion",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -66,7 +85,7 @@ function Clientes() {
         { name: "Clientes", path: "/clientes" },
       ],
     },
-  ];
+  ]
 
   return (
     <div>
@@ -98,6 +117,7 @@ function Clientes() {
               <th>Nombre</th>
               <th>Contacto</th>
               <th>Teléfono</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -108,6 +128,17 @@ function Clientes() {
                 <td>{cliente.nombre}</td>
                 <td>{cliente.contacto}</td>
                 <td>{cliente.telefono}</td>
+                <td>
+                  {/* Crear un componente EstadoSwitch único para cada cliente */}
+                  <EstadoSwitch
+                    key={`estado-switch-${cliente.id}`}
+                    estado={cliente.Estado}
+                    onChange={() => {
+                      console.log(`Switch clicked for cliente ID: ${cliente.id}`)
+                      handleCambiarEstado(cliente.id)
+                    }}
+                  />
+                </td>
                 <td>
                   <Button variant="info" size="sm" onClick={() => handleVerDetalle(cliente.id)}>
                     Ver Detalle
@@ -127,7 +158,8 @@ function Clientes() {
         <Outlet />
       </div>
     </div>
-  );
+  )
 }
 
-export default Clientes;
+export default Clientes
+

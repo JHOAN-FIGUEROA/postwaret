@@ -170,7 +170,7 @@ function Compras() {
                 <td>{compra.cantidad}</td>
                 <td>{compra.proveedor}</td>
                 <td>{compra.fechaCompra}</td>
-                <td>${compra.total.toFixed(2)}</td>
+                <td>${compra.total.toFixed(3)}</td>
                 <td>
                   <EstadoSwitch
                     estado={compra.Estado}

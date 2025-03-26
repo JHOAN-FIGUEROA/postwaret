@@ -29,7 +29,7 @@ function Ventas() {
       precioUnitario: 20.0,
       subtotal: 110.0,
       Estado: "Inactiva",
-      total: 120.45,
+      total: 120.000,
     },
     {
       id: 3,
@@ -40,7 +40,7 @@ function Ventas() {
       precioUnitario: 20.0,
       subtotal: 145.0,
       Estado: "Activa",
-      total: 190.45,
+      total: 4.000,
     },
   ]);
 
@@ -149,7 +149,7 @@ function Ventas() {
               <td>{venta.id}</td>
               <td>{venta.Cliente}</td>
               <td>{venta.fechaventa}</td>
-              <td>${venta.total.toFixed(2)}</td>
+              <td>${venta.total.toFixed(3)}</td>
               <td>
                 <EstadoSwitch
                   estado={venta.Estado}

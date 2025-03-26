@@ -35,7 +35,7 @@ import VerDetalleProducto from "./page/Productos/VerDetalleProducto"
 import AnularProducto from "./page/Productos/AnularProducto"
 import Ventas from "./page/Ventas"
 import AgregarVenta from "./page/Ventas/AgregarVenta"
-import AgregarProductoss from "./page/Ventas/AgregarProductov"
+import AgregarProductosss from "./page/Ventas/AgregarProductov"
 import VerDetalleVenta from "./page/Ventas/VerDetalleVenta"
 import GenerarPDFVenta from "./page/Ventas/GenerarPdfventa"
 import Usuarios from "./page/Usuarios";
@@ -96,7 +96,7 @@ function App() {
       {isHomePage && (
         <nav>
           <Link to="/" className="logo">
-            🛒 Postware
+            🛒 POSTWARE
           </Link>
           {!isLoggedIn ? (
             <div>
@@ -147,7 +147,7 @@ function App() {
           <Route path="/productos/anular" element={<AnularProducto />} />
           <Route path="/ventas" element={<Ventas />} />
           <Route path="/ventas/agregar" element={<AgregarVenta />} />
-          <Route path="/productos/agregarr" element={<AgregarProductoss />} />
+          <Route path="/productos/agregarrr" element={<AgregarProductosss />} />
           <Route path="/ventas/ver-detalle/:id" element={<VerDetalleVenta />} />
           <Route path="/ventas/Generarpdf" element={<GenerarPDFVenta />} />
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />

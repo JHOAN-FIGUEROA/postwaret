@@ -46,7 +46,7 @@ function Sidebar({ modules }) {
 
   return (
     <div className="sidebar">
-      <h3>Módulos</h3>
+      <h2>  🛒 POSTWARE</h2>
       <ul>
         {modules.map((module, index) => (
           <li key={index}>
