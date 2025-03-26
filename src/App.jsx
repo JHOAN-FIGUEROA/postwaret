@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from "react-router-dom"
 import { Carousel } from "react-responsive-carousel"
@@ -41,6 +39,13 @@ import GenerarPDFVenta from "./page/Ventas/GenerarPdfventa"
 import Usuarios from "./page/Usuarios";
 import Roles from "./page/Roles";
 import ResetPassword from "./page/ResetPassword"
+import AgregarUsuario from "./page/Usuarios/AgregarUsuario"
+import VerDetalleUsuario from "./page/Usuarios/VerDetalleUsuario"
+import EditarUsuario from "./page/Usuarios/EditarUsuarios"
+import AgregarRol from "./page/Roles/AgregarRol"
+import VerDetalleRol from "./page/Roles/VerDetalleRol"
+import PermisosAsociados from "./page/Roles/PermisosAsociados"
+import EditarRol from "./page/Roles/EditarRol"
 import pasillo from "./img/pasillo.jpg"
 import supermercado2 from "./img/supermercado2.jpg"
 import supermercado3 from "./img/supermercado3.jpg"
@@ -157,6 +162,13 @@ function App() {
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/roles" element={<Roles />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/usuarios/agregar" element={<AgregarUsuario />} />
+          <Route path="/usuarios/ver-detalle" element={<VerDetalleUsuario />} />
+          <Route path="/usuarios/editar" element={<EditarUsuario />} />
+          <Route path="/roles/agregar" element={<AgregarRol />} />
+          <Route path="/roles/ver-detalle" element={<VerDetalleRol />} />
+          <Route path="/roles/permisos-asociados" element={<PermisosAsociados />} />
+          <Route path="/roles/editar" element={<EditarRol />} />
         </Routes>
       )}
     </div>
