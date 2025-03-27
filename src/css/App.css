@@ -337,6 +337,7 @@ h2 {
   background-color: #17a2b8;
   border: 1px solid #17a2b8;
   color: white;
+  margin: 5px;
 }
 
 .btn-info:hover {
