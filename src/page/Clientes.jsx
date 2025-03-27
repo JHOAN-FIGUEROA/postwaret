@@ -45,8 +45,11 @@ function Clientes() {
     navigate(`/clientes/detalle/`)
   }
 
-  const handleAnular = (id) => {
-    alert(`Anular Cliente con ID: ${id}`)
+  const handleEliminar = (id) => {
+    if (window.confirm("¿Está seguro que desea eliminar este cliente?")) {
+      setClientes(clientes.filter(clientes => clientes.id !== id));
+      alert("Cliente eliminado exitosamente");
+    }
   }
 
   const handleCambiarEstado = (clienteId) => {
@@ -152,8 +155,8 @@ function Clientes() {
                   <Button variant="warning" size="sm" onClick={() => handleEditar(cliente.id)}>
                     Editar
                   </Button>{" "}
-                  <Button variant="danger" size="sm" onClick={() => handleAnular(cliente.id)}>
-                    Anular
+                  <Button variant="danger" size="sm" onClick={() => handleEliminar(cliente.id)}>
+                    Eliminar
                   </Button>
                 </td>
               </tr>

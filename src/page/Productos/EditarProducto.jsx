@@ -28,9 +28,9 @@ function EditarProductoo() {
 
   // Función para manejar la edición del producto
   const handleEditar = () => {
-    alert(`Producto "${producto.nombre}" editado (simulación)`);
+    alert(`Producto editado correctamente (simulación)`);
     navigate("/productos"); // Redirige a la página de productos
-  };
+  };  
 
   // Función para cancelar la edición
   const handleCancelar = () => {

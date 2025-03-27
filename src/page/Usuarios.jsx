@@ -55,12 +55,12 @@ function Usuarios() {
   const handleEditarUsuario = () => navigate("/usuarios/editar");
 
   const handleAgregarUsuario = () => navigate("/usuarios/agregar");
-  const handleVerDetalleUsuario = (id) => navigate(`/usuarios/ver-detalle/${id}`);
+  const handleVerDetalleUsuario = (id) => navigate(`/usuarios/ver-detalle`);
 
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dashboard" }],
+      submenus: [{ name: "Dashboard", path: "/dasboard" }],
     },
     {
       name: "Configuracion",

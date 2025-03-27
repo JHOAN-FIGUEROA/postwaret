@@ -57,7 +57,6 @@ function Roles() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Función para cambiar el estado del rol
-  // Función corregida para cambiar el estado
   const toggleEstado = (rolId) => {
     setRoles(prevRoles => 
       prevRoles.map(rol => 
@@ -68,22 +67,23 @@ function Roles() {
     );
   };
 
-  // Funciones de navegación actualizadas para recibir ID
-  const handleAnularRol = (id) => {
-    if (window.confirm(`¿Está seguro que desea anular el rol ${id}?`)) {
+  // Función para eliminar rol con confirmación
+  const handleEliminarRol = (id) => {
+    if (window.confirm("¿Está seguro que desea eliminar este rol?")) {
       setRoles(roles.filter(rol => rol.id !== id));
+      alert("Rol eliminado exitosamente");
     }
   };
 
-  const handleEditarRol = (id) => navigate(`/roles/editar/${id}`);
+  const handleEditarRol = (id) => navigate(`/roles/editar`);
   const handleAgregarRol = () => navigate("/roles/agregar");
-  const handleVerDetalleRol = (id) => navigate(`/roles/ver-detalle/${id}`);
-  const handlePermisosAsociados = (id) => navigate(`/roles/permisos-asociados/${id}`);
+  const handleVerDetalleRol = (id) => navigate(`/roles/ver-detalle`);
+  const handlePermisosAsociados = (id) => navigate(`/roles/permisos-asociados`);
 
   const modules = [ 
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dashboard" }],
+      submenus: [{ name: "Dashboard", path: "/dasboard" }],
     },
     {
       name: "Configuración",
@@ -153,8 +153,8 @@ function Roles() {
               <td>{rol.nombre}</td>
               <td>{rol.descripcion}</td>
               <td>
-              <EstadoSwitch
-                  activo={rol.estado} // Cambiado a prop 'activo'
+                <EstadoSwitch
+                  activo={rol.estado}
                   onChange={() => toggleEstado(rol.id)}
                 />
               </td>
@@ -165,10 +165,10 @@ function Roles() {
                     size="sm" 
                     onClick={() => handleVerDetalleRol(rol.id)}
                   >
-                    Detalle
+                    Ver Detalle
                   </Button>
                   <Button 
-                    variant="secondary" 
+                    variant="info" 
                     size="sm" 
                     onClick={() => handlePermisosAsociados(rol.id)}
                   >
@@ -184,9 +184,9 @@ function Roles() {
                   <Button 
                     variant="danger" 
                     size="sm" 
-                    onClick={() => handleAnularRol(rol.id)}
+                    onClick={() => handleEliminarRol(rol.id)}
                   >
-                    Anular
+                    Eliminar
                   </Button>
                 </div>
               </td>

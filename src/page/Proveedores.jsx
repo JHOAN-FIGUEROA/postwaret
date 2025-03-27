@@ -1,4 +1,3 @@
-// src/components/Proveedores.jsx
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
@@ -52,9 +51,12 @@ function Proveedores() {
     });
   };
 
-  // Funciones para manejar las acciones
-  const handleAnulaProveedor = (id) => {
-    alert(`Anular Proveedor con ID: ${id}`);
+  // Función para eliminar proveedor con confirmación
+  const handleEliminarProveedor = (id) => {
+    if (window.confirm("¿Está seguro que desea eliminar este proveedor?")) {
+      setProveedores(proveedores.filter(proveedor => proveedor.id !== id));
+      alert("Proveedor eliminado exitosamente");
+    }
   };
 
   const handleAgregarProveedor = () => {
@@ -62,11 +64,11 @@ function Proveedores() {
   };
 
   const handleEditarProveedor = (id) => {
-    navigate(`/proveedor/editar/${id}`);
+    navigate(`/proveedor/editar`);
   };
 
   const handleVerDetalleProveedor = (id) => {
-    navigate(`/proveedor/ver-detalle/${id}`);
+    navigate(`/proveedor/ver-detalle`);
   };
 
   // Definir los módulos para el Sidebar
@@ -154,27 +156,29 @@ function Proveedores() {
                   />
                 </td>
                 <td>
-                  <Button
-                    variant="info"
-                    size="sm"
-                    onClick={() => handleVerDetalleProveedor(proveedor.id)}
-                  >
-                    Ver Detalle
-                  </Button>{" "}
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    onClick={() => handleEditarProveedor(proveedor.id)}
-                  >
-                    Editar
-                  </Button>{" "}
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => handleAnulaProveedor(proveedor.id)}
-                  >
-                    Anular
-                  </Button>
+                  <div className="d-flex gap-2">
+                    <Button
+                      variant="info"
+                      size="sm"
+                      onClick={() => handleVerDetalleProveedor(proveedor.id)}
+                    >
+                      Ver Detalle
+                    </Button>
+                    <Button
+                      variant="warning"
+                      size="sm"
+                      onClick={() => handleEditarProveedor(proveedor.id)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => handleEliminarProveedor(proveedor.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </div>
                 </td>
               </tr>
             ))}
