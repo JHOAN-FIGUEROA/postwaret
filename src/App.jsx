@@ -48,6 +48,7 @@ import EditarRol from "./page/Roles/EditarRol"
 import pasillo from "./img/pasillo.jpg"
 import supermercado2 from "./img/supermercado2.jpg"
 import supermercado3 from "./img/supermercado3.jpg"
+import { AlertProvider, useAlert, createGlobalAlertSystem } from './AlertContext';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false)
@@ -56,6 +57,19 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation() // Get current location
   const isHomePage = location.pathname === "/" // Check if we're on the home page
+  // Create a global alert system
+const { setAlertMethods } = createGlobalAlertSystem();
+
+// Component to initialize the global alert system
+const AlertInitializer = () => {
+  const alertMethods = useAlert();
+  
+  useEffect(() => {
+    setAlertMethods(alertMethods);
+  }, [alertMethods]);
+  
+  return null;
+};
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem("isLoggedIn")
@@ -122,6 +136,8 @@ function App() {
       ) : showRegister ? (
         <RegisterForm onBackToHome={() => setShowRegister(false)} onLogin={handleLogin} />
       ) : (
+        <AlertProvider>
+      <AlertInitializer />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/dasboard" element={<Dasboard />} />
@@ -168,6 +184,7 @@ function App() {
           <Route path="/roles/permisos-asociados" element={<PermisosAsociados />} />
           <Route path="/roles/editar" element={<EditarRol />} />
         </Routes>
+        </AlertProvider>
       )}
     </div>
   )

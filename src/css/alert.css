@@ -1,0 +1,314 @@
+/* Alert Container */
+.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 350px;
+    width: 100%;
+  }
+  
+  /* Base Alert Styles */
+  .custom-alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 0.4s ease-out forwards;
+    transition: all 0.3s ease;
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+  
+  .custom-alert.closing {
+    animation: slideOut 0.4s ease-in forwards;
+  }
+  
+  /* Alert Types */
+  .custom-alert.success {
+    border-left: 5px solid #4c6ef5;
+  }
+  
+  .custom-alert.error {
+    border-left: 5px solid #fa5252;
+  }
+  
+  .custom-alert.warning {
+    border-left: 5px solid #fcc419;
+  }
+  
+  .custom-alert.info {
+    border-left: 5px solid #15aabf;
+  }
+  
+  /* Alert Icon */
+  .alert-icon {
+    margin-right: 15px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Alert Content */
+  .alert-content {
+    flex: 1;
+  }
+  
+  .alert-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  
+  .alert-message {
+    font-size: 14px;
+    margin: 0;
+    color: #e0e0e0;
+  }
+  
+  /* Close Button */
+  .alert-close {
+    background: none;
+    border: none;
+    color: #aaaaaa;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    padding: 0;
+    margin-left: 10px;
+  }
+  
+  .alert-close:hover {
+    opacity: 1;
+    color: #ffffff;
+  }
+  
+  /* Progress Bar */
+  .alert-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.3);
+    animation: progress 5s linear forwards;
+  }
+  
+  .custom-alert.success .alert-progress {
+    background-color: #4c6ef5;
+  }
+  
+  .custom-alert.error .alert-progress {
+    background-color: #fa5252;
+  }
+  
+  .custom-alert.warning .alert-progress {
+    background-color: #fcc419;
+  }
+  
+  .custom-alert.info .alert-progress {
+    background-color: #15aabf;
+  }
+  
+  /* Confirmation Dialog */
+  .confirm-dialog-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .confirm-dialog {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    padding: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    animation: scaleIn 0.3s ease-out;
+    color: #ffffff;
+  }
+  
+  .confirm-dialog-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #333333;
+    display: flex;
+    align-items: center;
+  }
+  
+  .confirm-dialog-header .icon {
+    margin-right: 15px;
+    font-size: 24px;
+    color: #fcc419;
+  }
+  
+  .confirm-dialog-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .confirm-dialog-body {
+    padding: 20px;
+    font-size: 16px;
+    color: #e0e0e0;
+  }
+  
+  .confirm-dialog-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #333333;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .confirm-dialog-footer button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .confirm-dialog-footer .btn-cancel {
+    background-color: #333333;
+    border: 1px solid #444444;
+    color: #ffffff;
+  }
+  
+  .confirm-dialog-footer .btn-cancel:hover {
+    background-color: #444444;
+  }
+  
+  .confirm-dialog-footer .btn-confirm {
+    background-color: #4c6ef5;
+    border: 1px solid #4c6ef5;
+    color: white;
+  }
+  
+  .confirm-dialog-footer .btn-confirm:hover {
+    background-color: #3b5bdb;
+    border-color: #3b5bdb;
+  }
+  
+  /* Simple Alert (like the one in your image) */
+  .simple-alert-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .simple-alert {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    animation: scaleIn 0.3s ease-out;
+    color: #ffffff;
+    text-align: left;
+  }
+  
+  .simple-alert-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #ffffff;
+  }
+  
+  .simple-alert-message {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+  }
+  
+  .simple-alert-button {
+    background-color: #4c6ef5;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    float: right;
+  }
+  
+  .simple-alert-button:hover {
+    background-color: #3b5bdb;
+  }
+  
+  /* Animations */
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes progress {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0%;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
