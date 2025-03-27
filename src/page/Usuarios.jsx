@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./Sidebar";
 import EstadoSwitch from "./EstadoSwitch";
 
@@ -33,27 +34,41 @@ function Usuarios() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-
   // Función para cambiar el estado del usuario
   const handleCambiarEstado = (usuarioId) => {
     setUsuarios(usuarios.map(usuario => 
       usuario.id === usuarioId 
-        ? {...usuario, estado: usuario.estado === "Activo" ? "Inactivo" : "Activo"} 
+        ? { ...usuario, estado: usuario.estado === "Activo" ? "Inactivo" : "Activo" } 
         : usuario
     ));
   };
 
-  
+  // Función para eliminar usuario utilizando SweetAlert2
+  const handleEliminarUsuario = async (id) => {
+    const result = await Swal.fire({
+      title: "¿Está seguro?",
+      text: "¿Desea eliminar este usuario?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33"
+    });
 
-  const handleEliminarUsuario = (id) => {
-    if (window.confirm("¿Está seguro que desea eliminar este usuario?")) {
+    if (result.isConfirmed) {
       setUsuarios(usuarios.filter(usuario => usuario.id !== id));
-      alert("Usuario eliminado exitosamente");
+      Swal.fire({
+        icon: "success",
+        title: "Usuario eliminado exitosamente",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
     }
   };
 
   const handleEditarUsuario = () => navigate("/usuarios/editar");
-
   const handleAgregarUsuario = () => navigate("/usuarios/agregar");
   const handleVerDetalleUsuario = (id) => navigate(`/usuarios/ver-detalle`);
 
@@ -124,66 +139,63 @@ function Usuarios() {
             <th>Acciones</th>
           </tr>
         </thead>
-          <tbody>
-            {currentItems.map((usuario) => (
-              <tr key={usuario.id}>
-                <td>{usuario.id}</td>
-                <td>{usuario.nombre}</td>
-                <td>{usuario.numeroDocumento}</td>
-                <td>{usuario.rol}</td>
-                <td>
+        <tbody>
+          {currentItems.map((usuario) => (
+            <tr key={usuario.id}>
+              <td>{usuario.id}</td>
+              <td>{usuario.nombre}</td>
+              <td>{usuario.numeroDocumento}</td>
+              <td>{usuario.rol}</td>
+              <td>
                 <EstadoSwitch
                   estado={usuario.estado}
                   onChange={() => handleCambiarEstado(usuario.id)}
                 />
               </td>
-                <td>
-                  <Button variant="info" size="sm" onClick={handleVerDetalleUsuario}>
-                    Ver Detalle
-                  </Button>{" "}
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    onClick={handleEditarUsuario}
-                  >
-                    Editar
-                  </Button>{" "}
-                  <Button 
-                    variant="danger" 
-                    size="sm" 
-                    onClick={() => handleEliminarUsuario(usuario.id)}
-                  >
-                    Eliminar
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+              <td>
+                <Button variant="info" size="sm" onClick={handleVerDetalleUsuario}>
+                  Ver Detalle
+                </Button>{" "}
+                <Button
+                  variant="warning"
+                  size="sm"
+                  onClick={handleEditarUsuario}
+                >
+                  Editar
+                </Button>{" "}
+                <Button 
+                  variant="danger" 
+                  size="sm" 
+                  onClick={() => handleEliminarUsuario(usuario.id)}
+                >
+                  Eliminar
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
 
-        <div className="pagination-container">
-          <Button 
-            variant="outline-primary"
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Anterior
-          </Button>
+      <div className="pagination-container">
+        <Button 
+          variant="outline-primary"
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Anterior
+        </Button>
 
-          <span className="mx-3">Página {currentPage} de {totalPages}</span>
+        <span className="mx-3">Página {currentPage} de {totalPages}</span>
 
-          <Button 
-            variant="outline-primary"
-            onClick={() => paginate(currentPage + 1)}
-            disabled={currentPage === totalPages || totalPages === 0}
-          >
-            Siguiente
-          </Button>
-        </div>
-
-        
+        <Button 
+          variant="outline-primary"
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === totalPages || totalPages === 0}
+        >
+          Siguiente
+        </Button>
       </div>
- 
+    </div>
   );
 }
 

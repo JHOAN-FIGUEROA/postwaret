@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Form } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
 
 function PermisosAsociados() {
@@ -58,9 +59,21 @@ function PermisosAsociados() {
     }));
   };
 
+  // Función para mostrar alertas SweetAlert2
+  const showAlert = (icon, title, text = "") => {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    });
+  };
+
   // Función para guardar los permisos y redirigir
   const handleGuardarPermisos = () => {
-    alert("Permisos guardados exitosamente");
+    showAlert("success", "Permisos guardados exitosamente", "Los cambios se han guardado.");
     navigate("/roles"); // Redirige a la página de roles
   };
 

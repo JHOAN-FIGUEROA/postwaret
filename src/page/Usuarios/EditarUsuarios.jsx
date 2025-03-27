@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
 
 function EditarUsuario() {
@@ -29,15 +30,23 @@ function EditarUsuario() {
     setUsuario({ ...usuario, [name]: value });
   };
 
-  // Función para manejar la edición del usuario
+  // Función para manejar la edición del usuario con SweetAlert2
   const handleEditar = () => {
-    alert("Usuario editado exitosamente (simulación)");
-    navigate("/usuarios"); // Redirige a la página de usuarios
+    Swal.fire({
+      icon: "success",
+      title: "Usuario editado exitosamente",
+      text: "Los cambios se han guardado",
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    }).then(() => {
+      navigate("/usuarios");
+    });
   };
 
   // Función para cancelar la edición
   const handleCancelar = () => {
-    navigate("/usuarios"); // Redirige a la página de usuarios
+    navigate("/usuarios");
   };
 
   const modules = [
