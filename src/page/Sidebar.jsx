@@ -50,6 +50,7 @@ function Sidebar({ modules }) {
     // Ventas
     "Ventas": ShoppingCart,
     "Dasboard": BarChart,
+    "Dashboard": BarChart,
     // Clientes
     "Clientes": Users,
 
