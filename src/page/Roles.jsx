@@ -25,32 +25,32 @@ function Roles() {
     { 
       id: 1, 
       nombre: "Administrador", 
-      descripcion: "Acceso total al sistema", 
-      estado: true
+      descripcion: "Acceso total al sistema",
+      estado: "Activo"
     },
     { 
       id: 2, 
       nombre: "Vendedor", 
-      descripcion: "Módulo de ventas y clientes", 
-      estado: true
+      descripcion: "Módulo de ventas y clientes",
+      estado: "Activo"
     },
     { 
       id: 3, 
       nombre: "Inventario", 
-      descripcion: "Gestión de productos y categorías", 
-      estado: true 
+      descripcion: "Gestión de productos y categorías",
+      estado: "Inactivo"
     },
     { 
       id: 4, 
       nombre: "Soporte", 
-      descripcion: "Acceso a configuración y usuarios", 
-      estado: true 
+      descripcion: "Acceso a configuración y usuarios",
+      estado: "Activo"
     },
     { 
       id: 5, 
       nombre: "Contador", 
-      descripcion: "Gestión de informes y finanzas", 
-      estado: true
+      descripcion: "Gestión de informes y finanzas",
+      estado: "Inactivo"
     },
   ]);
 
@@ -66,10 +66,25 @@ function Roles() {
     });
   };
 
+  // Función para cambiar el estado de un rol
+  const handleCambiarEstado = (id) => {
+    setRoles(prevRoles =>
+      prevRoles.map(rol =>
+        rol.id === id
+          ? {
+              ...rol,
+              estado: rol.estado == "Activo" ? "Inactivo" : "Activo"
+            }
+          : rol
+      )
+    );
+    showToast('success', 'Estado del rol actualizado');
+  };
+
   // Función para guardar un nuevo rol
   const handleGuardarRol = (nuevoRol) => {
     const id = Math.max(...roles.map(r => r.id)) + 1;
-    const rolCompleto = { ...nuevoRol, id, estado: true };
+    const rolCompleto = { ...nuevoRol, id, estado: "Activo" };
     
     setRoles([...roles, rolCompleto]);
     showToast('success', 'Rol creado exitosamente');
@@ -90,27 +105,13 @@ function Roles() {
     rol.descripcion.toLowerCase().includes(busqueda.toLowerCase())
   );
 
+  // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = rolesFiltrados.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(rolesFiltrados.length / itemsPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  // Función para cambiar el estado del rol
-  const toggleEstado = (rolId) => {
-    setRoles(prevRoles => 
-      prevRoles.map(rol => 
-        rol.id === rolId 
-          ? { ...rol, estado: !rol.estado } 
-          : rol
-      )
-    );
-    
-    const rol = roles.find(r => r.id === rolId);
-    const nuevoEstado = !rol.estado;
-    showToast('info', `Rol ${nuevoEstado ? 'activado' : 'desactivado'}`);
-  };
 
   // Función para eliminar rol con confirmación
   const handleEliminarRol = async (id) => {
@@ -130,7 +131,6 @@ function Roles() {
     if (result.isConfirmed) {
       setRoles(roles.filter(rol => rol.id !== id));
       showToast('success', 'Rol eliminado exitosamente');
-      
     }
   };
 
@@ -159,7 +159,7 @@ function Roles() {
   const modules = [ 
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dashboard" }],
+      submenus: [{ name: "Dashboard", path: "/dahboard" }],
     },
     {
       name: "Configuración",
@@ -230,8 +230,8 @@ function Roles() {
               <td>{rol.descripcion}</td>
               <td>
                 <EstadoSwitch
-                  activo={rol.estado}
-                  onChange={() => toggleEstado(rol.id)}
+                  estado={rol.estado}
+                  onChange={() => handleCambiarEstado(rol.id)}
                 />
               </td>
               <td>

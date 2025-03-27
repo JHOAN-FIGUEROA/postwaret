@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./../Sidebar"; 
+import Sidebar from "./../Sidebar";
+import Swal from 'sweetalert2';
 
 function AgregarCliente() {
   const navigate = useNavigate();
@@ -23,25 +24,74 @@ function AgregarCliente() {
     });
   };
 
-  const handleGuardar = () => {
-    // Lógica para guardar (simulación)
-    console.log("Cliente guardado:", cliente);
-    alert("Cliente guardado (simulación)");
-    navigate("/clientes"); // Redirigir a la lista de clientes
+  const validarFormulario = () => {
+    if (!cliente.documentoIdentidad) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Campo requerido',
+        text: 'El documento de identidad es obligatorio',
+      });
+      return false;
+    }
+    if (!cliente.nombre) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Campo requerido',
+        text: 'El nombre es obligatorio',
+      });
+      return false;
+    }
+    if (!cliente.email || !/^\S+@\S+\.\S+$/.test(cliente.email)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Email inválido',
+        text: 'Por favor ingrese un email válido',
+      });
+      return false;
+    }
+    return true;
   };
 
-  // Definir los módulos para el Sidebar
+  const handleGuardar = () => {
+ 
+
+    Swal.fire({
+      title: '¿Guardar cliente?',
+      text: "¿Estás seguro de que deseas guardar este cliente?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+      
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Simulación de guardado
+        console.log("Cliente guardado:", cliente);
+        
+        Swal.fire({
+          title: '¡Guardado!',
+          text: 'El cliente ha sido registrado exitosamente',
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+        }).then(() => {
+          navigate("/clientes");
+        });
+      }
+    });
+  };
+
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dashboard" }],
+      submenus: [{ name: "Dashboard", path: "/dahboard" }],
     },
     {
       name: "Configuración",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -63,11 +113,11 @@ function AgregarCliente() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregar-cliente-form">
       <h2>Agregar Cliente</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
+      <Sidebar modules={modules} />
       <form>
-        <div>
+        <div className="form-group">
           <label>Documento de Identidad:</label>
           <input
             type="number"
@@ -75,9 +125,10 @@ function AgregarCliente() {
             value={cliente.documentoIdentidad}
             onChange={handleChange}
             placeholder="Ingrese el documento"
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Nombre:</label>
           <input
             type="text"
@@ -85,9 +136,10 @@ function AgregarCliente() {
             value={cliente.nombre}
             onChange={handleChange}
             placeholder="Nombre del cliente"
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Apellido:</label>
           <input
             type="text"
@@ -97,7 +149,7 @@ function AgregarCliente() {
             placeholder="Apellido del cliente"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Dirección:</label>
           <input
             type="text"
@@ -107,7 +159,7 @@ function AgregarCliente() {
             placeholder="Dirección del cliente"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Email:</label>
           <input
             type="email"
@@ -115,9 +167,10 @@ function AgregarCliente() {
             value={cliente.email}
             onChange={handleChange}
             placeholder="contacto@cliente.com"
+            required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Teléfono:</label>
           <input
             type="text"
@@ -127,18 +180,13 @@ function AgregarCliente() {
             placeholder="123456789"
           />
         </div>
-        <div>
-          <label>Estado:</label>
-          <input
-            type="checkbox"
-            name="estado"
-            checked={cliente.estado}
-            onChange={handleChange}
-          />
+        
+        <div className="form-actions">
+          
+          <button type="button" className="btn-primary" onClick={handleGuardar}>
+            Guardar
+          </button>
         </div>
-        <button type="button" onClick={handleGuardar}>
-          Guardar
-        </button>
       </form>
     </div>
   );

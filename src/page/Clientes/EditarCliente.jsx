@@ -46,7 +46,7 @@ function EditarCliente() {
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dashboard" }],
+      submenus: [{ name: "Dashboard", path: "/dahboard" }],
     },
     {
       name: "Configuración",
@@ -75,7 +75,7 @@ function EditarCliente() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregar-cliente-form">
       <h2>Editar Cliente</h2>
       <Sidebar modules={modules} />
       <form>
@@ -139,15 +139,7 @@ function EditarCliente() {
             placeholder="123456789"
           />
         </div>
-        <div>
-          <label>Estado:</label>
-          <input
-            type="checkbox"
-            name="estado"
-            checked={cliente.estado}
-            onChange={handleChange}
-          />
-        </div>
+        
         <button type="button" onClick={handleGuardar}>
           Guardar
         </button>
