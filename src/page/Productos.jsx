@@ -1,4 +1,3 @@
-// src/components/Productos.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
@@ -89,28 +88,31 @@ function Productos() {
     });
   };
 
-  // Funciones para manejar las acciones
-  const handleAnularProducto = (id) => {
-    alert(`Anular Producto con ID: ${id}`);
+  // Función para eliminar producto con confirmación
+  const handleEliminarProducto = (id) => {
+    if (window.confirm("¿Está seguro que desea eliminar este producto?")) {
+      setProductos(productos.filter(producto => producto.id !== id));
+      alert("Producto eliminado exitosamente");
+    }
   };
 
   const handleEditarProducto = (id) => {
-    navigate(`/productos/editar/${id}`);
+    navigate(`/productos/editarr`);
   };
 
   const handleAgregarProducto = () => {
-    navigate("/productos/agregar");
+    navigate("/productos/agregarr");
   };
 
   const handleVerDetalleProducto = (id) => {
-    navigate(`/productos/ver-detalle/${id}`);
+    navigate(`/productos/ver-detalle`);
   };
 
   // Definir los módulos para el Sidebar
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dashboard" }],
+      submenus: [{ name: "Dashboard", path: "/dasboard" }],
     },
     {
       name: "Configuración",
@@ -151,7 +153,7 @@ function Productos() {
                 value={busqueda}
                 onChange={(e) => {
                   setBusqueda(e.target.value);
-                  setCurrentPage(1); // Reset to first page on search
+                  setCurrentPage(1);
                 }}
               />
               <Button variant="outline-secondary">Buscar</Button>
@@ -189,34 +191,35 @@ function Productos() {
                   />
                 </td>
                 <td>
-                  <Button
-                    variant="info"
-                    size="sm"
-                    onClick={() => handleVerDetalleProducto(producto.id)}
-                  >
-                    Ver Detalle
-                  </Button>{" "}
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    onClick={() => handleEditarProducto(producto.id)}
-                  >
-                    Editar
-                  </Button>{" "}
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => handleAnularProducto(producto.id)}
-                  >
-                    Anular
-                  </Button>
+                  <div className="d-flex gap-2">
+                    <Button
+                      variant="info"
+                      size="sm"
+                      onClick={() => handleVerDetalleProducto(producto.id)}
+                    >
+                      Ver Detalle
+                    </Button>
+                    <Button
+                      variant="warning"
+                      size="sm"
+                      onClick={() => handleEditarProducto(producto.id)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => handleEliminarProducto(producto.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
 
-        {/* Pagination controls */}
         <div className="pagination-container">
           <button 
             onClick={() => paginate(currentPage - 1)}

@@ -1,4 +1,3 @@
-// src/components/Categoria.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
@@ -51,13 +50,16 @@ function Categoria() {
     });
   };
 
-  // Funciones para manejar las acciones
-  const handleAnularCategoria = (id) => {
-    alert(`Anular Categoría con ID: ${id}`);
+  // Función para eliminar categoría con confirmación
+  const handleEliminarCategoria = (id) => {
+    if (window.confirm("¿Está seguro que desea eliminar esta categoría?")) {
+      setCategorias(categorias.filter(categoria => categoria.id !== id));
+      alert("Categoría eliminada exitosamente");
+    }
   };
 
   const handleEditarCategoria = (id) => {
-    navigate(`/categoria/editar/${id}`);
+    navigate(`/categoria/editar`);
   };
 
   const handleAgregarCategoria = () => {
@@ -65,7 +67,7 @@ function Categoria() {
   };
 
   const handleVerDetalleCategoria = (id) => {
-    navigate(`/categoria/ver-detalle/${id}`);
+    navigate(`/categoria/ver-detalle`);
   };
 
   const modules = [
@@ -114,7 +116,7 @@ function Categoria() {
                 value={busqueda}
                 onChange={(e) => {
                   setBusqueda(e.target.value);
-                  setCurrentPage(1); // Reset to first page on search
+                  setCurrentPage(1);
                 }}
               />
               <Button variant="outline-secondary">Buscar</Button>
@@ -150,34 +152,35 @@ function Categoria() {
                   />
                 </td>
                 <td>
-                  <Button
-                    variant="info"
-                    size="sm"
-                    onClick={() => handleVerDetalleCategoria(categoria.id)}
-                  >
-                    Ver Detalle
-                  </Button>{" "}
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    onClick={() => handleEditarCategoria(categoria.id)}
-                  >
-                    Editar
-                  </Button>{" "}
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => handleAnularCategoria(categoria.id)}
-                  >
-                    Anular
-                  </Button>
+                  <div className="d-flex gap-2">
+                    <Button
+                      variant="info"
+                      size="sm"
+                      onClick={() => handleVerDetalleCategoria(categoria.id)}
+                    >
+                      Ver Detalle
+                    </Button>
+                    <Button
+                      variant="warning"
+                      size="sm"
+                      onClick={() => handleEditarCategoria(categoria.id)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => handleEliminarCategoria(categoria.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
 
-        {/* Pagination controls */}
         <div className="pagination-container">
           <button 
             onClick={() => paginate(currentPage - 1)}

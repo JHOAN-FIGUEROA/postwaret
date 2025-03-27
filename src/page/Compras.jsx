@@ -79,13 +79,12 @@ function Compras() {
     );
   };
 
-  const handleAnular = () => navigate("/compras/anular");
   const handleVerDetalle = (id) => navigate(`/compras/ver-detalle/${id}`);
   const handleGenerarPDF = () => navigate(`/compras/GenerarPDF`);
   const handleAgregarCompra = () => navigate("/compras/agregar");
 
   const modules = [
-    { name: "Dashboard", submenus: [{ name: "Dashboard", path: "/dashboard" }] },
+    { name: "Dashboard", submenus: [{ name: "Dashboard", path: "/dasboard" }] },
     {
       name: "Configuración",
       submenus: [
@@ -170,10 +169,7 @@ function Compras() {
                   <Button variant="info" size="sm" onClick={() => handleVerDetalle(compra.id)}>
                     Ver Detalle
                   </Button>{" "}
-                  <Button variant="danger" size="sm" onClick={handleAnular}>
-                    Anular
-                  </Button>{" "}
-                  <Button variant="info" size="sm" onClick={handleGenerarPDF}>
+                  <Button variant="warning" size="sm" onClick={handleGenerarPDF}>
                     Generar PDF
                   </Button>
                 </td>

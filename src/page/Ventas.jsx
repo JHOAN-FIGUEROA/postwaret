@@ -106,9 +106,7 @@ function Ventas() {
     );
   };
 
-  const handleAnular = (id) => {
-    alert(`Anular Venta con ID: ${id}`);
-  };
+
 
   const handleGenerarPDF = (id) => {
     navigate(`/ventas/Generarpdf`);
@@ -216,13 +214,7 @@ function Ventas() {
                 >
                   Generar Pdf
                 </Button>{" "}
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleAnular(venta.id)}
-                >
-                  Anular
-                </Button>
+            
               </td>
             </tr>
           ))}

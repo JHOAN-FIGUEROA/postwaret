@@ -10,7 +10,6 @@ import Proveedores from "./page/Proveedores"
 import Compras from "./page/Compras"
 import AgregarCompra from "./page/Compras/AgregarCompra"
 import VerDetalleCompra from "./page/Compras/VerDetalleCompra"
-import AnularCompra from "./page/Compras/AnularCompra"
 import GenerarPDF from "./page/Compras/GenerarPDF"
 import AgregarProductos from "./page/Compras/AgregarProducto"
 import AgregarProveedor from "./page/Proveedores/AgregarProveedor"
@@ -130,7 +129,6 @@ function App() {
           <Route path="/compras" element={<Compras />} />
           <Route path="/compras/agregar" element={<AgregarCompra />} />
           <Route path="/compras/ver-detalle/:id" element={<VerDetalleCompra />} />
-          <Route path="/compras/anular" element={<AnularCompra />} />
           <Route path="/compras/GenerarPDF" element={<GenerarPDF />} />
           <Route path="/productos/agregar" element={<AgregarProductos />} />
           <Route path="/productos/editar" element={<EditarCliente />} />

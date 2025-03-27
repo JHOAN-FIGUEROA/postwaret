@@ -1,27 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Form, Button, Row, Col, Card, Table } from "react-bootstrap";
+import { Form, Button, Card, ListGroup } from "react-bootstrap";
 import Sidebar from "./../Sidebar";
 
 function EditarRol() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Datos iniciales del rol
+  // Estado inicial del rol
   const [rol, setRol] = useState({
-    id: "",
-    nombre: "",
-    descripcion: "",
+    nombre: "Cajero",
+    descripcion: "El rol Cajero es el rol que administra toda La parte de compras y ventas",
     permisos: {
-      sistema: false,
-      usuarios: false,
-      configuracion: false,
-      compras: false,
-      ventas: false
+      entrarSistema: false,
+      cambiarEstadoUsuario: false,
+      verPermisosAsociados: false,
+      salirSistema: false,
+      accederConfiguracion: false,
+      asociarPermisos: false,
+      eliminarUsuario: false,
+      crearRol: false,
+      entrarCompras: false,
+      editarUsuario: false,
+      editarRol: false,
+      verCompras: false,
+      agregarUsuario: false,
+      anularRol: false,
+      agregarCompra: false,
+      descargarPDF: false,
+      eliminarRol: false,
+      verDetalleCompra: false,
+      anularUsuario: false,
+      verDetalleRol: false,
+      anularCompra: false,
+      buscarUsuario: false,
+      verRoles: false,
+      cambiarEstadoCompra: false,
+      verDetalleUsuario: false,
+      cambiarEstadoRol: false,
+      buscarCompra: false
     }
   });
 
-  // Cargar datos del rol al montar el componente
+  // Cargar datos del rol si se pasan por navegación
   useEffect(() => {
     if (location.state?.rol) {
       setRol(location.state.rol);
@@ -35,12 +56,12 @@ function EditarRol() {
   };
 
   // Manejar cambios en los permisos
-  const handlePermisoChange = (modulo) => {
+  const handlePermisoChange = (permiso) => {
     setRol({
       ...rol,
       permisos: {
         ...rol.permisos,
-        [modulo]: !rol.permisos[modulo]
+        [permiso]: !rol.permisos[permiso]
       }
     });
   };
@@ -88,74 +109,83 @@ function EditarRol() {
 
   return (
     <div className="main-content with-sidebar">
-      <h2>Editar Rol: {rol.nombre}</h2>
+      <h2>Editor Rol</h2>
       <Sidebar modules={modules} />
 
       <Card className="mb-4">
         <Card.Body>
-          <Card.Title>Información Básica</Card.Title>
           <Form>
-            <Row className="mb-3">
-              <Col md={6}>
-                <Form.Group controlId="nombre">
-                  <Form.Label>Nombre del Rol</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="nombre"
-                    value={rol.nombre}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group controlId="descripcion">
-                  <Form.Label>Descripción</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={1}
-                    name="descripcion"
-                    value={rol.descripcion}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+            <Form.Group className="mb-3">
+              <Form.Label><strong>Nombre</strong></Form.Label>
+              <Form.Control
+                type="text"
+                name="nombre"
+                value={rol.nombre}
+                onChange={handleChange}
+                className="mb-2"
+              />
+              <Form.Label><strong>Descripción Del Rol</strong></Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="descripcion"
+                value={rol.descripcion}
+                onChange={handleChange}
+              />
+            </Form.Group>
           </Form>
         </Card.Body>
       </Card>
 
-      <Card className="mb-4">
+      <Card>
         <Card.Body>
-          <Card.Title>Permisos Asignados</Card.Title>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Módulo</th>
-                <th>Acceso</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(rol.permisos).map(([modulo, tieneAcceso]) => (
-                <tr key={modulo}>
-                  <td>{modulo.charAt(0).toUpperCase() + modulo.slice(1)}</td>
-                  <td>
-                    <Form.Check
-                      type="switch"
-                      id={`permiso-${modulo}`}
-                      checked={tieneAcceso}
-                      onChange={() => handlePermisoChange(modulo)}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+          <Card.Title>Permisos Asociados</Card.Title>
+          <ListGroup variant="flush">
+            {Object.entries({
+              "Entrar Al Sistema": "entrarSistema",
+              "Cambiar estado de usuario": "cambiarEstadoUsuario",
+              "Ver Permisos Asociados": "verPermisosAsociados",
+              "Salir del sistema": "salirSistema",
+              "Acceder a Configuración": "accederConfiguracion",
+              "Asociar Permisos Al Rol": "asociarPermisos",
+              "Eliminar usuario": "eliminarUsuario",
+              "Crear Rol": "crearRol",
+              "Entrar Al modulo de Compras": "entrarCompras",
+              "Editar usuario": "editarUsuario",
+              "Editar Rol": "editarRol",
+              "Ver Compras Enlistadas": "verCompras",
+              "Agregar usuario": "agregarUsuario",
+              "Anular Rol": "anularRol",
+              "Agregar Compra": "agregarCompra",
+              "Descargar pdf": "descargarPDF",
+              "Eliminar Rol": "eliminarRol",
+              "Ver Detalle De Compra": "verDetalleCompra",
+              "Anular usuario": "anularUsuario",
+              "Ver Detalle De Rol": "verDetalleRol",
+              "Anular Compra": "anularCompra",
+              "Buscar usuario": "buscarUsuario",
+              "Ver Roles Enlistados": "verRoles",
+              "Cambiar Estado De Compra": "cambiarEstadoCompra",
+              "Ver detalle de usuario": "verDetalleUsuario",
+              "Cambiar Estado De rol": "cambiarEstadoRol",
+              "Buscar Compra": "buscarCompra"
+            }).map(([label, permisoKey]) => (
+              <ListGroup.Item key={permisoKey}>
+                <Form.Check
+                  type="checkbox"
+                  id={`permiso-${permisoKey}`}
+                  label={label}
+                  checked={rol.permisos[permisoKey]}
+                  onChange={() => handlePermisoChange(permisoKey)}
+                />
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
         </Card.Body>
       </Card>
 
-      <div className="text-end">
-        <Button variant="success" onClick={handleGuardar} className="me-2">
+      <div className="d-flex justify-content-end mt-4">
+        <Button variant="primary" onClick={handleGuardar} className="me-2">
           Guardar Cambios
         </Button>
         <Button variant="secondary" onClick={handleCancelar}>
