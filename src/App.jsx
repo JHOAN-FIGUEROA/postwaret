@@ -15,7 +15,6 @@ import AgregarProductos from "./page/Compras/AgregarProducto"
 import AgregarProveedor from "./page/Proveedores/AgregarProveedor"
 import EditarProveedor from "./page/Proveedores/EditarProveedor"
 import VerDetalleProveedor from "./page/Proveedores/VerDetalleProveedor"
-import AnularProveedor from "./page/Proveedores/AnularProveedor"
 import Clientes from "./page/Clientes"
 import AgregarCliente from "./page/Clientes/AgregarCliente"
 import VerDetalleCliente from "./page/Clientes/VerDetalleCliente"
@@ -29,7 +28,6 @@ import Productos from "./page/Productos"
 import AgregarProductoo from "./page/Productos/AgregarProductoo"
 import EditarProductoo from "./page/Productos/EditarProducto"
 import VerDetalleProducto from "./page/Productos/VerDetalleProducto"
-import AnularProducto from "./page/Productos/AnularProducto"
 import Ventas from "./page/Ventas"
 import AgregarVenta from "./page/Ventas/AgregarVenta"
 import AgregarProductosss from "./page/Ventas/AgregarProductov"
@@ -138,7 +136,6 @@ function App() {
           <Route path="/proveedor/agregar" element={<AgregarProveedor />} />
           <Route path="/proveedor/editar" element={<EditarProveedor />} />
           <Route path="/proveedor/ver-detalle" element={<VerDetalleProveedor />} />
-          <Route path="/proveedor/anular" element={<AnularProveedor />} />
           <Route path="/clientes" element={<Clientes />} />
           <Route path="/clientes/agregar" element={<AgregarCliente />} />
           <Route path="/clientes/editar/" element={<EditarCliente />} />
@@ -152,7 +149,6 @@ function App() {
           <Route path="/productos/agregarr" element={<AgregarProductoo />} />
           <Route path="/productos/editarr" element={<EditarProductoo />} />
           <Route path="/productos/ver-detalle" element={<VerDetalleProducto />} />
-          <Route path="/productos/anular" element={<AnularProducto />} />
           <Route path="/ventas" element={<Ventas />} />
           <Route path="/ventas/agregar" element={<AgregarVenta />} />
           <Route path="/productos/agregarrr" element={<AgregarProductosss />} />
