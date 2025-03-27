@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom"
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap"
 import Sidebar from "./Sidebar"
 import EstadoSwitch from "./EstadoSwitch"
+import Swal from 'sweetalert2'
 
 function Clientes() {
   const [clientes, setClientes] = useState([
@@ -34,22 +35,68 @@ function Clientes() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   const handleAgregar = () => {
-    navigate("/clientes/agregar")
+    Swal.fire({
+      title: 'Agregar Cliente',
+      text: 'Serás redirigido al formulario para agregar un nuevo cliente',
+      icon: 'info',
+      confirmButtonText: 'Continuar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/clientes/agregar")
+      }
+    })
   }
 
   const handleEditar = (id) => {
-    navigate(`/clientes/editar/`)
+    Swal.fire({
+      title: 'Editar Cliente',
+      text: 'Serás redirigido al formulario de edición',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(`/clientes/editar/`)
+      }
+    })
   }
 
   const handleVerDetalle = (id) => {
-    navigate(`/clientes/detalle/`)
+    const cliente = clientes.find(c => c.id === id)
+    Swal.fire({
+      title: `Detalle del Cliente: ${cliente.nombre}`,
+      html: `
+        <p><strong>ID:</strong> ${cliente.id}</p>
+        <p><strong>Contacto:</strong> ${cliente.contacto}</p>
+        <p><strong>Teléfono:</strong> ${cliente.telefono}</p>
+        <p><strong>Estado:</strong> ${cliente.Estado}</p>
+      `,
+      icon: 'info',
+      confirmButtonText: 'Cerrar'
+    })
   }
 
   const handleEliminar = (id) => {
-    if (window.confirm("¿Está seguro que desea eliminar este cliente?")) {
-      setClientes(clientes.filter(clientes => clientes.id !== id));
-      alert("Cliente eliminado exitosamente");
-    }
+    Swal.fire({
+      title: '¿Eliminar cliente?',
+      text: "Esta acción no se puede deshacer",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setClientes(clientes.filter(cliente => cliente.id !== id))
+        Swal.fire(
+          '¡Eliminado!',
+          'El cliente ha sido eliminado exitosamente',
+          'success'
+        )
+      }
+    })
   }
 
   const handleCambiarEstado = (clienteId) => {
@@ -57,6 +104,15 @@ function Clientes() {
       return prevClientes.map((cliente) => {
         if (cliente.id === clienteId) {
           const nuevoEstado = cliente.Estado === "Activa" ? "Inactiva" : "Activa"
+          
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: `Estado cambiado a ${nuevoEstado}`,
+            showConfirmButton: false,
+            timer: 1500
+          })
+          
           return {
             ...cliente,
             Estado: nuevoEstado,
@@ -69,8 +125,8 @@ function Clientes() {
 
   const modules = [
     {
-      name: "Dasboard",
-      submenus: [{ name: "Dasboard", path: "/dasboard" }],
+      name: "Dashboard",
+      submenus: [{ name: "Dashboard", path: "/dahboard" }],
     },
     {
       name: "Configuracion",
@@ -111,7 +167,7 @@ function Clientes() {
                 value={busqueda}
                 onChange={(e) => {
                   setBusqueda(e.target.value)
-                  setCurrentPage(1) // Reset to first page on search
+                  setCurrentPage(1)
                 }}
               />
               <Button variant="outline-secondary">Buscar</Button>

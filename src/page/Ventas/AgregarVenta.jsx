@@ -1,8 +1,8 @@
-// src/page/CrearVenta.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Row, Col, InputGroup } from "react-bootstrap";
-import Sidebar from "././../Sidebar"; // Importa el Sidebar
+import Sidebar from "././../Sidebar";
+import Swal from 'sweetalert2';
 
 function AgregarVenta() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ function AgregarVenta() {
   const [venta, setVenta] = useState({
     Cliente: "",
     fechaventa: "",
-    productos: location.state?.productos || [], // Lista de productos
+    productos: location.state?.productos || [],
     subtotal: 0,
     Estado: "Activa",
     total: 0,
@@ -20,6 +20,11 @@ function AgregarVenta() {
 
   // Lista de clientes
   const clientes = ["Cliente A", "Cliente B", "Cliente C"];
+
+  // Calcular totales cuando cambian los productos
+  useEffect(() => {
+    calcularTotales(venta.productos);
+  }, [venta.productos]);
 
   // Función para manejar cambios en los campos del formulario
   const handleChange = (e) => {
@@ -32,18 +37,27 @@ function AgregarVenta() {
 
   // Función para navegar a la página de agregar productos
   const handleAgregarProductos = () => {
-    navigate("/productos/agregarrr", {
-      state: { productos: venta.productos, origen: "ventas" }, // Indicar que viene de ventas
+    Swal.fire({
+      title: 'Agregar Productos',
+      text: 'Serás redirigido para seleccionar productos',
+      icon: 'info',
+      confirmButtonText: 'Continuar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/productos/agregarrr", {
+          state: { productos: venta.productos, origen: "ventas" },
+        });
+      }
     });
   };
 
   // Función para calcular subtotal y total
   const calcularTotales = (productos) => {
     const subtotal = productos.reduce(
-      (acc, producto) => acc + producto.cantidad * producto.precioVenta,
+      (acc, producto) => acc + (producto.cantidad * producto.precioVenta || 0),
       0
     );
-    const total = subtotal; // Sin IVA
+    const total = subtotal;
 
     setVenta((prevVenta) => ({
       ...prevVenta,
@@ -52,13 +66,63 @@ function AgregarVenta() {
     }));
   };
 
-  // Función para simular el guardado de la venta
-  const handleGuardarVenta = () => {
-    alert("Venta guardada exitosamente");
-    navigate("/ventas"); // Redirige a la página de ventas
+  // Función para validar el formulario
+  const validarFormulario = () => {
+    if (!venta.Cliente) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe seleccionar un cliente',
+      });
+      return false;
+    }
+    if (!venta.fechaventa) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe ingresar una fecha de venta',
+      });
+      return false;
+    }
+    if (venta.productos.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debe agregar al menos un producto',
+      });
+      return false;
+    }
+    return true;
   };
 
-  // Definir los módulos para el Sidebar
+  // Función para guardar la venta
+  const handleGuardarVenta = () => {
+    
+
+    Swal.fire({
+      title: '¿Guardar venta?',
+      text: "¿Estás seguro de que deseas guardar esta venta?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: '¡Venta guardada!',
+          text: 'La venta ha sido registrada exitosamente',
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+        }).then(() => {
+          navigate("/ventas");
+        });
+      }
+    });
+  };
+
   const modules = [
     {
       name: "Dashboard",
@@ -69,7 +133,6 @@ function AgregarVenta() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -93,7 +156,7 @@ function AgregarVenta() {
   return (
     <div className="main-content with-sidebar">
       <h2>Crear Nueva Venta</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
+      <Sidebar modules={modules} />
       <Form>
         <Row className="mb-3">
           <Col>
@@ -103,6 +166,7 @@ function AgregarVenta() {
                 name="Cliente"
                 value={venta.Cliente}
                 onChange={handleChange}
+                required
               >
                 <option value="">Seleccione un cliente</option>
                 {clientes.map((cliente, index) => (
@@ -121,6 +185,7 @@ function AgregarVenta() {
                 name="fechaventa"
                 value={venta.fechaventa}
                 onChange={handleChange}
+                required
               />
             </Form.Group>
           </Col>

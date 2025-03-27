@@ -1,8 +1,8 @@
-// src/page/AgregarProductos.jsx
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Table, Row, Col, InputGroup } from "react-bootstrap";
-import Sidebar from "././../Sidebar"; // Importa el Sidebar
+import Sidebar from "././../Sidebar";
+import Swal from 'sweetalert2';
 
 function AgregarProductos() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function AgregarProductos() {
   const [productos, setProductos] = useState(productosIniciales);
   const [nuevoProducto, setNuevoProducto] = useState({
     nombre: "",
-    codigoBarras: "", // Nuevo campo de código de barras
+    codigoBarras: "",
     cantidad: 1,
     precioVenta: 0,
   });
@@ -27,11 +27,15 @@ function AgregarProductos() {
     }));
   };
 
-  // Función para agregar un producto
+  // Función para agregar un producto con validación mejorada
   const handleAgregarProducto = () => {
-    // Validación con lógica condicional
     if (!nuevoProducto.codigoBarras && (!nuevoProducto.nombre || nuevoProducto.precioVenta <= 0)) {
-      alert("Cuando no se ingresa código de barras, son obligatorios: Nombre del Producto y Precio de Venta mayor a 0");
+      Swal.fire({
+        icon: 'error',
+        title: 'Datos incompletos',
+        html: 'Cuando no se ingresa código de barras, son obligatorios:<br/><br/>- Nombre del Producto<br/>- Precio de Venta mayor a 0',
+        confirmButtonText: 'Entendido'
+      });
       return;
     }
 
@@ -49,24 +53,75 @@ function AgregarProductos() {
     setProductos([...productos, producto]);
     setNuevoProducto({ 
       nombre: "", 
-      codigoBarras: "", // Reiniciar también el código de barras
+      codigoBarras: "",
       cantidad: 1, 
       precioVenta: 0 
-    }); // Reiniciar el formulario
+    });
+
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Producto agregado',
+      showConfirmButton: false,
+      timer: 1500
+    });
   };
 
-  // Función para eliminar un producto
+  // Función para eliminar un producto con confirmación
   const handleEliminarProducto = (index) => {
-    const nuevosProductos = productos.filter((_, i) => i !== index);
-    setProductos(nuevosProductos);
+    Swal.fire({
+      title: '¿Eliminar producto?',
+      text: "Esta acción no se puede deshacer",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const nuevosProductos = productos.filter((_, i) => i !== index);
+        setProductos(nuevosProductos);
+        Swal.fire(
+          'Eliminado!',
+          'El producto ha sido eliminado',
+          'success'
+        );
+      }
+    });
   };
 
-  // Función para guardar y regresar a la página de crear venta
+  // Función para guardar y regresar con confirmación
   const handleGuardar = () => {
-    navigate("/ventas/agregar", { state: { productos } });
+    if (productos.length === 0) {
+      Swal.fire({
+        icon: 'question',
+        title: '¿Continuar sin productos?',
+        text: 'No has agregado ningún producto, ¿deseas continuar?',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, continuar',
+        cancelButtonText: 'No, agregar productos'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/ventas/agregar", { state: { productos } });
+        }
+      });
+    } else {
+      Swal.fire({
+        title: 'Guardar productos',
+        text: `Estás a punto de guardar ${productos.length} producto(s)`,
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Guardar y regresar',
+        cancelButtonText: 'Seguir editando'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/ventas/agregar", { state: { productos } });
+        }
+      });
+    }
   };
 
-  // Definir los módulos para el Sidebar
   const modules = [
     {
       name: "Dashboard",
@@ -166,42 +221,55 @@ function AgregarProductos() {
           </Col>
         </Row>
       </Form>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Código de Barras</th>
-            <th>Cantidad</th>
-            <th>Precio de Venta</th>
-            <th>Subtotal</th>
-            <th>IVA (19%)</th>
-            <th>Total</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productos.map((producto, index) => (
-            <tr key={index}>
-              <td>{producto.nombre}</td>
-              <td>{producto.codigoBarras || 'N/A'}</td>
-              <td>{producto.cantidad}</td>
-              <td>${producto.precioVenta.toFixed(2)}</td>
-              <td>${producto.subtotal.toFixed(2)}</td>
-              <td>${producto.iva.toFixed(2)}</td>
-              <td>${producto.total.toFixed(2)}</td>
-              <td>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleEliminarProducto(index)}
-                >
-                  Eliminar
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      
+      {productos.length > 0 ? (
+        <>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Código de Barras</th>
+                <th>Cantidad</th>
+                <th>Precio de Venta</th>
+                <th>Subtotal</th>
+                <th>IVA (19%)</th>
+                <th>Total</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productos.map((producto, index) => (
+                <tr key={index}>
+                  <td>{producto.nombre}</td>
+                  <td>{producto.codigoBarras || 'N/A'}</td>
+                  <td>{producto.cantidad}</td>
+                  <td>${producto.precioVenta.toFixed(2)}</td>
+                  <td>${producto.subtotal.toFixed(2)}</td>
+                  <td>${producto.iva.toFixed(2)}</td>
+                  <td>${producto.total.toFixed(2)}</td>
+                  <td>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => handleEliminarProducto(index)}
+                    >
+                      Eliminar
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <div className="text-end mb-3">
+            <h5>Total General: ${productos.reduce((sum, p) => sum + p.total, 0).toFixed(2)}</h5>
+          </div>
+        </>
+      ) : (
+        <div className="alert alert-info mt-3">
+          No hay productos agregados
+        </div>
+      )}
+      
       <Row className="mb-3">
         <Col className="text-end">
           <Button variant="success" onClick={handleGuardar}>

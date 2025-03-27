@@ -3,6 +3,7 @@ import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import EstadoSwitch from "./EstadoSwitch";
+import Swal from 'sweetalert2';
 
 function Ventas() {
   const navigate = useNavigate();
@@ -41,7 +42,6 @@ function Ventas() {
       Estado: "Activa",
       total: 4.000,
     },
-    // Add more sample data to demonstrate pagination
     {
       id: 4,
       Cliente: "Cliente D",
@@ -106,10 +106,27 @@ function Ventas() {
     );
   };
 
-
-
   const handleGenerarPDF = (id) => {
-    navigate(`/ventas/Generarpdf`);
+    Swal.fire({
+      title: 'Generar PDF',
+      text: '¿Deseas generar un PDF de esta venta?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Generar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'PDF Generado',
+          'El PDF se ha generado correctamente',
+          'success'
+        ).then(() => {
+          console.log(`Generando PDF para Venta ID: ${id}`);
+        });
+      }
+    });
   };
 
   const handleVerDetalle = (id) => {
@@ -117,7 +134,16 @@ function Ventas() {
   };
 
   const handleAgregarVenta = () => {
-    navigate("/ventas/agregar");
+    Swal.fire({
+      title: 'Agregar Venta',
+      text: 'Serás redirigido al formulario para crear una nueva venta',
+      icon: 'info',
+      confirmButtonText: 'Continuar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/ventas/agregar");
+      }
+    });
   };
 
   const modules = [
@@ -163,7 +189,7 @@ function Ventas() {
               value={busqueda}
               onChange={(e) => {
                 setBusqueda(e.target.value);
-                setCurrentPage(1); // Reset to first page when searching
+                setCurrentPage(1);
               }}
             />
             <Button variant="outline-secondary">Buscar</Button>
@@ -207,14 +233,9 @@ function Ventas() {
                 >
                   Ver Detalle
                 </Button>{" "}
-                <Button
-                  variant="warning"
-                  size="sm"
-                  onClick={() => handleGenerarPDF(venta.id)}
-                >
-                  Generar Pdf
-                </Button>{" "}
-            
+                <Button variant="warning" size="sm" onClick={() => handleGenerarPDF(venta.id)}>
+                                    Generar PDF
+                                  </Button>
               </td>
             </tr>
           ))}
