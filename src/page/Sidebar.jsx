@@ -1,13 +1,64 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { FaBars, FaTimes } from "react-icons/fa"
-
+import { 
+  Package, 
+  ShoppingCart, 
+  Users, 
+  BarChart, 
+  Settings, 
+  LogOut, 
+  Clipboard,
+  FileText,
+  PieChart,
+  CreditCard,
+  User,
+  UserPlus,
+  Box,
+  Truck,
+  Tag,
+  UserCog,
+  Wine
+} from "lucide-react"
 
 function Sidebar({ modules }) {
   const [expandedModule, setExpandedModule] = useState(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const navigate = useNavigate()
+
+  // Icon mapping for modules
+  const moduleIcons = {
+
+    "Ventas": ShoppingCart,
+    "Dasboard": BarChart,
+    "Dashboard": BarChart,
+    "Configuracion": Settings,
+    "Configuración": Settings,
+    "Compras": FileText,
+
+  }
+
+  // Icon mapping for submenus
+  const submenuIcons = {
+    // Inventario
+    "Productos": Wine,
+    "Categoria": Tag,
+    "Proveedores": Truck,
+    "Compras": FileText,
+
+    // Ventas
+    "Ventas": ShoppingCart,
+    "Dasboard": BarChart,
+    // Clientes
+    "Clientes": Users,
+
+
+    // Configuración
+    "Roles": UserCog,
+    "Perfil": Clipboard,
+    "Usuarios": Users,
+  }
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem("isLoggedIn")
@@ -76,7 +127,12 @@ function Sidebar({ modules }) {
           overflowY: 'auto'
         }}
       >
-        <h2 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+         <h2 style={{ 
+          display: 'flex', 
+          justifyContent:'space-between', 
+          alignItems: 'center',
+          color: 'white' 
+        }}>
           🛒 POSTWARE
           <button 
             onClick={toggleSidebar}
@@ -86,50 +142,63 @@ function Sidebar({ modules }) {
           </button>
         </h2>
         <ul style={{ listStyle: 'none', padding: 0 }}>
-          {modules.map((module, index) => (
-            <li key={index} style={{ marginBottom: '10px' }}>
-              <div 
-                className="module-item" 
-                onClick={() => handleModuleClick(module.name)}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '8px 12px',
-                  cursor: 'pointer',
-                  borderRadius: '4px',
-                  '&:hover': {
-                    backgroundColor: '#e9ecef'
-                  }
-                }}
-              >
-                {module.name}
-                <span className="arrow" style={{ fontSize: '12px' }}>
-                  {expandedModule === module.name ? "▼" : "►"}
-                </span>
-              </div>
-              {expandedModule === module.name && (
-                <ul className="submenu" style={{ listStyle: 'none', paddingLeft: '20px' }}>
-                  {module.submenus.map((submenu, subIndex) => (
-                    <li 
-                      key={subIndex} 
-                      onClick={() => handleSubmenuClick(submenu.path)}
-                      style={{
-                        padding: '8px 12px',
-                        cursor: 'pointer',
-                        borderRadius: '4px',
-                        '&:hover': {
-                          backgroundColor: '#e9ecef'
-                        }
-                      }}
-                    >
-                      {submenu.name}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
+          {modules.map((module, index) => {
+            const ModuleIcon = moduleIcons[module.name] || Package
+            return (
+              <li key={index} style={{ marginBottom: '10px' }}>
+                <div 
+                  className="module-item" 
+                  onClick={() => handleModuleClick(module.name)}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '8px 12px',
+                    cursor: 'pointer',
+                    borderRadius: '4px',
+                    '&:hover': {
+                      backgroundColor: '#e9ecef'
+                    }
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <ModuleIcon size={18} />
+                    {module.name}
+                  </div>
+                  <span className="arrow" style={{ fontSize: '12px' }}>
+                    {expandedModule === module.name ? "▼" : "►"}
+                  </span>
+                </div>
+                {expandedModule === module.name && (
+                  <ul className="submenu" style={{ listStyle: 'none', paddingLeft: '20px' }}>
+                    {module.submenus.map((submenu, subIndex) => {
+                      const SubmenuIcon = submenuIcons[submenu.name] || Package
+                      return (
+                        <li 
+                          key={subIndex} 
+                          onClick={() => handleSubmenuClick(submenu.path)}
+                          style={{
+                            padding: '8px 12px',
+                            cursor: 'pointer',
+                            borderRadius: '4px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            '&:hover': {
+                              backgroundColor: '#e9ecef'
+                            }
+                          }}
+                        >
+                          <SubmenuIcon size={16} />
+                          {submenu.name}
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
+              </li>
+            )
+          })}
         </ul>
         <div style={{ marginTop: '20px' }}>
           <button 
@@ -142,10 +211,14 @@ function Sidebar({ modules }) {
               color: 'white',
               border: 'none',
               borderRadius: '4px',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '10px'
             }}
           >
-            Cerrar Sesión
+            <LogOut size={18} /> Cerrar Sesión
           </button>
         </div>
       </div>
