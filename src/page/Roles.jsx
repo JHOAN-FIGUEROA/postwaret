@@ -3,9 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import EstadoSwitch from "./EstadoSwitch";
+import { useAlert } from '../AlertContext';
+
 
 function Roles() {
   const navigate = useNavigate();
+  const { showSuccess, showInfo, showWarning, showError, confirm } = useAlert();
+  const { alert } = useAlert();
 
   const [roles, setRoles] = useState([
     { 
@@ -65,20 +69,48 @@ function Roles() {
           : rol
       )
     );
+    
+    // Mostrar notificación de cambio de estado
+    const rol = roles.find(r => r.id === rolId);
+    const nuevoEstado = !rol.estado;
+    showInfo(`El rol "${rol.nombre}" ha sido ${nuevoEstado ? 'activado' : 'desactivado'}`);
   };
 
   // Función para eliminar rol con confirmación
-  const handleEliminarRol = (id) => {
-    if (window.confirm("¿Está seguro que desea eliminar este rol?")) {
+  const handleEliminarRol = async (id) => {
+    const rol = roles.find(r => r.id === id);
+    const confirmed = await alert (
+      `¿Está seguro que desea eliminar el rol "${rol.nombre}"?`, 
+      "Eliminar Rol"
+    );
+    
+    if (alert) {
       setRoles(roles.filter(rol => rol.id !== id));
-      alert("Rol eliminado exitosamente");
+      showSuccess(`Rol "${rol.nombre}" eliminado exitosamente`);
     }
   };
 
-  const handleEditarRol = (id) => navigate(`/roles/editar`);
-  const handleAgregarRol = () => navigate("/roles/agregar");
-  const handleVerDetalleRol = (id) => navigate(`/roles/ver-detalle`);
-  const handlePermisosAsociados = (id) => navigate(`/roles/permisos-asociados`);
+  const handleEditarRol = (id) => {
+    const rol = roles.find(r => r.id === id);
+    showInfo(`Editando rol: ${rol.nombre}`);
+    navigate(`/roles/editar`);
+  };
+  
+  const handleAgregarRol = () => {
+    navigate("/roles/agregar");
+  };
+  
+  const handleVerDetalleRol = (id) => {
+    const rol = roles.find(r => r.id === id);
+    showInfo(`Viendo detalles del rol: ${rol.nombre}`);
+    navigate(`/roles/ver-detalle`);
+  };
+  
+  const handlePermisosAsociados = (id) => {
+    const rol = roles.find(r => r.id === id);
+    showInfo(`Gestionando permisos del rol: ${rol.nombre}`);
+    navigate(`/roles/permisos-asociados`);
+  };
 
   const modules = [ 
     {
