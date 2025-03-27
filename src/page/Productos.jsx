@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./Sidebar";
 import EstadoSwitch from "./EstadoSwitch";
 
@@ -64,7 +65,7 @@ function Productos() {
     producto.categoria.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  // Pagination logic
+  // Lógica de paginación
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = productosFiltrados.slice(indexOfFirstItem, indexOfLastItem);
@@ -74,8 +75,8 @@ function Productos() {
 
   // Función para cambiar el estado del producto
   const handleCambiarEstado = (productoId) => {
-    setProductos((prevProductos) => {
-      return prevProductos.map((producto) => {
+    setProductos((prevProductos) =>
+      prevProductos.map((producto) => {
         if (producto.id === productoId) {
           const nuevoEstado = producto.Estado === "Activo" ? "Inactivo" : "Activo";
           return {
@@ -84,15 +85,32 @@ function Productos() {
           };
         }
         return producto;
-      });
-    });
+      })
+    );
   };
 
-  // Función para eliminar producto con confirmación
-  const handleEliminarProducto = (id) => {
-    if (window.confirm("¿Está seguro que desea eliminar este producto?")) {
+  // Función para eliminar producto utilizando SweetAlert2
+  const handleEliminarProducto = async (id) => {
+    const result = await Swal.fire({
+      title: "¿Está seguro?",
+      text: "¿Desea eliminar este producto?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33"
+    });
+
+    if (result.isConfirmed) {
       setProductos(productos.filter(producto => producto.id !== id));
-      alert("Producto eliminado exitosamente");
+      Swal.fire({
+        icon: "success",
+        title: "Producto eliminado exitosamente",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
     }
   };
 

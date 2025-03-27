@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Card, ListGroup } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
 
 function EditarRol() {
@@ -10,7 +11,8 @@ function EditarRol() {
   // Estado inicial del rol
   const [rol, setRol] = useState({
     nombre: "Cajero",
-    descripcion: "El rol Cajero es el rol que administra toda La parte de compras y ventas",
+    descripcion:
+      "El rol Cajero es el rol que administra toda La parte de compras y ventas",
     permisos: {
       entrarSistema: false,
       cambiarEstadoUsuario: false,
@@ -38,8 +40,8 @@ function EditarRol() {
       cambiarEstadoCompra: false,
       verDetalleUsuario: false,
       cambiarEstadoRol: false,
-      buscarCompra: false
-    }
+      buscarCompra: false,
+    },
   });
 
   // Cargar datos del rol si se pasan por navegación
@@ -61,15 +63,22 @@ function EditarRol() {
       ...rol,
       permisos: {
         ...rol.permisos,
-        [permiso]: !rol.permisos[permiso]
-      }
+        [permiso]: !rol.permisos[permiso],
+      },
     });
   };
 
-  // Guardar cambios
+  // Guardar cambios con alerta de SweetAlert2 y redirigir
   const handleGuardar = () => {
-    alert("Rol actualizado exitosamente");
-    navigate("/roles");
+    Swal.fire({
+      icon: "success",
+      title: "Rol actualizado exitosamente",
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    }).then(() => {
+      navigate("/roles");
+    });
   };
 
   // Cancelar edición
@@ -116,7 +125,9 @@ function EditarRol() {
         <Card.Body>
           <Form>
             <Form.Group className="mb-3">
-              <Form.Label><strong>Nombre</strong></Form.Label>
+              <Form.Label>
+                <strong>Nombre</strong>
+              </Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
@@ -124,7 +135,9 @@ function EditarRol() {
                 onChange={handleChange}
                 className="mb-2"
               />
-              <Form.Label><strong>Descripción Del Rol</strong></Form.Label>
+              <Form.Label>
+                <strong>Descripción Del Rol</strong>
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
@@ -168,7 +181,7 @@ function EditarRol() {
               "Cambiar Estado De Compra": "cambiarEstadoCompra",
               "Ver detalle de usuario": "verDetalleUsuario",
               "Cambiar Estado De rol": "cambiarEstadoRol",
-              "Buscar Compra": "buscarCompra"
+              "Buscar Compra": "buscarCompra",
             }).map(([label, permisoKey]) => (
               <ListGroup.Item key={permisoKey}>
                 <Form.Check

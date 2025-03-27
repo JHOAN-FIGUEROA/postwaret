@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
 
 function AgregarUsuario() {
@@ -24,10 +25,18 @@ function AgregarUsuario() {
     setUsuario({ ...usuario, [name]: value });
   };
 
-  // Función para simular el guardado del usuario
+  // Función para simular el guardado del usuario con SweetAlert2
   const handleGuardarUsuario = () => {
-    alert("Usuario guardado exitosamente (simulación)");
-    navigate("/usuarios"); // Redirige a la página de usuarios
+    Swal.fire({
+      icon: "success",
+      title: "Usuario guardado exitosamente",
+      text: "El nuevo usuario ha sido creado",
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    }).then(() => {
+      navigate("/usuarios"); // Redirige a la página de usuarios
+    });
   };
 
   const modules = [

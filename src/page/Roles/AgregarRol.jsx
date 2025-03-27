@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
 
 function AgregarRol() {
@@ -12,6 +13,18 @@ function AgregarRol() {
     descripcion: "",
   });
 
+  // Función para mostrar alertas SweetAlert2
+  const showAlert = (icon, title, text = "") => {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    });
+  };
+
   // Función para manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,7 +33,8 @@ function AgregarRol() {
 
   // Función para simular el guardado del rol
   const handleGuardarRol = () => {
-    alert("Rol guardado exitosamente (simulación)");
+    // Muestra alerta de confirmación
+    showAlert("success", "Rol guardado exitosamente", "El nuevo rol ha sido creado");
     navigate("/roles"); // Redirige a la página de roles
   };
 

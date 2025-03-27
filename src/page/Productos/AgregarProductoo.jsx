@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar"; 
 
 function AgregarProductoo() {
@@ -21,10 +22,18 @@ function AgregarProductoo() {
     setProducto({ ...producto, [name]: value });
   };
 
-  // Función para simular el guardado del producto
+  // Función para simular el guardado del producto con SweetAlert2
   const handleGuardarProducto = () => {
-    alert("Producto guardado exitosamente (simulación)");
-    navigate("/productos"); // Redirige a la página de productos
+    Swal.fire({
+      icon: "success",
+      title: "Producto guardado exitosamente",
+      text: "El nuevo producto ha sido creado",
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    }).then(() => {
+      navigate("/productos"); // Redirige a la página de productos
+    });
   };
 
   const modules = [
@@ -37,7 +46,6 @@ function AgregarProductoo() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -120,7 +128,7 @@ function AgregarProductoo() {
         </Row>
         <Row className="mb-3">
           <Col className="text-end">
-            <Button variant="success" onClick={handleGuardarProducto}>
+            <Button variant="primary" onClick={handleGuardarProducto}>
               Guardar Producto
             </Button>{" "}
             <Button variant="secondary" onClick={() => navigate("/productos")}>

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar"; 
 
 function EditarProductoo() {
@@ -26,11 +27,19 @@ function EditarProductoo() {
     setProducto({ ...producto, [name]: value });
   };
 
-  // Función para manejar la edición del producto
+  // Función para manejar la edición del producto usando SweetAlert2
   const handleEditar = () => {
-    alert(`Producto editado correctamente (simulación)`);
-    navigate("/productos"); // Redirige a la página de productos
-  };  
+    Swal.fire({
+      icon: "success",
+      title: "Producto editado correctamente",
+      text: "Los cambios se han guardado",
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    }).then(() => {
+      navigate("/productos"); // Redirige a la página de productos
+    });
+  };
 
   // Función para cancelar la edición
   const handleCancelar = () => {
@@ -47,7 +56,6 @@ function EditarProductoo() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {

@@ -3,13 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import EstadoSwitch from "./EstadoSwitch";
-import { useAlert } from '../AlertContext';
-
+import Swal from 'sweetalert2';
 
 function Roles() {
   const navigate = useNavigate();
-  const { showSuccess, showInfo, showWarning, showError, confirm } = useAlert();
-  const { alert } = useAlert();
+  
+  // Configuración global para las alertas toast
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+  });
 
   const [roles, setRoles] = useState([
     { 
@@ -48,6 +58,33 @@ function Roles() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
 
+  // Función para mostrar alertas toast
+  const showToast = (icon, title) => {
+    Toast.fire({
+      icon,
+      title
+    });
+  };
+
+  // Función para guardar un nuevo rol
+  const handleGuardarRol = (nuevoRol) => {
+    const id = Math.max(...roles.map(r => r.id)) + 1;
+    const rolCompleto = { ...nuevoRol, id, estado: true };
+    
+    setRoles([...roles, rolCompleto]);
+    showToast('success', 'Rol creado exitosamente');
+    navigate("/roles");
+  };
+
+  // Función para editar un rol existente
+  const handleEditarRolGuardar = (rolEditado) => {
+    setRoles(roles.map(rol => 
+      rol.id === rolEditado.id ? rolEditado : rol
+    ));
+    showToast('success', 'Rol actualizado exitosamente');
+    navigate("/roles");
+  };
+
   const rolesFiltrados = roles.filter(rol =>
     rol.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
     rol.descripcion.toLowerCase().includes(busqueda.toLowerCase())
@@ -70,29 +107,36 @@ function Roles() {
       )
     );
     
-    // Mostrar notificación de cambio de estado
     const rol = roles.find(r => r.id === rolId);
     const nuevoEstado = !rol.estado;
-    showInfo(`El rol "${rol.nombre}" ha sido ${nuevoEstado ? 'activado' : 'desactivado'}`);
+    showToast('info', `Rol ${nuevoEstado ? 'activado' : 'desactivado'}`);
   };
 
   // Función para eliminar rol con confirmación
   const handleEliminarRol = async (id) => {
     const rol = roles.find(r => r.id === id);
-    const confirmed = await alert (
-      `¿Está seguro que desea eliminar el rol "${rol.nombre}"?`, 
-      "Eliminar Rol"
-    );
     
-    if (alert) {
+    const result = await Swal.fire({
+      title: '¿Está seguro?',
+      text: `¿Desea eliminar el rol "${rol.nombre}"?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    });
+    
+    if (result.isConfirmed) {
       setRoles(roles.filter(rol => rol.id !== id));
-      showSuccess(`Rol "${rol.nombre}" eliminado exitosamente`);
+      showToast('success', 'Rol eliminado exitosamente');
+      
     }
   };
 
   const handleEditarRol = (id) => {
     const rol = roles.find(r => r.id === id);
-    showInfo(`Editando rol: ${rol.nombre}`);
+    showToast('info', `Editando rol: ${rol.nombre}`);
     navigate(`/roles/editar`);
   };
   
@@ -102,20 +146,20 @@ function Roles() {
   
   const handleVerDetalleRol = (id) => {
     const rol = roles.find(r => r.id === id);
-    showInfo(`Viendo detalles del rol: ${rol.nombre}`);
+    showToast('info', `Viendo detalles de: ${rol.nombre}`);
     navigate(`/roles/ver-detalle`);
   };
   
   const handlePermisosAsociados = (id) => {
     const rol = roles.find(r => r.id === id);
-    showInfo(`Gestionando permisos del rol: ${rol.nombre}`);
+    showToast('info', `Gestionando permisos de: ${rol.nombre}`);
     navigate(`/roles/permisos-asociados`);
   };
 
   const modules = [ 
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dasboard" }],
+      submenus: [{ name: "Dashboard", path: "/dashboard" }],
     },
     {
       name: "Configuración",
