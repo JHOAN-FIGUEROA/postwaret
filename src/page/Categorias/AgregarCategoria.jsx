@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import Sidebar from "./../Sidebar"; 
-
+import Swal from "sweetalert2";
+import Sidebar from "./../Sidebar";
 
 function AgregarCategoria() {
   const navigate = useNavigate();
@@ -20,23 +20,37 @@ function AgregarCategoria() {
     setCategoria({ ...categoria, [name]: value });
   };
 
-  // Función para simular el guardado de la categoría
+  // Función para manejar el guardado de la categoría con alerta
   const handleGuardarCategoria = () => {
-    alert("Categoría guardada exitosamente (simulación)");
-    navigate("/categoria"); // Redirige a la página de categorías
+    if (!categoria.nombre.trim() || !categoria.descripcion.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "Campos incompletos",
+        text: "Por favor, complete todos los campos antes de guardar.",
+      });
+      return;
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Categoría guardada",
+      text: "La categoría se ha guardado exitosamente.",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      navigate("/categoria"); // Redirige a la página de categorías
+    });
   };
 
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dasboard" }],
+      submenus: [{ name: "Dashboard", path: "/dashboard" }],
     },
     {
       name: "Configuración",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {

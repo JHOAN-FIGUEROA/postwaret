@@ -29,7 +29,6 @@ import Productos from "./page/Productos"
 import AgregarProductoo from "./page/Productos/AgregarProductoo"
 import EditarProductoo from "./page/Productos/EditarProducto"
 import VerDetalleProducto from "./page/Productos/VerDetalleProducto"
-import AnularProducto from "./page/Productos/AnularProducto"
 import Ventas from "./page/Ventas"
 import AgregarVenta from "./page/Ventas/AgregarVenta"
 import AgregarProductosss from "./page/Ventas/AgregarProductov"
@@ -152,7 +151,6 @@ function App() {
           <Route path="/productos/agregarr" element={<AgregarProductoo />} />
           <Route path="/productos/editarr" element={<EditarProductoo />} />
           <Route path="/productos/ver-detalle" element={<VerDetalleProducto />} />
-          <Route path="/productos/anular" element={<AnularProducto />} />
           <Route path="/ventas" element={<Ventas />} />
           <Route path="/ventas/agregar" element={<AgregarVenta />} />
           <Route path="/productos/agregarrr" element={<AgregarProductosss />} />
