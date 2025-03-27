@@ -13,8 +13,9 @@ function AgregarProductos() {
   const [productos, setProductos] = useState(productosIniciales);
   const [nuevoProducto, setNuevoProducto] = useState({
     nombre: "",
+    codigoBarras: "", // Nuevo campo de código de barras
     cantidad: 1,
-    precioVenta: 0, // Cambiado a precioVenta
+    precioVenta: 0,
   });
 
   // Función para manejar cambios en los campos del formulario
@@ -28,6 +29,12 @@ function AgregarProductos() {
 
   // Función para agregar un producto
   const handleAgregarProducto = () => {
+    // Validación con lógica condicional
+    if (!nuevoProducto.codigoBarras && (!nuevoProducto.nombre || nuevoProducto.precioVenta <= 0)) {
+      alert("Cuando no se ingresa código de barras, son obligatorios: Nombre del Producto y Precio de Venta mayor a 0");
+      return;
+    }
+
     const subtotal = nuevoProducto.cantidad * nuevoProducto.precioVenta;
     const iva = subtotal * 0.19;
     const total = subtotal + iva;
@@ -40,7 +47,12 @@ function AgregarProductos() {
     };
 
     setProductos([...productos, producto]);
-    setNuevoProducto({ nombre: "", cantidad: 1, precioVenta: 0 }); // Reiniciar el formulario
+    setNuevoProducto({ 
+      nombre: "", 
+      codigoBarras: "", // Reiniciar también el código de barras
+      cantidad: 1, 
+      precioVenta: 0 
+    }); // Reiniciar el formulario
   };
 
   // Función para eliminar un producto
@@ -65,7 +77,6 @@ function AgregarProductos() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -89,21 +100,38 @@ function AgregarProductos() {
   return (
     <div className="main-content with-sidebar">
       <h2>Agregar Productos ventas</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
+      <Sidebar modules={modules} />
       <Form>
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="nombreProducto">
-              <Form.Label>Nombre del Producto</Form.Label>
+              <Form.Label>
+                Nombre del Producto {!nuevoProducto.codigoBarras && <span className="text-danger">*</span>}
+              </Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
                 value={nuevoProducto.nombre}
                 onChange={handleChange}
                 placeholder="Ingrese el nombre del producto"
+                required={!nuevoProducto.codigoBarras}
               />
             </Form.Group>
           </Col>
+          <Col>
+            <Form.Group controlId="codigoBarras">
+              <Form.Label>Código de Barras (Opcional)</Form.Label>
+              <Form.Control
+                type="text"
+                name="codigoBarras"
+                value={nuevoProducto.codigoBarras}
+                onChange={handleChange}
+                placeholder="Escanear o ingresar código de barras"
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mb-3">
           <Col>
             <Form.Group controlId="cantidad">
               <Form.Label>Cantidad</Form.Label>
@@ -118,13 +146,16 @@ function AgregarProductos() {
           </Col>
           <Col>
             <Form.Group controlId="precioVenta">
-              <Form.Label>Precio de Venta</Form.Label>
+              <Form.Label>
+                Precio de Venta {!nuevoProducto.codigoBarras && <span className="text-danger">*</span>}
+              </Form.Label>
               <Form.Control
                 type="number"
                 name="precioVenta"
                 value={nuevoProducto.precioVenta}
                 onChange={handleChange}
                 min="0"
+                required={!nuevoProducto.codigoBarras}
               />
             </Form.Group>
           </Col>
@@ -139,6 +170,7 @@ function AgregarProductos() {
         <thead>
           <tr>
             <th>Producto</th>
+            <th>Código de Barras</th>
             <th>Cantidad</th>
             <th>Precio de Venta</th>
             <th>Subtotal</th>
@@ -151,6 +183,7 @@ function AgregarProductos() {
           {productos.map((producto, index) => (
             <tr key={index}>
               <td>{producto.nombre}</td>
+              <td>{producto.codigoBarras || 'N/A'}</td>
               <td>{producto.cantidad}</td>
               <td>${producto.precioVenta.toFixed(2)}</td>
               <td>${producto.subtotal.toFixed(2)}</td>

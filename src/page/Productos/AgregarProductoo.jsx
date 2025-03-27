@@ -12,6 +12,7 @@ function AgregarProductoo() {
   const [producto, setProducto] = useState({
     nombre: "",
     categoria: "",
+    codigoBarras: "", 
     precioUnitarioCOP: "",
     descripcion: "",
   });
@@ -24,6 +25,44 @@ function AgregarProductoo() {
 
   // Función para simular el guardado del producto con SweetAlert2
   const handleGuardarProducto = () => {
+    // Validación con lógica condicional
+    const { nombre, categoria, codigoBarras, precioUnitarioCOP, descripcion } = producto;
+
+    // Si hay código de barras, los demás campos son opcionales
+    if (codigoBarras) {
+      Swal.fire({
+        icon: "success",
+        title: "Producto guardado exitosamente",
+        text: "El nuevo producto ha sido creado con código de barras",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      }).then(() => {
+        navigate("/productos");
+      });
+      return;
+    }
+
+    // Si NO hay código de barras, validar campos obligatorios
+    if (!nombre || !precioUnitarioCOP) {
+      Swal.fire({
+        icon: "error",
+        title: "Campos Obligatorios",
+        html: `
+          <p>Cuando no se ingresa código de barras, son obligatorios:</p>
+          <ul>
+            <li>Nombre del Producto</li>
+            <li>Precio Unitario</li>
+          </ul>
+        `,
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
+    // Si pasa la validación
     Swal.fire({
       icon: "success",
       title: "Producto guardado exitosamente",
@@ -32,7 +71,7 @@ function AgregarProductoo() {
       timerProgressBar: true,
       showConfirmButton: false,
     }).then(() => {
-      navigate("/productos"); // Redirige a la página de productos
+      navigate("/productos");
     });
   };
 
@@ -69,18 +108,19 @@ function AgregarProductoo() {
   return (
     <div className="main-content with-sidebar">
       <h2>Agregar Nuevo Producto</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
+      <Sidebar modules={modules} />
       <Form>
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="nombre">
-              <Form.Label>Nombre</Form.Label>
+              <Form.Label>Nombre {!producto.codigoBarras && <span className="text-danger">*</span>}</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
                 value={producto.nombre}
                 onChange={handleChange}
                 placeholder="Ingrese el nombre del producto"
+                required={!producto.codigoBarras}
               />
             </Form.Group>
           </Col>
@@ -99,14 +139,27 @@ function AgregarProductoo() {
         </Row>
         <Row className="mb-3">
           <Col>
+            <Form.Group controlId="codigoBarras">
+              <Form.Label>Código de Barras (Opcional)</Form.Label>
+              <Form.Control
+                type="text"
+                name="codigoBarras"
+                value={producto.codigoBarras}
+                onChange={handleChange}
+                placeholder="Escanear o ingresar código de barras"
+              />
+            </Form.Group>
+          </Col>
+          <Col>
             <Form.Group controlId="precioUnitarioCOP">
-              <Form.Label>Precio Unitario (COP)</Form.Label>
+              <Form.Label>Precio Unitario (COP) {!producto.codigoBarras && <span className="text-danger">*</span>}</Form.Label>
               <Form.Control
                 type="number"
                 name="precioUnitarioCOP"
                 value={producto.precioUnitarioCOP}
                 onChange={handleChange}
                 placeholder="Ingrese el precio unitario en COP"
+                required={!producto.codigoBarras}
               />
             </Form.Group>
           </Col>
