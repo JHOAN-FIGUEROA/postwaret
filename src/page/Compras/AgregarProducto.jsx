@@ -12,6 +12,7 @@ function AgregarProductos() {
   const [productos, setProductos] = useState(productosIniciales);
   const [nuevoProducto, setNuevoProducto] = useState({
     nombre: "",
+    codigoBarras: "", // Nuevo campo para código de barras
     cantidad: 1,
     precioUnitario: 0,
   });
@@ -51,7 +52,12 @@ function AgregarProductos() {
     setProductos([...productos, producto]);
 
     // Reiniciar el formulario
-    setNuevoProducto({ nombre: "", cantidad: 1, precioUnitario: 0 });
+    setNuevoProducto({ 
+      nombre: "", 
+      codigoBarras: "", // Reiniciar también el código de barras
+      cantidad: 1, 
+      precioUnitario: 0 
+    });
   };
 
   // Función para eliminar un producto
@@ -75,7 +81,6 @@ function AgregarProductos() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -99,7 +104,7 @@ function AgregarProductos() {
   return (
     <div className="main-content with-sidebar">
       <h2>Agregar Productos</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
+      <Sidebar modules={modules} />
       <Form>
         <Row className="mb-3">
           <Col>
@@ -112,6 +117,19 @@ function AgregarProductos() {
                   setNuevoProducto({ ...nuevoProducto, nombre: e.target.value })
                 }
                 placeholder="Ingrese el nombre del producto"
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="codigoBarras">
+              <Form.Label>Código de Barras (Opcional)</Form.Label>
+              <Form.Control
+                type="text"
+                value={nuevoProducto.codigoBarras}
+                onChange={(e) =>
+                  setNuevoProducto({ ...nuevoProducto, codigoBarras: e.target.value })
+                }
+                placeholder="Escanear o ingresar código de barras"
               />
             </Form.Group>
           </Col>
@@ -150,6 +168,7 @@ function AgregarProductos() {
         <thead>
           <tr>
             <th>Producto</th>
+            <th>Código de Barras</th>
             <th>Cantidad</th>
             <th>Precio Unitario</th>
             <th>Subtotal</th>
@@ -162,6 +181,7 @@ function AgregarProductos() {
           {productos.map((producto, index) => (
             <tr key={index}>
               <td>{producto.nombre}</td>
+              <td>{producto.codigoBarras || 'N/A'}</td>
               <td>{producto.cantidad}</td>
               <td>${producto.precioUnitario.toFixed(2)}</td>
               <td>${producto.subtotal.toFixed(2)}</td>
