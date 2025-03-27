@@ -1,14 +1,14 @@
-// src/page/EditarProveedor.jsx
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import Sidebar from "./../Sidebar"; 
+import Sidebar from "./../Sidebar";
+import Swal from 'sweetalert2';
 
 function EditarProveedor() {
   const navigate = useNavigate();
 
-  // Datos ficticios del proveedor
-  const proveedor = {
+  // Estado para los datos del proveedor (ahora editable)
+  const [proveedor, setProveedor] = useState({
     id: 1,
     nombre: "Proveedor A",
     apellido: "Apellido A",
@@ -16,17 +16,79 @@ function EditarProveedor() {
     email: "proveedora@example.com",
     numeroContacto: "123456789",
     descripcion: "Proveedor de productos electrónicos",
+  });
+
+  // Función para manejar cambios en los campos del formulario
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProveedor({ ...proveedor, [name]: value });
   };
 
-  // Función para manejar la edición del proveedor
+  // Función para validar el formulario
+  const validarFormulario = () => {
+    if (!proveedor.nombre.trim()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El nombre es requerido',
+      });
+      return false;
+    }
+    if (!proveedor.email.trim()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El email es requerido',
+      });
+      return false;
+    }
+    return true;
+  };
+
+  // Función para manejar la edición del proveedor con SweetAlert2
   const handleEditar = () => {
-    alert("Proveedor editado (simulación)");
-    navigate("/proveedores"); // Redirige a la página de proveedores
+    if (!validarFormulario()) return;
+
+    Swal.fire({
+      title: '¿Guardar cambios?',
+      text: "¿Estás seguro de que deseas guardar los cambios en este proveedor?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: '¡Guardado!',
+          text: 'Los cambios han sido guardados exitosamente.',
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+        }).then(() => {
+          navigate("/proveedores");
+        });
+      }
+    });
   };
 
-  // Función para cancelar la edición
+  // Función para cancelar la edición con confirmación
   const handleCancelar = () => {
-    navigate("/proveedores"); // Redirige a la página de proveedores
+    Swal.fire({
+      title: '¿Cancelar cambios?',
+      text: "¿Estás seguro de que deseas descartar los cambios realizados?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'Continuar editando'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/proveedores");
+      }
+    });
   };
 
   const modules = [
@@ -39,7 +101,6 @@ function EditarProveedor() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -63,7 +124,7 @@ function EditarProveedor() {
   return (
     <div className="main-content with-sidebar">
       <h2>Editar Proveedor</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
+      <Sidebar modules={modules} />
       <Form>
         <Row className="mb-3">
           <Col>
@@ -73,6 +134,8 @@ function EditarProveedor() {
                 type="text"
                 name="nombre"
                 value={proveedor.nombre}
+                onChange={handleChange}
+                required
               />
             </Form.Group>
           </Col>
@@ -83,6 +146,7 @@ function EditarProveedor() {
                 type="text"
                 name="apellido"
                 value={proveedor.apellido}
+                onChange={handleChange}
               />
             </Form.Group>
           </Col>
@@ -95,6 +159,7 @@ function EditarProveedor() {
                 type="text"
                 name="direccion"
                 value={proveedor.direccion}
+                onChange={handleChange}
               />
             </Form.Group>
           </Col>
@@ -107,6 +172,8 @@ function EditarProveedor() {
                 type="email"
                 name="email"
                 value={proveedor.email}
+                onChange={handleChange}
+                required
               />
             </Form.Group>
           </Col>
@@ -117,6 +184,7 @@ function EditarProveedor() {
                 type="text"
                 name="numeroContacto"
                 value={proveedor.numeroContacto}
+                onChange={handleChange}
               />
             </Form.Group>
           </Col>
@@ -130,6 +198,7 @@ function EditarProveedor() {
                 rows={3}
                 name="descripcion"
                 value={proveedor.descripcion}
+                onChange={handleChange}
               />
             </Form.Group>
           </Col>
@@ -138,7 +207,7 @@ function EditarProveedor() {
           <Col className="text-end">
             <Button variant="success" onClick={handleEditar}>
               Guardar Cambios
-            </Button>{" "}
+            </Button>{' '}
             <Button variant="secondary" onClick={handleCancelar}>
               Cancelar
             </Button>

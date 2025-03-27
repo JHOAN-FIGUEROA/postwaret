@@ -1,8 +1,8 @@
-// src/page/AgregarProveedor.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import Sidebar from "./../Sidebar"; 
+import Sidebar from "./../Sidebar";
+import Swal from 'sweetalert2';
 
 function AgregarProveedor() {
   const navigate = useNavigate();
@@ -23,10 +23,53 @@ function AgregarProveedor() {
     setProveedor({ ...proveedor, [name]: value });
   };
 
-  // Función para simular el guardado del proveedor
+  // Función para validar el formulario
+  const validarFormulario = () => {
+    if (!proveedor.nombre.trim()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El nombre es requerido',
+      });
+      return false;
+    }
+    if (!proveedor.email.trim()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El email es requerido',
+      });
+      return false;
+    }
+    return true;
+  };
+
+  // Función para guardar el proveedor con SweetAlert2
   const handleGuardarProveedor = () => {
-    alert("Proveedor guardado exitosamente (simulación)");
-    navigate("/proveedores"); // Redirige a la página de proveedores
+    if (!validarFormulario()) return;
+
+    Swal.fire({
+      title: '¿Guardar proveedor?',
+      text: "¿Estás seguro de que deseas guardar este proveedor?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: '¡Guardado!',
+          text: 'El proveedor ha sido guardado exitosamente.',
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+        }).then(() => {
+          navigate("/proveedores"); // Redirige a la página de proveedores
+        });
+      }
+    });
   };
 
   const modules = [
@@ -39,7 +82,6 @@ function AgregarProveedor() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -63,7 +105,7 @@ function AgregarProveedor() {
   return (
     <div className="main-content with-sidebar">
       <h2>Agregar Nuevo Proveedor</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
+      <Sidebar modules={modules} />
       <Form>
         <Row className="mb-3">
           <Col>
@@ -75,6 +117,7 @@ function AgregarProveedor() {
                 value={proveedor.nombre}
                 onChange={handleChange}
                 placeholder="Ingrese el nombre del proveedor"
+                required
               />
             </Form.Group>
           </Col>
@@ -115,6 +158,7 @@ function AgregarProveedor() {
                 value={proveedor.email}
                 onChange={handleChange}
                 placeholder="Ingrese el email del proveedor"
+                required
               />
             </Form.Group>
           </Col>

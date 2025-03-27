@@ -3,6 +3,7 @@ import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import EstadoSwitch from "./EstadoSwitch";
+import Swal from 'sweetalert2';
 
 function Compras() {
   const navigate = useNavigate();
@@ -47,7 +48,6 @@ function Compras() {
       total: 121.38,
       Estado: "Activa",
     },
-    
   ]);
 
   const [busqueda, setBusqueda] = useState("");
@@ -80,8 +80,43 @@ function Compras() {
   };
 
   const handleVerDetalle = (id) => navigate(`/compras/ver-detalle/${id}`);
-  const handleGenerarPDF = () => navigate(`/compras/GenerarPDF`);
-  const handleAgregarCompra = () => navigate("/compras/agregar");
+
+  const handleGenerarPDF = (id) => {
+    Swal.fire({
+      title: 'Generar PDF',
+      text: '¿Deseas generar un PDF de esta compra?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Generar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'PDF Generado',
+          'El PDF se ha generado correctamente',
+          'success'
+        ).then(() => {
+          // Aquí podrías agregar la lógica para generar el PDF real
+          console.log(`Generando PDF para compra ID: ${id}`);
+        });
+      }
+    });
+  };
+
+  const handleAgregarCompra = () => {
+    Swal.fire({
+      title: 'Agregar Compra',
+      text: 'Serás redirigido al formulario para agregar una nueva compra',
+      icon: 'info',
+      confirmButtonText: 'Continuar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/compras/agregar");
+      }
+    });
+  };
 
   const modules = [
     { name: "Dashboard", submenus: [{ name: "Dashboard", path: "/dasboard" }] },
@@ -169,7 +204,7 @@ function Compras() {
                   <Button variant="info" size="sm" onClick={() => handleVerDetalle(compra.id)}>
                     Ver Detalle
                   </Button>{" "}
-                  <Button variant="warning" size="sm" onClick={handleGenerarPDF}>
+                  <Button variant="warning" size="sm" onClick={() => handleGenerarPDF(compra.id)}>
                     Generar PDF
                   </Button>
                 </td>
