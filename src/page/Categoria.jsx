@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
+import Swal from "sweetalert2";
 import Sidebar from "./Sidebar";
 import EstadoSwitch from "./EstadoSwitch";
 
@@ -16,17 +17,14 @@ function Categoria() {
     { id: 6, nombre: "Categoria F", Descripcion: "Categoria F de Productos", Estado: "Activa" },
   ]);
 
-  // Estados para manejar la búsqueda y paginación
   const [busqueda, setBusqueda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
 
-  // Filtrar categorías basados en la búsqueda
   const categoriasFiltradas = categorias.filter((categoria) =>
     categoria.nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = categoriasFiltradas.slice(indexOfFirstItem, indexOfLastItem);
@@ -34,48 +32,116 @@ function Categoria() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Función para cambiar el estado de la categoría
-  const handleCambiarEstado = (categoriaId) => {
-    setCategorias((prevCategorias) => {
-      return prevCategorias.map((categoria) => {
-        if (categoria.id === categoriaId) {
-          const nuevoEstado = categoria.Estado === "Activa" ? "Inactiva" : "Activa";
-          return {
-            ...categoria,
-            Estado: nuevoEstado,
-          };
-        }
-        return categoria;
-      });
+  const handleCambiarEstado = (categoriaId, nuevoEstado) => {
+    Swal.fire({
+      title: "¿Cambiar estado?",
+      text: `¿Está seguro que desea ${nuevoEstado === "Activa" ? "activar" : "desactivar"} esta categoría?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, cambiar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setCategorias((prevCategorias) =>
+          prevCategorias.map((categoria) =>
+            categoria.id === categoriaId
+              ? { ...categoria, Estado: nuevoEstado }
+              : categoria
+          )
+        );
+        Swal.fire({
+          icon: "success",
+          title: "Estado cambiado",
+          text: `La categoría ha sido ${nuevoEstado === "Activa" ? "activada" : "desactivada"} correctamente.`,
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      }
     });
   };
 
-  // Función para eliminar categoría con confirmación
-  const handleEliminarCategoria = (id) => {
-    if (window.confirm("¿Está seguro que desea eliminar esta categoría?")) {
-      setCategorias(categorias.filter(categoria => categoria.id !== id));
-      alert("Categoría eliminada exitosamente");
+  const handleEliminarCategoria = async (id) => {
+    const result = await Swal.fire({
+      title: "¿Está seguro?",
+      text: "Esta acción no se puede deshacer. ¿Desea eliminar esta categoría?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      reverseButtons: true,
+    });
+
+    if (result.isConfirmed) {
+      setCategorias(categorias.filter((categoria) => categoria.id !== id));
+      Swal.fire({
+        icon: "success",
+        title: "¡Eliminado!",
+        text: "La categoría ha sido eliminada exitosamente.",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
     }
   };
 
   const handleEditarCategoria = (id) => {
-    navigate(`/categoria/editar`);
+    Swal.fire({
+      title: "¿Editar categoría?",
+      text: "Será redirigido al formulario de edición.",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonText: "Continuar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(`/categoria/editar`);
+      }
+    });
   };
 
   const handleAgregarCategoria = () => {
-    navigate("/categoria/agregar");
+    Swal.fire({
+      title: "Agregar nueva categoría",
+      text: "Será redirigido al formulario de creación.",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonText: "Continuar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/categoria/agregar");
+      }
+    });
   };
 
   const handleVerDetalleCategoria = (id) => {
-    navigate(`/categoria/ver-detalle`);
+    const categoria = categorias.find(c => c.id === id);
+    Swal.fire({
+      title: `Detalle de ${categoria.nombre}`,
+      html: `
+        <p><strong>ID:</strong> ${categoria.id}</p>
+        <p><strong>Nombre:</strong> ${categoria.nombre}</p>
+        <p><strong>Descripción:</strong> ${categoria.Descripcion}</p>
+        <p><strong>Estado:</strong> ${categoria.Estado}</p>
+      `,
+      icon: "info",
+      confirmButtonText: "Cerrar",
+      confirmButtonColor: "#3085d6",
+    });
   };
-
   const modules = [
     {
-      name: "Dasboard",
-      submenus: [
-        { name: "Dasboard", path: "/dasboard" },
-      ],
+      name: "Dashboard",
+      submenus: [{ name: "Dashboard", path: "/dasboard" }],
     },
     {
       name: "Configuracion",
@@ -89,7 +155,7 @@ function Categoria() {
       submenus: [
         { name: "Compras", path: "/compras" },
         { name: "Proveedores", path: "/proveedores" },
-        { name: "Categoria", path: "/Categoria" },
+        { name: "Categoria", path: "/categoria" },
         { name: "Productos", path: "/productos" },
       ],
     },
@@ -103,101 +169,133 @@ function Categoria() {
   ];
 
   return (
-    <div>
-      <div className="main-content">
-        <h2>Categorias Registradas</h2>
-        <Row className="mb-3">
-          <Col>
-            <Sidebar modules={modules} />
-            <InputGroup>
-              <Form.Control
-                type="text"
-                placeholder="Buscar Categoria..."
-                value={busqueda}
-                onChange={(e) => {
-                  setBusqueda(e.target.value);
-                  setCurrentPage(1);
-                }}
-              />
-              <Button variant="outline-secondary">Buscar</Button>
-            </InputGroup>
-          </Col>
-          <Col className="text-end">
-            <Button variant="primary" onClick={handleAgregarCategoria}>
-              Agregar Categoria
+    <div className="main-content">
+      <h2>Categorías Registradas</h2>
+      <Row className="mb-3">
+        <Col>
+        <Sidebar modules={modules} />
+          <InputGroup>
+            <Form.Control
+              type="text"
+              placeholder="Buscar Categoría..."
+              value={busqueda}
+              onChange={(e) => {
+                setBusqueda(e.target.value);
+                setCurrentPage(1);
+              }}
+            />
+            <Button 
+              variant="outline-secondary" 
+              onClick={() => {
+                if (busqueda.trim() === "") {
+                  Swal.fire({
+                    icon: "info",
+                    title: "Campo vacío",
+                    text: "Por favor ingrese un término de búsqueda.",
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                  });
+                }
+              }}
+            >
+              Buscar
             </Button>
-          </Col>
-        </Row>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Descripcion</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems.map((categoria) => (
+          </InputGroup>
+        </Col>
+        <Col className="text-end">
+          <Button variant="primary" onClick={handleAgregarCategoria}>
+            Agregar Categoría
+          </Button>
+        </Col>
+      </Row>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentItems.length > 0 ? (
+            currentItems.map((categoria) => (
               <tr key={categoria.id}>
                 <td>{categoria.id}</td>
                 <td>{categoria.nombre}</td>
                 <td>{categoria.Descripcion}</td>
                 <td>
                   <EstadoSwitch
-                    key={`estado-switch-${categoria.id}`}
                     estado={categoria.Estado}
-                    onChange={() => handleCambiarEstado(categoria.id)}
+                    onChange={(nuevoEstado) => handleCambiarEstado(categoria.id, nuevoEstado)}
                   />
                 </td>
                 <td>
-                  <div className="d-flex gap-2">
-                    <Button
-                      variant="info"
-                      size="sm"
-                      onClick={() => handleVerDetalleCategoria(categoria.id)}
-                    >
-                      Ver Detalle
-                    </Button>
-                    <Button
-                      variant="warning"
-                      size="sm"
-                      onClick={() => handleEditarCategoria(categoria.id)}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => handleEliminarCategoria(categoria.id)}
-                    >
-                      Eliminar
-                    </Button>
-                  </div>
+                  <Button variant="info" size="sm" onClick={() => handleVerDetalleCategoria(categoria.id)}>
+                    Ver Detalle
+                  </Button>{" "}
+                  <Button variant="warning" size="sm" onClick={() => handleEditarCategoria(categoria.id)}>
+                    Editar
+                  </Button>{" "}
+                  <Button variant="danger" size="sm" onClick={() => handleEliminarCategoria(categoria.id)}>
+                    Eliminar
+                  </Button>
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-
-        <div className="pagination-container">
-          <button 
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Anterior
-          </button>
-
-          <span className="pagination-text">Página {currentPage} de {totalPages}</span>
-
-          <button 
-            onClick={() => paginate(currentPage + 1)}
-            disabled={currentPage === totalPages || totalPages === 0}
-          >
-            Siguiente
-          </button>
-        </div>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-center">
+                No se encontraron categorías
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
+      <div className="pagination-container">
+        <Button 
+          variant="outline-primary" 
+          onClick={() => {
+            if (currentPage > 1) {
+              paginate(currentPage - 1);
+            } else {
+              Swal.fire({
+                icon: "info",
+                title: "Primera página",
+                text: "Ya estás en la primera página.",
+                timer: 1500,
+                timerProgressBar: true,
+                showConfirmButton: false,
+              });
+            }
+          }} 
+          disabled={currentPage === 1}
+        >
+          Anterior
+        </Button>
+        <span className="mx-3">Página {currentPage} de {totalPages}</span>
+        <Button 
+          variant="outline-primary" 
+          onClick={() => {
+            if (currentPage < totalPages) {
+              paginate(currentPage + 1);
+            } else {
+              Swal.fire({
+                icon: "info",
+                title: "Última página",
+                text: "Ya estás en la última página.",
+                timer: 1500,
+                timerProgressBar: true,
+                showConfirmButton: false,
+              });
+            }
+          }} 
+          disabled={currentPage === totalPages || totalPages === 0}
+        >
+          Siguiente
+        </Button>
       </div>
     </div>
   );

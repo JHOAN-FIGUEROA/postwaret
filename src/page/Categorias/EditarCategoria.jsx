@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import Sidebar from "./../Sidebar"; 
+import Swal from "sweetalert2";
+import Sidebar from "./../Sidebar";
 
 function EditarCategoria() {
   const navigate = useNavigate();
@@ -24,28 +25,53 @@ function EditarCategoria() {
     setCategoria({ ...categoria, [name]: value });
   };
 
-  // Función para manejar la edición de la categoría
+  // Función para manejar la edición de la categoría con alertas
   const handleEditar = () => {
-    alert("Categoría editada (simulación)");
-    navigate("/categoria"); // Redirige a la página de categorías
+    if (!categoria.nombre.trim() || !categoria.descripcion.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "Campos incompletos",
+        text: "Por favor, complete todos los campos antes de guardar.",
+      });
+      return;
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Categoría editada",
+      text: "La categoría se ha actualizado correctamente.",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      navigate("/categoria"); // Redirige a la página de categorías
+    });
   };
 
-  // Función para cancelar la edición
+  // Función para cancelar la edición con alerta de confirmación
   const handleCancelar = () => {
-    navigate("/categoria"); // Redirige a la página de categorías
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Los cambios no guardados se perderán.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, cancelar",
+      cancelButtonText: "No, continuar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/categoria");
+      }
+    });
   };
 
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dasboard" }],
+      submenus: [{ name: "Dashboard", path: "/dashboard" }],
     },
     {
       name: "Configuración",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
