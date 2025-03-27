@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import EstadoSwitch from "./EstadoSwitch";
+import Swal from 'sweetalert2';
 
 function Proveedores() {
   const navigate = useNavigate();
@@ -51,12 +52,27 @@ function Proveedores() {
     });
   };
 
-  // Función para eliminar proveedor con confirmación
+  // Función para eliminar proveedor con confirmación usando SweetAlert2
   const handleEliminarProveedor = (id) => {
-    if (window.confirm("¿Está seguro que desea eliminar este proveedor?")) {
-      setProveedores(proveedores.filter(proveedor => proveedor.id !== id));
-      alert("Proveedor eliminado exitosamente");
-    }
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setProveedores(proveedores.filter(proveedor => proveedor.id !== id));
+        Swal.fire(
+          '¡Eliminado!',
+          'El proveedor ha sido eliminado.',
+          'success'
+        );
+      }
+    });
   };
 
   const handleAgregarProveedor = () => {
@@ -64,7 +80,20 @@ function Proveedores() {
   };
 
   const handleEditarProveedor = (id) => {
-    navigate(`/proveedor/editar`);
+    Swal.fire({
+      title: '¿Editar proveedor?',
+      text: "Serás redirigido al formulario de edición",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(`/proveedor/editar`);
+      }
+    });
   };
 
   const handleVerDetalleProveedor = (id) => {
@@ -157,6 +186,7 @@ function Proveedores() {
                 </td>
                 <td>
                   <div className="d-flex gap-2">
+                  
                     <Button
                       variant="info"
                       size="sm"
@@ -164,6 +194,7 @@ function Proveedores() {
                     >
                       Ver Detalle
                     </Button>
+
                     <Button
                       variant="warning"
                       size="sm"
