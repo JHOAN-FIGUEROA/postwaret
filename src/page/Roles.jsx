@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import Sidebar from "./Sidebar";
-import EstadoSwitch from "./EstadoSwitch";
+import Estado from './Estado'; // Import the new Estado component
 import Swal from 'sweetalert2';
 
 function Roles() {
@@ -229,8 +229,8 @@ function Roles() {
               <td>{rol.nombre}</td>
               <td>{rol.descripcion}</td>
               <td>
-                <EstadoSwitch
-                  estado={rol.estado}
+                <Estado 
+                  estado={rol.estado} 
                   onChange={() => handleCambiarEstado(rol.id)}
                 />
               </td>

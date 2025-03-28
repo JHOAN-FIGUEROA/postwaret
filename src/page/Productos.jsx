@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Sidebar from "./Sidebar";
-import EstadoSwitch from "./EstadoSwitch";
+import Estado from './Estado'; // Import the new Estado component
 
 function Productos() {
   const navigate = useNavigate();
@@ -15,42 +15,42 @@ function Productos() {
       nombre: "Producto A",
       categoria: "Categoría A",
       precioUnitarioCOP: 50000,
-      Estado: "Activo"
+      estado: "Activo"
     },
     {
       id: 2,
       nombre: "Producto B",
       categoria: "Categoría B",
       precioUnitarioCOP: 75000,
-      Estado: "Activo"
+      estado: "Activo"
     },
     {
       id: 3,
       nombre: "Producto C",
       categoria: "Categoría C",
       precioUnitarioCOP: 120000,
-      Estado: "Inactivo"
+      estado: "Inactivo"
     },
     {
       id: 4,
       nombre: "Producto D",
       categoria: "Categoría A",
       precioUnitarioCOP: 80000,
-      Estado: "Activo"
+      estado: "Activo"
     },
     {
       id: 5,
       nombre: "Producto E",
       categoria: "Categoría B",
       precioUnitarioCOP: 95000,
-      Estado: "Inactivo"
+      estado: "Inactivo"
     },
     {
       id: 6,
       nombre: "Producto F",
       categoria: "Categoría C",
       precioUnitarioCOP: 150000,
-      Estado: "Activo"
+      estado: "Activo"
     },
   ]);
 
@@ -78,10 +78,10 @@ function Productos() {
     setProductos((prevProductos) =>
       prevProductos.map((producto) => {
         if (producto.id === productoId) {
-          const nuevoEstado = producto.Estado === "Activo" ? "Inactivo" : "Activo";
+          const nuevoEstado = producto.estado === "Activo" ? "Inactivo" : "Activo";
           return {
             ...producto,
-            Estado: nuevoEstado,
+            estado: nuevoEstado,
           };
         }
         return producto;
@@ -186,7 +186,6 @@ function Productos() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Nombre</th>
               <th>Categoría</th>
               <th>Precio Unitario (COP)</th>
@@ -197,14 +196,12 @@ function Productos() {
           <tbody>
             {currentItems.map((producto) => (
               <tr key={producto.id}>
-                <td>{producto.id}</td>
                 <td>{producto.nombre}</td>
                 <td>{producto.categoria}</td>
                 <td>${producto.precioUnitarioCOP.toLocaleString()}</td>
                 <td>
-                  <EstadoSwitch
-                    key={`estado-switch-${producto.id}`}
-                    estado={producto.Estado}
+                  <Estado
+                    estado={producto.estado}
                     onChange={() => handleCambiarEstado(producto.id)}
                   />
                 </td>
