@@ -46,7 +46,7 @@ function AgregarProveedor() {
 
   // Función para guardar el proveedor con SweetAlert2
   const handleGuardarProveedor = () => {
-    if (!validarFormulario()) return;
+   
 
     Swal.fire({
       title: '¿Guardar proveedor?',
@@ -103,7 +103,7 @@ function AgregarProveedor() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregar-cliente-form">
       <h2>Agregar Nuevo Proveedor</h2>
       <Sidebar modules={modules} />
       <Form>

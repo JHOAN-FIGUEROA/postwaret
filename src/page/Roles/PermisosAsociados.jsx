@@ -117,7 +117,7 @@ function PermisosAsociados() {
         <Card.Body>
           <Card.Title>Permisos Asociados</Card.Title>
           
-          <div className="mb-4">
+          <div className="checkbox-group">
             <h5>Sistema</h5>
             <Form.Check
               type="checkbox"
@@ -133,7 +133,7 @@ function PermisosAsociados() {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="checkbox-group">
             <h5>Usuarios</h5>
             <Form.Check
               type="checkbox"
@@ -185,7 +185,7 @@ function PermisosAsociados() {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="checkbox-group">
             <h5>Configuración</h5>
             <Form.Check
               type="checkbox"
@@ -237,7 +237,7 @@ function PermisosAsociados() {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="checkbox-group">
             <h5>Permisos</h5>
             <Form.Check
               type="checkbox"
@@ -253,7 +253,7 @@ function PermisosAsociados() {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="checkbox-group">
             <h5>Compras</h5>
             <Form.Check
               type="checkbox"

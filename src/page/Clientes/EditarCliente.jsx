@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
 
 function EditarCliente() {
@@ -38,22 +39,61 @@ function EditarCliente() {
   };
 
   const handleGuardar = () => {
-    console.log("Cliente editado:", cliente);
-    alert(`Cliente con ID ${id} editado (simulación)`);
-    navigate("/clientes");
+    // Validación simple para asegurarse de que todos los campos están completos
+    if (
+      !cliente.documentoIdentidad ||
+      !cliente.nombre ||
+      !cliente.apellido ||
+      !cliente.direccion ||
+      !cliente.email ||
+      !cliente.numeroContacto
+    ) {
+      Swal.fire({
+        icon: "warning",
+        title: "Campos incompletos",
+        text: "Por favor, completa todos los campos antes de guardar.",
+      });
+      return;
+    }
+
+    Swal.fire({
+      title: "¿Guardar cambios?",
+      text: `Se editará el cliente con ID ${id}`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#0d6efd",
+      cancelButtonColor: "#dc3545",
+      confirmButtonText: "Sí, guardar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("Cliente editado:", cliente);
+
+        Swal.fire({
+          icon: "success",
+          title: "Cliente editado",
+          text: "Los cambios se han guardado exitosamente.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        setTimeout(() => {
+          navigate("/clientes");
+        }, 2000);
+      }
+    });
   };
 
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dahboard" }],
+      submenus: [{ name: "Dashboard", path: "/dashboard" }],
     },
     {
       name: "Configuración",
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -139,7 +179,7 @@ function EditarCliente() {
             placeholder="123456789"
           />
         </div>
-        
+
         <button type="button" onClick={handleGuardar}>
           Guardar
         </button>

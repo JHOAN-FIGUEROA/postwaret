@@ -154,7 +154,7 @@ function AgregarVenta() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregar-cliente-form">
       <h2>Crear Nueva Venta</h2>
       <Sidebar modules={modules} />
       <Form>

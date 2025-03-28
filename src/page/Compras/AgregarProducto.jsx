@@ -102,7 +102,7 @@ function AgregarProductos() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregarproducto">
       <h2>Agregar Productos</h2>
       <Sidebar modules={modules} />
       <Form>
