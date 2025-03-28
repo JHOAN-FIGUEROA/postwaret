@@ -10,12 +10,12 @@ function Proveedores() {
 
   // Estado para almacenar la lista de proveedores
   const [proveedores, setProveedores] = useState([
-    { id: 1, nombre: "Proveedor A", contacto: "contacto@proveedora.com", telefono: "123456789", Estado: "Activa" },
-    { id: 2, nombre: "Proveedor B", contacto: "contacto@proveedorb.com", telefono: "987654321", Estado: "Activa" },
-    { id: 3, nombre: "Proveedor C", contacto: "contacto@proveedorc.com", telefono: "987654345", Estado: "Inactiva" },
-    { id: 4, nombre: "Proveedor D", contacto: "contacto@proveedord.com", telefono: "555555555", Estado: "Activa" },
-    { id: 5, nombre: "Proveedor E", contacto: "contacto@proveedore.com", telefono: "666666666", Estado: "Inactiva" },
-    { id: 6, nombre: "Proveedor F", contacto: "contacto@proveedorf.com", telefono: "777777777", Estado: "Activa" },
+    { id: 1, Nit:911567, nombre: "Proveedor A", contacto: "contacto@proveedora.com", telefono: "123456789", Estado: "Activa" },
+    { id: 2, Nit:811567,nombre: "Proveedor B", contacto: "contacto@proveedorb.com", telefono: "987654321", Estado: "Activa" },
+    { id: 3, Nit:711567,nombre: "Proveedor C", contacto: "contacto@proveedorc.com", telefono: "987654345", Estado: "Inactiva" },
+    { id: 4, Nit:611567,nombre: "Proveedor D", contacto: "contacto@proveedord.com", telefono: "555555555", Estado: "Activa" },
+    { id: 5, Nit:511567,nombre: "Proveedor E", contacto: "contacto@proveedore.com", telefono: "666666666", Estado: "Inactiva" },
+    { id: 6, Nit:411567,nombre: "Proveedor F", contacto: "contacto@proveedorf.com", telefono: "777777777", Estado: "Activa" },
   ]);
 
   // Estados para manejar la búsqueda y paginación
@@ -162,7 +162,7 @@ function Proveedores() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Nit</th>
               <th>Nombre</th>
               <th>Contacto</th>
               <th>Teléfono</th>
@@ -173,7 +173,7 @@ function Proveedores() {
           <tbody>
             {currentItems.map((proveedor) => (
               <tr key={proveedor.id}>
-                <td>{proveedor.id}</td>
+                <td>{proveedor.Nit}</td>
                 <td>{proveedor.nombre}</td>
                 <td>{proveedor.contacto}</td>
                 <td>{proveedor.telefono}</td>

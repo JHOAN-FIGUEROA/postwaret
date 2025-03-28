@@ -11,6 +11,7 @@ function Ventas() {
   const [ventas, setVentas] = useState([
     {
       id: 1,
+      Codigovent:1021,
       Cliente: "Cliente A",
       fechaventa: "17/02/2025",
       producto: "Producto A",
@@ -22,6 +23,7 @@ function Ventas() {
     },
     {
       id: 2,
+      Codigovent:1022,
       Cliente: "Cliente B",
       fechaventa: "17/02/2025",
       producto: "Producto B",
@@ -33,6 +35,7 @@ function Ventas() {
     },
     {
       id: 3,
+      Codigovent:1023,
       Cliente: "Cliente C",
       fechaventa: "17/02/2025",
       producto: "Producto C",
@@ -44,6 +47,7 @@ function Ventas() {
     },
     {
       id: 4,
+      Codigovent:1024,
       Cliente: "Cliente D",
       fechaventa: "18/02/2025",
       producto: "Producto D",
@@ -55,6 +59,7 @@ function Ventas() {
     },
     {
       id: 5,
+      Codigovent:1025,
       Cliente: "Cliente E",
       fechaventa: "19/02/2025",
       producto: "Producto E",
@@ -66,6 +71,7 @@ function Ventas() {
     },
     {
       id: 6,
+      Codigovent:1026,
       Cliente: "Cliente F",
       fechaventa: "20/02/2025",
       producto: "Producto F",
@@ -204,7 +210,7 @@ function Ventas() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Id Venta</th>
+            <th>Codigo De Venta</th>
             <th>Cliente</th>
             <th>Fecha de Venta</th>
             <th>Total</th>
@@ -215,7 +221,7 @@ function Ventas() {
         <tbody>
           {currentItems.map((venta) => (
             <tr key={venta.id}>
-              <td>{venta.id}</td>
+              <td>{venta.Codigovent}</td>
               <td>{venta.Cliente}</td>
               <td>{venta.fechaventa}</td>
               <td>${venta.total.toFixed(3)}</td>
