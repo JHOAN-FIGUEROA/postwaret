@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Table, Form, Button, InputGroup, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Sidebar from "./Sidebar";
-import EstadoSwitch from "./EstadoSwitch";
+import EstadoSwitch from "./Estado";
 
 function Usuarios() {
   const navigate = useNavigate();
