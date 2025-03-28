@@ -70,7 +70,7 @@ function AgregarUsuario() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregar-cliente-form">
       <h2>Agregar Nuevo Usuario</h2>
       <Sidebar modules={modules} />
       <Form>

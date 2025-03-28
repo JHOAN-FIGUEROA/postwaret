@@ -153,7 +153,7 @@ function AgregarProductos() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregarproducto">
       <h2>Agregar Productos ventas</h2>
       <Sidebar modules={modules} />
       <Form>
@@ -232,7 +232,6 @@ function AgregarProductos() {
                 <th>Cantidad</th>
                 <th>Precio de Venta</th>
                 <th>Subtotal</th>
-                <th>IVA (19%)</th>
                 <th>Total</th>
                 <th>Acciones</th>
               </tr>
@@ -245,7 +244,6 @@ function AgregarProductos() {
                   <td>{producto.cantidad}</td>
                   <td>${producto.precioVenta.toFixed(2)}</td>
                   <td>${producto.subtotal.toFixed(2)}</td>
-                  <td>${producto.iva.toFixed(2)}</td>
                   <td>${producto.total.toFixed(2)}</td>
                   <td>
                     <Button

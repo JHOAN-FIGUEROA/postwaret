@@ -91,7 +91,7 @@ function Dasboard() {
           {/* Gráfica de productos */}
           <div className="chart-container">
             <h2>Gráfica de Productos</h2>
-            <BarChart width={600} height={300} data={productData}>
+            <BarChart width={300} height={150} data={productData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
@@ -104,7 +104,7 @@ function Dasboard() {
           {/* Gráfica de clientes */}
           <div className="chart-container">
             <h2>Gráfica de Clientes</h2>
-            <LineChart width={600} height={300} data={clientData}>
+            <LineChart width={300} height={150} data={clientData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
@@ -117,7 +117,7 @@ function Dasboard() {
           {/* Gráfica de ventas */}
           <div className="chart-container">
             <h2>Gráfica de Ventas</h2>
-            <AreaChart width={600} height={300} data={salesData}>
+            <AreaChart width={300} height={150} data={salesData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />

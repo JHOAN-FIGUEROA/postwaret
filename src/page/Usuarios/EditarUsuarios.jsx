@@ -80,7 +80,7 @@ function EditarUsuario() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregar-cliente-form">
       <h2>Editar Usuario</h2>
       <Sidebar modules={modules} />
       <Form>

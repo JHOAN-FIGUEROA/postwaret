@@ -122,7 +122,7 @@ function EditarProveedor() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregar-cliente-form">
       <h2>Editar Proveedor</h2>
       <Sidebar modules={modules} />
       <Form>

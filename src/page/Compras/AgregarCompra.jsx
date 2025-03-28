@@ -14,7 +14,6 @@ function AgregarCompra() {
     proveedor: "",
     productos: [],
     subtotal: 0,
-    iva: 0,
     total: 0,
   });
 
@@ -137,7 +136,7 @@ function AgregarCompra() {
   ];
 
   return (
-    <div className="main-content with-sidebar">
+    <div className="agregar-cliente-form">
       <h2>Crear Nueva Compra</h2>
       <Sidebar modules={modules} />
       <Form>
@@ -202,16 +201,6 @@ function AgregarCompra() {
               <Form.Control
                 type="text"
                 value={compra.subtotal.toFixed(2)}
-                readOnly
-              />
-            </InputGroup>
-          </Col>
-          <Col>
-            <InputGroup>
-              <InputGroup.Text>IVA (19%)</InputGroup.Text>
-              <Form.Control
-                type="text"
-                value={compra.iva.toFixed(2)}
                 readOnly
               />
             </InputGroup>
