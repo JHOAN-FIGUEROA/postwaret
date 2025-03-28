@@ -186,7 +186,7 @@ function Productos() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>ID</th>
+              
               <th>Nombre</th>
               <th>Categoría</th>
               <th>Precio Unitario (COP)</th>
@@ -197,7 +197,7 @@ function Productos() {
           <tbody>
             {currentItems.map((producto) => (
               <tr key={producto.id}>
-                <td>{producto.id}</td>
+                
                 <td>{producto.nombre}</td>
                 <td>{producto.categoria}</td>
                 <td>${producto.precioUnitarioCOP.toLocaleString()}</td>

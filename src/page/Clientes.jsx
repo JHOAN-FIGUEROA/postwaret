@@ -9,12 +9,12 @@ import Swal from 'sweetalert2'
 
 function Clientes() {
   const [clientes, setClientes] = useState([
-    { id: 1, nombre: "Cliente A", contacto: "contacto@cliente.com", telefono: "123456789", Estado: "Activa" },
-    { id: 2, nombre: "Cliente B", contacto: "contacto@Cliente.com", telefono: "987654321", Estado: "Activa" },
-    { id: 3, nombre: "Cliente C", contacto: "contacto@Cliente.com", telefono: "987654345", Estado: "Inactiva" },
-    { id: 4, nombre: "Cliente D", contacto: "contacto@clienteD.com", telefono: "555555555", Estado: "Activa" },
-    { id: 5, nombre: "Cliente E", contacto: "contacto@ClienteE.com", telefono: "666666666", Estado: "Inactiva" },
-    { id: 6, nombre: "Cliente F", contacto: "contacto@ClienteF.com", telefono: "777777777", Estado: "Activa" },
+    { id:1 ,Documento: 1011395174, nombre: "Cliente A", contacto: "contacto@cliente.com", telefono: "123456789", Estado: "Activa" },
+    { id:2 , Documento: 2011395174, nombre: "Cliente B", contacto: "contacto@Cliente.com", telefono: "987654321", Estado: "Activa" },
+    { id:3 , Documento: 3011395174, nombre: "Cliente C", contacto: "contacto@Cliente.com", telefono: "987654345", Estado: "Inactiva" },
+    { id:4 , Documento: 4011395174, nombre: "Cliente D", contacto: "contacto@clienteD.com", telefono: "555555555", Estado: "Activa" },
+    { id:5 , Documento: 5011395174, nombre: "Cliente E", contacto: "contacto@ClienteE.com", telefono: "666666666", Estado: "Inactiva" },
+    {  id:6 ,Documento: 6011395174, nombre: "Cliente F", contacto: "contacto@ClienteF.com", telefono: "777777777", Estado: "Activa" },
   ])
 
   const [busqueda, setBusqueda] = useState("")
@@ -67,7 +67,7 @@ function Clientes() {
     Swal.fire({
       title: `Detalle del Cliente: ${cliente.nombre}`,
       html: `
-        <p><strong>ID:</strong> ${cliente.id}</p>
+        <p><strong>Documento:</strong> ${cliente.Documento}</p>
         <p><strong>Contacto:</strong> ${cliente.contacto}</p>
         <p><strong>Teléfono:</strong> ${cliente.telefono}</p>
         <p><strong>Estado:</strong> ${cliente.Estado}</p>
@@ -182,7 +182,7 @@ function Clientes() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Documento</th>
               <th>Nombre</th>
               <th>Contacto</th>
               <th>Teléfono</th>
@@ -193,7 +193,7 @@ function Clientes() {
           <tbody>
             {currentItems.map((cliente) => (
               <tr key={cliente.id}>
-                <td>{cliente.id}</td>
+                <td>{cliente.Documento}</td>
                 <td>{cliente.nombre}</td>
                 <td>{cliente.contacto}</td>
                 <td>{cliente.telefono}</td>
