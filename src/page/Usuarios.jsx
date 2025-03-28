@@ -131,7 +131,7 @@ function Usuarios() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>ID</th>
+            
             <th>Nombre</th>
             <th>N° Documento</th>
             <th>Rol</th>
@@ -142,7 +142,7 @@ function Usuarios() {
         <tbody>
           {currentItems.map((usuario) => (
             <tr key={usuario.id}>
-              <td>{usuario.id}</td>
+              
               <td>{usuario.nombre}</td>
               <td>{usuario.numeroDocumento}</td>
               <td>{usuario.rol}</td>

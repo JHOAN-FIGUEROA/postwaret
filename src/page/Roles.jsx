@@ -215,7 +215,7 @@ function Roles() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>ID</th>
+          
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Estado</th>
@@ -225,7 +225,7 @@ function Roles() {
         <tbody>
           {currentItems.map((rol) => (
             <tr key={rol.id}>
-              <td>{rol.id}</td>
+            
               <td>{rol.nombre}</td>
               <td>{rol.descripcion}</td>
               <td>
