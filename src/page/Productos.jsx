@@ -15,6 +15,7 @@ function Productos() {
       nombre: "Producto A",
       categoria: "Categoría A",
       precioUnitarioCOP: 50000,
+      stock: 60,
       estado: "Activo"
     },
     {
@@ -22,6 +23,7 @@ function Productos() {
       nombre: "Producto B",
       categoria: "Categoría B",
       precioUnitarioCOP: 75000,
+      stock: 10,
       estado: "Activo"
     },
     {
@@ -29,6 +31,7 @@ function Productos() {
       nombre: "Producto C",
       categoria: "Categoría C",
       precioUnitarioCOP: 120000,
+      stock: 20,
       estado: "Inactivo"
     },
     {
@@ -36,6 +39,7 @@ function Productos() {
       nombre: "Producto D",
       categoria: "Categoría A",
       precioUnitarioCOP: 80000,
+      stock: 30,
       estado: "Activo"
     },
     {
@@ -43,6 +47,7 @@ function Productos() {
       nombre: "Producto E",
       categoria: "Categoría B",
       precioUnitarioCOP: 95000,
+      stock: 50,
       estado: "Inactivo"
     },
     {
@@ -50,6 +55,7 @@ function Productos() {
       nombre: "Producto F",
       categoria: "Categoría C",
       precioUnitarioCOP: 150000,
+      stock: 40,
       estado: "Activo"
     },
   ]);
@@ -189,6 +195,7 @@ function Productos() {
               <th>Nombre</th>
               <th>Categoría</th>
               <th>Precio Unitario (COP)</th>
+              <th>STOCK</th>
               <th>Estado</th>
               <th>Acciones</th>
             </tr>
@@ -199,6 +206,7 @@ function Productos() {
                 <td>{producto.nombre}</td>
                 <td>{producto.categoria}</td>
                 <td>${producto.precioUnitarioCOP.toLocaleString()}</td>
+                <td>{producto.stock}</td>
                 <td>
                   <Estado
                     estado={producto.estado}
