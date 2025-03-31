@@ -11,8 +11,6 @@ function Compras() {
   const [compras, setCompras] = useState([
     {
       id: 1,
-      producto: "Producto A",
-      cantidad: 10,
       precioUnitario: 15.5,
       proveedor: "Proveedor A",
       numeroCompra: 1001,
@@ -24,8 +22,6 @@ function Compras() {
     },
     {
       id: 2,
-      producto: "Producto B",
-      cantidad: 5,
       precioUnitario: 20.0,
       proveedor: "Proveedor B",
       numeroCompra: 1002,
@@ -37,8 +33,6 @@ function Compras() {
     },
     {
       id: 3,
-      producto: "Producto C",
-      cantidad: 8,
       precioUnitario: 12.75,
       proveedor: "Proveedor C",
       numeroCompra: 1003,
@@ -55,7 +49,7 @@ function Compras() {
   const [itemsPerPage] = useState(3);
 
   const comprasFiltradas = compras.filter((compra) =>
-    compra.producto.toLowerCase().includes(busqueda.toLowerCase())
+    compra.proveedor.toLowerCase().includes(busqueda.toLowerCase())
   );
 
   // Paginación
@@ -176,8 +170,6 @@ function Compras() {
           <thead>
             <tr>
               <th>N° de Compra</th>
-              <th>Producto</th>
-              <th>Cantidad</th>
               <th>Proveedor</th>
               <th>Fecha de Compra</th>
               <th>Total</th>
@@ -189,8 +181,6 @@ function Compras() {
             {currentItems.map((compra) => (
               <tr key={compra.id}>
                 <td>{compra.numeroCompra}</td>
-                <td>{compra.producto}</td>
-                <td>{compra.cantidad}</td>
                 <td>{compra.proveedor}</td>
                 <td>{compra.fechaCompra}</td>
                 <td>${compra.total.toFixed(3)}</td>
