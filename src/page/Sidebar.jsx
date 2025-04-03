@@ -24,7 +24,7 @@ import {
 function Sidebar({ modules }) {
   const [expandedModule, setExpandedModule] = useState(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true) // Changed to true by default
   const navigate = useNavigate()
 
   // Icon mapping for modules
@@ -64,7 +64,21 @@ function Sidebar({ modules }) {
   useEffect(() => {
     const loggedInStatus = localStorage.getItem("isLoggedIn")
     setIsLoggedIn(loggedInStatus === "true")
+    
+    // Store sidebar state in localStorage and read it on component mount
+    const savedSidebarState = localStorage.getItem("isSidebarOpen")
+    if (savedSidebarState !== null) {
+      setIsSidebarOpen(savedSidebarState === "true")
+    } else {
+      // If no state is saved yet, default to open
+      setIsSidebarOpen(true)
+    }
   }, [])
+
+  // Save sidebar state to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem("isSidebarOpen", isSidebarOpen)
+  }, [isSidebarOpen])
 
   const handleModuleClick = (moduleName) => {
     if (expandedModule === moduleName) {
@@ -76,7 +90,7 @@ function Sidebar({ modules }) {
 
   const handleSubmenuClick = (path) => {
     navigate(path)
-    setIsSidebarOpen(false) // Cerrar sidebar al seleccionar una opción
+    // Removed setIsSidebarOpen(false) to keep sidebar open when navigating
   }
 
   const handleLogout = () => {
