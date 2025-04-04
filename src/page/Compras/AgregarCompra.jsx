@@ -391,7 +391,7 @@ function AgregarCompra() {
   ];
 
   return (
-    <div className="agregar-cliente-form">
+    <div className="agregar-cliente-form" style={{ marginLeft: '250px', width: 'calc(100% - 250px)' }}>
       <h2>Crear Nueva Compra</h2>
       <Sidebar modules={modules} />
       <Form>
