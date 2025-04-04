@@ -108,7 +108,7 @@ function App() {
               <button className="btn" onClick={() => navigate("/login")}>
                 Iniciar Sesión
               </button>
-              <button className="btn" onClick={() =>  navigate("/registarse")}>
+              <button className="btn" onClick={() => setShowRegister(true)}>
                 Registrarse
               </button>
             </div>
@@ -151,7 +151,7 @@ function App() {
           <Route path="/ventas/ver-detalle/:id" element={<VerDetalleVenta />} />
           <Route path="/ventas/Generarpdf" element={<GenerarPDFVenta />} />
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
-          <Route path="/registarse" element={<RegisterForm onLogin={handleLogin} />} />
+          <Route path="/register" element={<RegisterForm onLogin={handleLogin} />} />
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/roles" element={<Roles />} />
           <Route path="/reset-password" element={<ResetPassword />} />

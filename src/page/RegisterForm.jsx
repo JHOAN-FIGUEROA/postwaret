@@ -38,7 +38,9 @@ function RegisterForm({ onBackToHome, onLogin }) { // Recibe onLogin como prop
         </div>
         <button className="logii" type="submit">Registrarse</button>
       </form>
-      <button className="logii" onClick={() => navigate("/")}>Volver al Inicio</button>
+      <button className="btn" onClick={onBackToHome}>
+        Volver al Inicio
+      </button>
     </div>
   );
 }
