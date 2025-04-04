@@ -1,11 +1,10 @@
-// src/page/AgregarProducto.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar"; 
 
-function AgregarProductoo() {
+function AgregarProducto() {
   const navigate = useNavigate();
 
   // Estado para almacenar los datos del producto
@@ -23,6 +22,11 @@ function AgregarProductoo() {
     setProducto({ ...producto, [name]: value });
   };
 
+  // Función para manejar el botón cancelar
+  const handleCancelar = () => {
+    navigate("/productos"); // Redirige a la página de productos sin guardar
+  };
+
   // Función para simular el guardado del producto con SweetAlert2
   const handleGuardarProducto = () => {
     // Validación con lógica condicional
@@ -31,14 +35,27 @@ function AgregarProductoo() {
     // Si hay código de barras, los demás campos son opcionales
     if (codigoBarras) {
       Swal.fire({
-        icon: "success",
-        title: "Producto guardado exitosamente",
-        text: "El nuevo producto ha sido creado con código de barras",
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-      }).then(() => {
-        navigate("/productos");
+        title: '¿Guardar producto?',
+        text: "¿Estás seguro de que deseas guardar este producto?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, guardar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            icon: "success",
+            title: "Producto guardado exitosamente",
+            text: "El nuevo producto ha sido creado con código de barras",
+            timer: 2000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+          }).then(() => {
+            navigate("/productos");
+          });
+        }
       });
       return;
     }
@@ -64,14 +81,27 @@ function AgregarProductoo() {
 
     // Si pasa la validación
     Swal.fire({
-      icon: "success",
-      title: "Producto guardado exitosamente",
-      text: "El nuevo producto ha sido creado",
-      timer: 2000,
-      timerProgressBar: true,
-      showConfirmButton: false,
-    }).then(() => {
-      navigate("/productos");
+      title: '¿Guardar producto?',
+      text: "¿Estás seguro de que deseas guardar este producto?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Producto guardado exitosamente",
+          text: "El nuevo producto ha sido creado",
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate("/productos");
+        });
+      }
     });
   };
 
@@ -105,15 +135,44 @@ function AgregarProductoo() {
     },
   ];
 
+  // Estilos CSS
+  const styles = `
+    .cancel-button {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      color: white;
+      margin-right: 10px;
+    }
+    .cancel-button:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .agregar-cliente-form {
+      padding: 20px;
+      margin-left: 250px;
+      width: calc(100% - 250px);
+    }
+    .required-field::after {
+      content: " *";
+      color: #dc3545;
+    }
+  `;
+
   return (
     <div className="agregar-cliente-form">
+      <style>{styles}</style>
       <h2>Agregar Nuevo Producto</h2>
       <Sidebar modules={modules} />
       <Form>
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="nombre">
-              <Form.Label>Nombre {!producto.codigoBarras && <span className="text-danger">*</span>}</Form.Label>
+              <Form.Label className={!producto.codigoBarras ? "required-field" : ""}>Nombre</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
@@ -152,7 +211,7 @@ function AgregarProductoo() {
           </Col>
           <Col>
             <Form.Group controlId="precioUnitarioCOP">
-              <Form.Label>Precio Unitario (COP) {!producto.codigoBarras && <span className="text-danger">*</span>}</Form.Label>
+              <Form.Label className={!producto.codigoBarras ? "required-field" : ""}>Precio Unitario (COP)</Form.Label>
               <Form.Control
                 type="number"
                 name="precioUnitarioCOP"
@@ -180,12 +239,12 @@ function AgregarProductoo() {
           </Col>
         </Row>
         <Row className="mb-3">
-          <Col className="text-end">
-            <Button variant="primary" onClick={handleGuardarProducto}>
-              Guardar Producto
-            </Button>{" "}
-            <Button variant="secondary" onClick={() => navigate("/productos")}>
+          <Col className="button-container">
+            <Button variant="danger" className="cancel-button" onClick={handleCancelar}>
               Cancelar
+            </Button>
+            <Button variant="success" onClick={handleGuardarProducto}>
+              Guardar Producto
             </Button>
           </Col>
         </Row>
@@ -194,4 +253,4 @@ function AgregarProductoo() {
   );
 }
 
-export default AgregarProductoo;
+export default AgregarProducto;
