@@ -11,7 +11,6 @@ import Compras from "./page/Compras"
 import AgregarCompra from "./page/Compras/AgregarCompra"
 import VerDetalleCompra from "./page/Compras/VerDetalleCompra"
 import GenerarPDF from "./page/Compras/GenerarPDF"
-import AgregarProductos from "./page/Compras/AgregarProducto"
 import AgregarProveedor from "./page/Proveedores/AgregarProveedor"
 import EditarProveedor from "./page/Proveedores/EditarProveedor"
 import VerDetalleProveedor from "./page/Proveedores/VerDetalleProveedor"
@@ -30,7 +29,6 @@ import EditarProductoo from "./page/Productos/EditarProducto"
 import VerDetalleProducto from "./page/Productos/VerDetalleProducto"
 import Ventas from "./page/Ventas"
 import AgregarVenta from "./page/Ventas/AgregarVenta"
-import AgregarProductosss from "./page/Ventas/AgregarProductov"
 import VerDetalleVenta from "./page/Ventas/VerDetalleVenta"
 import GenerarPDFVenta from "./page/Ventas/GenerarPdfventa"
 import Usuarios from "./page/Usuarios";
@@ -131,7 +129,6 @@ function App() {
           <Route path="/compras/agregar" element={<AgregarCompra />} />
           <Route path="/compras/ver-detalle/:id" element={<VerDetalleCompra />} />
           <Route path="/compras/GenerarPDF" element={<GenerarPDF />} />
-          <Route path="/productos/agregar" element={<AgregarProductos />} />
           <Route path="/productos/editar" element={<EditarCliente />} />
           <Route path="/proveedor/agregar" element={<AgregarProveedor />} />
           <Route path="/proveedor/editar" element={<EditarProveedor />} />
@@ -151,7 +148,6 @@ function App() {
           <Route path="/productos/ver-detalle" element={<VerDetalleProducto />} />
           <Route path="/ventas" element={<Ventas />} />
           <Route path="/ventas/agregar" element={<AgregarVenta />} />
-          <Route path="/productos/agregarrr" element={<AgregarProductosss />} />
           <Route path="/ventas/ver-detalle/:id" element={<VerDetalleVenta />} />
           <Route path="/ventas/Generarpdf" element={<GenerarPDFVenta />} />
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
