@@ -38,6 +38,11 @@ function AgregarRol() {
     navigate("/roles"); // Redirige a la página de roles
   };
 
+  // Función para manejar el botón cancelar
+  const handleCancelar = () => {
+    navigate("/roles"); // Redirige a la página de roles sin guardar
+  };
+
   const modules = [
     {
       name: "Dashboard",
@@ -68,8 +73,28 @@ function AgregarRol() {
     },
   ];
 
+  // Estilos CSS para el botón cancelar
+  const styles = `
+    .cancel-button {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      color: white;
+      margin-right: 10px;
+    }
+    .cancel-button:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  `;
+
   return (
     <div className="agregar-cliente-form">
+      <style>{styles}</style>
       <h2>Agregar Nuevo Rol</h2>
       <Sidebar modules={modules} />
       <Form>
@@ -104,7 +129,10 @@ function AgregarRol() {
           </Col>
         </Row>
         <Row className="mb-3">
-          <Col className="text-end">
+          <Col className="button-container">
+            <Button variant="danger" className="cancel-button" onClick={handleCancelar}>
+              Cancelar
+            </Button>
             <Button variant="success" onClick={handleGuardarRol}>
               Guardar Rol
             </Button>

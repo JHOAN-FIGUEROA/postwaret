@@ -335,6 +335,11 @@ function AgregarVenta() {
     });
   };
 
+  // Función para manejar el botón cancelar
+  const handleCancelar = () => {
+    navigate("/ventas");
+  };
+
   // Función para guardar la venta
   const handleGuardarVenta = () => {
     if (validarFormulario()) {
@@ -500,7 +505,10 @@ function AgregarVenta() {
         </Row>
         <Row className="mb-3">
           <Col className="text-end">
-            <Button variant="success" className="btn-guardar" onClick={handleGuardarVenta}>
+          <Button variant="danger" onClick={handleCancelar} className="me-2" style={{ margin: '5px' }}>
+              Cancelar
+            </Button>
+            <Button variant="success" onClick={handleGuardarVenta}>
               Guardar Venta
             </Button>
           </Col>
