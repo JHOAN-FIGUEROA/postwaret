@@ -24,8 +24,9 @@ function LoginForm({ onBackToHome, onLogin }) {
         </div>
         <button className="logii" type="submit">Iniciar Sesión</button>
       </form>
-      <button className="btn" onClick={() => navigate("/")}>Volver al Inicio</button>
-      <button className="forgot-password" onClick={() => navigate("/reset-password")}>
+      <button className="logii" onClick={() => navigate("/")}>Volver al Inicio</button>
+
+      <button className="logii" onClick={() => navigate("/reset-password")}>
         ¿Olvidaste tu contraseña?
       </button>
     </div>

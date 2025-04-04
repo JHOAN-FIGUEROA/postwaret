@@ -4,9 +4,13 @@ import { useEffect } from "react"
 import Sidebar from "./Sidebar"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Outlet } from "react-router-dom"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, AreaChart, Area } from "recharts"
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  LineChart, Line, AreaChart, Area, ResponsiveContainer
+} from "recharts"
+import "../css/Dashboard.css"
 
-function Dasboard() {
+function Dashboard() {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -20,8 +24,8 @@ function Dasboard() {
 
   const modules = [
     {
-      name: "Dasboard",
-      submenus: [{ name: "Dasboard", path: "/dasboard" }],
+      name: "Dashboard",
+      submenus: [{ name: "Dashboard", path: "/dasboard" }],
     },
     {
       name: "Configuracion",
@@ -48,7 +52,7 @@ function Dasboard() {
     },
   ]
 
-  // Datos falsos para las gráficas
+  // Datos para gráficas
   const productData = [
     { name: "Producto A", cantidad: 400 },
     { name: "Producto B", cantidad: 300 },
@@ -73,67 +77,93 @@ function Dasboard() {
     { name: "Mayo", ventas: 4800 },
   ]
 
-  // Check if we're on the exact dashboard path to show dashboard content
+  const userData = [
+    { name: "Enero", usuarios: 300 },
+    { name: "Febrero", usuarios: 500 },
+    { name: "Marzo", usuarios: 700 },
+    { name: "Abril", usuarios: 650 },
+    { name: "Mayo", usuarios: 900 },
+  ]
+
   const isDashboardPath = location.pathname === "/dasboard"
 
   return (
     <div className="main-content">
-      {/* Sidebar fijo */}
       <Sidebar modules={modules} />
 
-      {/* Contenido principal - solo mostrar si estamos en la ruta exacta de dashboard */}
       {isDashboardPath && (
-        <>
+        <div className="dashboard-content">
           <div className="titulodasboard">
             <h1>Dashboard</h1>
           </div>
 
-          {/* Gráfica de productos */}
-          <div className="chart-container">
-            <h2>Gráfica de Productos</h2>
-            <BarChart width={300} height={150} data={productData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="cantidad" fill="#8884d8" />
-            </BarChart>
-          </div>
+          <div className="charts-row">
+            {/* Gráfica de productos */}
+            <div className="chart-container">
+              <h2>Gráfica de Productos</h2>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={productData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="cantidad" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
 
-          {/* Gráfica de clientes */}
-          <div className="chart-container">
-            <h2>Gráfica de Clientes</h2>
-            <LineChart width={300} height={150} data={clientData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="clientes" stroke="#82ca9d" />
-            </LineChart>
-          </div>
+            {/* Gráfica de clientes */}
+            <div className="chart-container">
+              <h2>Gráfica de Clientes</h2>
+              <ResponsiveContainer width="100%" height={200}>
+                <LineChart data={clientData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="clientes" stroke="#82ca9d" />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
 
-          {/* Gráfica de ventas */}
-          <div className="chart-container">
-            <h2>Gráfica de Ventas</h2>
-            <AreaChart width={300} height={150} data={salesData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Area type="monotone" dataKey="ventas" stroke="#8884d8" fill="#8884d8" />
-            </AreaChart>
+            {/* Gráfica de ventas */}
+            <div className="chart-container">
+              <h2>Gráfica de Ventas</h2>
+              <ResponsiveContainer width="100%" height={200}>
+                <AreaChart data={salesData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Area type="monotone" dataKey="ventas" stroke="#8884d8" fill="#8884d8" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Gráfica de usuarios registrados */}
+            <div className="chart-container">
+              <h2>Gráfica de Usuarios Registrados</h2>
+              <ResponsiveContainer width="100%" height={200}>
+                <LineChart data={userData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="usuarios" stroke="#ffc658" />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-        </>
+        </div>
       )}
 
-      {/* Contenido de la página (rutas anidadas) */}
       <Outlet />
     </div>
   )
 }
 
-export default Dasboard
-
+export default Dashboard
