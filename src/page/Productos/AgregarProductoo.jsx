@@ -172,26 +172,27 @@ function AgregarProducto() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="nombre">
-              <Form.Label className={!producto.codigoBarras ? "required-field" : ""}>Nombre</Form.Label>
+              <Form.Label className="required-field">Nombre</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
                 value={producto.nombre}
                 onChange={handleChange}
                 placeholder="Ingrese el nombre del producto"
-                required={!producto.codigoBarras}
+                required
               />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group controlId="categoria">
-              <Form.Label>Categoría</Form.Label>
+              <Form.Label className="required-field">Categoría</Form.Label>
               <Form.Control
                 type="text"
                 name="categoria"
                 value={producto.categoria}
                 onChange={handleChange}
                 placeholder="Ingrese la categoría del producto"
+                required
               />
             </Form.Group>
           </Col>
@@ -199,26 +200,27 @@ function AgregarProducto() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="codigoBarras">
-              <Form.Label>Código de Barras (Opcional)</Form.Label>
+              <Form.Label className="required-field">Código de Barras</Form.Label>
               <Form.Control
                 type="text"
                 name="codigoBarras"
                 value={producto.codigoBarras}
                 onChange={handleChange}
                 placeholder="Escanear o ingresar código de barras"
+                required
               />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group controlId="precioUnitarioCOP">
-              <Form.Label className={!producto.codigoBarras ? "required-field" : ""}>Precio Unitario (COP)</Form.Label>
+              <Form.Label className="required-field">Precio Unitario (COP)</Form.Label>
               <Form.Control
                 type="number"
                 name="precioUnitarioCOP"
                 value={producto.precioUnitarioCOP}
                 onChange={handleChange}
                 placeholder="Ingrese el precio unitario en COP"
-                required={!producto.codigoBarras}
+                required
               />
             </Form.Group>
           </Col>
@@ -226,7 +228,7 @@ function AgregarProducto() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="descripcion">
-              <Form.Label>Descripción</Form.Label>
+              <Form.Label className="required-field">Descripción</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
@@ -234,6 +236,7 @@ function AgregarProducto() {
                 value={producto.descripcion}
                 onChange={handleChange}
                 placeholder="Ingrese una descripción del producto"
+                required
               />
             </Form.Group>
           </Col>

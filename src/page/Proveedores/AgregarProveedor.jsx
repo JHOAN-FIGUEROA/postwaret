@@ -41,6 +41,38 @@ function AgregarProveedor() {
       });
       return false;
     }
+    if (!proveedor.apellido.trim()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El apellido es requerido',
+      });
+      return false;
+    }
+    if (!proveedor.direccion.trim()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'La dirección es requerida',
+      });
+      return false;
+    }
+    if (!proveedor.numeroContacto.trim()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El número de contacto es requerido',
+      });
+      return false;
+    }
+    if (!proveedor.descripcion.trim()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'La descripción es requerida',
+      });
+      return false;
+    }
     return true;
   };
 
@@ -129,6 +161,11 @@ function AgregarProveedor() {
       margin-left: 250px;
       width: calc(100% - 250px);
     }
+    .required-field::after {
+      content: "*";
+      color: red;
+      margin-left: 5px;
+    }
   `;
 
   return (
@@ -140,7 +177,7 @@ function AgregarProveedor() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="nombre">
-              <Form.Label>Nombre</Form.Label>
+              <Form.Label className="required-field">Nombre</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
@@ -153,13 +190,14 @@ function AgregarProveedor() {
           </Col>
           <Col>
             <Form.Group controlId="apellido">
-              <Form.Label>Apellido</Form.Label>
+              <Form.Label className="required-field">Apellido</Form.Label>
               <Form.Control
                 type="text"
                 name="apellido"
                 value={proveedor.apellido}
                 onChange={handleChange}
                 placeholder="Ingrese el apellido del proveedor"
+                required
               />
             </Form.Group>
           </Col>
@@ -167,13 +205,14 @@ function AgregarProveedor() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="direccion">
-              <Form.Label>Dirección</Form.Label>
+              <Form.Label className="required-field">Dirección</Form.Label>
               <Form.Control
                 type="text"
                 name="direccion"
                 value={proveedor.direccion}
                 onChange={handleChange}
                 placeholder="Ingrese la dirección del proveedor"
+                required
               />
             </Form.Group>
           </Col>
@@ -181,7 +220,7 @@ function AgregarProveedor() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="email">
-              <Form.Label>Email</Form.Label>
+              <Form.Label className="required-field">Email</Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -194,13 +233,14 @@ function AgregarProveedor() {
           </Col>
           <Col>
             <Form.Group controlId="numeroContacto">
-              <Form.Label>Número de Contacto</Form.Label>
+              <Form.Label className="required-field">Número de Contacto</Form.Label>
               <Form.Control
                 type="text"
                 name="numeroContacto"
                 value={proveedor.numeroContacto}
                 onChange={handleChange}
                 placeholder="Ingrese el número de contacto"
+                required
               />
             </Form.Group>
           </Col>
@@ -208,7 +248,7 @@ function AgregarProveedor() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="descripcion">
-              <Form.Label>Descripción</Form.Label>
+              <Form.Label className="required-field">Descripción</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
@@ -216,6 +256,7 @@ function AgregarProveedor() {
                 value={proveedor.descripcion}
                 onChange={handleChange}
                 placeholder="Ingrese una descripción del proveedor"
+                required
               />
             </Form.Group>
           </Col>
