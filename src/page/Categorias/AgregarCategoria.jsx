@@ -26,7 +26,7 @@ function AgregarCategoria() {
 
   // Función para manejar el guardado de la categoría con alerta
   const handleGuardarCategoria = () => {
-    if (!categoria.nombre.trim() || !categoria.descripcion.trim()) {
+    if (!categoria.nombre.trim()) {
       Swal.fire({
         icon: "warning",
         title: "Campos incompletos",
@@ -143,7 +143,7 @@ function AgregarCategoria() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="descripcion">
-              <Form.Label className="required-field">Descripción</Form.Label>
+              <Form.Label >Descripción</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}

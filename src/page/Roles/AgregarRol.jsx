@@ -7,13 +7,11 @@ import Sidebar from "./../Sidebar";
 function AgregarRol() {
   const navigate = useNavigate();
 
-  // Estado para almacenar los datos del rol
   const [rol, setRol] = useState({
     nombre: "",
     descripcion: "",
   });
 
-  // Función para mostrar alertas SweetAlert2
   const showAlert = (icon, title, text = "") => {
     Swal.fire({
       icon,
@@ -25,22 +23,32 @@ function AgregarRol() {
     });
   };
 
-  // Función para manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRol({ ...rol, [name]: value });
   };
 
-  // Función para simular el guardado del rol
-  const handleGuardarRol = () => {
-    // Muestra alerta de confirmación
-    showAlert("success", "Rol guardado exitosamente", "El nuevo rol ha sido creado");
-    navigate("/roles"); // Redirige a la página de roles
+  const validarFormulario = () => {
+    if (!rol.nombre.trim() ) {
+      Swal.fire({
+        icon: "error",
+        title: "Campos incompletos",
+        text: "Por favor, completa todos los campos requeridos",
+      });
+      return false;
+    }
+    return true;
   };
 
-  // Función para manejar el botón cancelar
+  const handleGuardarRol = () => {
+    if (!validarFormulario()) return;
+
+    showAlert("success", "Rol guardado exitosamente", "El nuevo rol ha sido creado");
+    navigate("/roles");
+  };
+
   const handleCancelar = () => {
-    navigate("/roles"); // Redirige a la página de roles sin guardar
+    navigate("/roles");
   };
 
   const modules = [
@@ -73,7 +81,6 @@ function AgregarRol() {
     },
   ];
 
-  // Estilos CSS para el botón cancelar y los asteriscos rojos
   const styles = `
     .cancel-button {
       background-color: #dc3545;
@@ -120,7 +127,7 @@ function AgregarRol() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="descripcion">
-              <Form.Label className="required-field">Descripción</Form.Label>
+              <Form.Label>Descripción</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}

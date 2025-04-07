@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Table } from "react-bootstrap";
 import Sidebar from "../Sidebar";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function GenerarPDFVenta() {
-  const { id } = useParams(); // Obtiene el ID de la venta desde la URL
+  const { id } = useParams();
   const navigate = useNavigate();
+  const pdfRef = useRef();
 
-  // Datos ficticios de la venta
+  // Datos ficticios de ejemplo
   const venta = {
     id: id,
     numeroVenta: 2001,
@@ -36,11 +39,24 @@ function GenerarPDFVenta() {
     total: 142.8,
   };
 
-  // Función para regresar a la página de ventas
-  const handleRegresar = () => {
-    alert("PDF Generado (simulación)");
-    navigate("/ventas"); // Redirige a la página de ventas
+  const handleGenerarPDF = () => {
+    const input = pdfRef.current;
+    html2canvas(input, { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`venta_${venta.numeroVenta}.pdf`);
+    });
   };
+
+  const handleCancelar = () => {
+    navigate("/ventas");
+  };
+
   const modules = [
     {
       name: "Dashboard",
@@ -51,7 +67,6 @@ function GenerarPDFVenta() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -72,64 +87,72 @@ function GenerarPDFVenta() {
     },
   ];
 
-
   return (
     <div className="main-content with-sidebar">
-      <h2>Detalle de la Venta</h2>
       <Sidebar modules={modules} />
-      <div>
-        <h4>Información General</h4>
-        <p>
-          <strong>N° de Venta:</strong> {venta.numeroVenta}
-        </p>
-        <p>
-          <strong>Fecha de Venta:</strong> {venta.fechaVenta}
-        </p>
-        <p>
-          <strong>Cliente:</strong> {venta.cliente}
-        </p>
-      </div>
-      <div>
-        <h4>Productos</h4>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio Unitario</th>
-              <th>Subtotal</th>
-              <th>IVA (19%)</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {venta.productos.map((producto, index) => (
-              <tr key={index}>
-                <td>{producto.nombre}</td>
-                <td>{producto.cantidad}</td>
-                <td>${producto.precioUnitario.toFixed(2)}</td>
-                <td>${producto.subtotal.toFixed(2)}</td>
-                <td>${producto.iva.toFixed(2)}</td>
-                <td>${producto.total.toFixed(2)}</td>
+      <div
+        ref={pdfRef}
+        style={{ padding: "20px", backgroundColor: "white", color: "black" }}
+      >
+        <h2>Detalle de la Venta</h2>
+        <div>
+          <h4>Información General</h4>
+          <p>
+            <strong>N° de Venta:</strong> {venta.numeroVenta}
+          </p>
+          <p>
+            <strong>Fecha de Venta:</strong> {venta.fechaVenta}
+          </p>
+          <p>
+            <strong>Cliente:</strong> {venta.cliente}
+          </p>
+        </div>
+        <div>
+          <h4>Productos</h4>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+                <th>IVA (19%)</th>
+                <th>Total</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {venta.productos.map((producto, index) => (
+                <tr key={index}>
+                  <td>{producto.nombre}</td>
+                  <td>{producto.cantidad}</td>
+                  <td>${producto.precioUnitario.toFixed(2)}</td>
+                  <td>${producto.subtotal.toFixed(2)}</td>
+                  <td>${producto.iva.toFixed(2)}</td>
+                  <td>${producto.total.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+        <div>
+          <h4>Resumen de la Venta</h4>
+          <p>
+            <strong>Subtotal:</strong> ${venta.subtotal.toFixed(2)}
+          </p>
+          <p>
+            <strong>IVA (19%):</strong> ${venta.iva.toFixed(2)}
+          </p>
+          <p>
+            <strong>Total:</strong> ${venta.total.toFixed(2)}
+          </p>
+        </div>
       </div>
-      <div>
-        <h4>Resumen de la Venta</h4>
-        <p>
-          <strong>Subtotal:</strong> ${venta.subtotal.toFixed(2)}
-        </p>
-        <p>
-          <strong>IVA (19%):</strong> ${venta.iva.toFixed(2)}
-        </p>
-        <p>
-          <strong>Total:</strong> ${venta.total.toFixed(2)}
-        </p>
-      </div>
-      <Button variant="secondary" onClick={handleRegresar}>
+
+      <Button variant="secondary" onClick={handleGenerarPDF} className="mt-3">
         Generar PDF
+      </Button>
+      <Button variant="danger" className="ms-2 mt-3" onClick={handleCancelar}>
+        Cancelar
       </Button>
     </div>
   );
