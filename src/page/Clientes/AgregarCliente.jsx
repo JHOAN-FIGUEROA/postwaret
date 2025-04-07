@@ -159,6 +159,10 @@ function AgregarCliente() {
       outline: 0;
       box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
+    .required-field::after {
+      content: " *";
+      color: #dc3545;
+    }
   `;
 
   return (
@@ -170,7 +174,7 @@ function AgregarCliente() {
         <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="documentoIdentidad">
-              <Form.Label>Documento de Identidad *</Form.Label>
+              <Form.Label className="required-field">Documento de Identidad</Form.Label>
               <Form.Control
                 type="number"
                 name="documentoIdentidad"
@@ -183,7 +187,7 @@ function AgregarCliente() {
           </Col>
           <Col md={6}>
             <Form.Group controlId="nombre">
-              <Form.Label>Nombre *</Form.Label>
+              <Form.Label className="required-field">Nombre</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
@@ -198,7 +202,7 @@ function AgregarCliente() {
         <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="apellido">
-              <Form.Label>Apellido</Form.Label>
+              <Form.Label className="required-field">Apellido</Form.Label>
               <Form.Control
                 type="text"
                 name="apellido"
@@ -210,7 +214,7 @@ function AgregarCliente() {
           </Col>
           <Col md={6}>
             <Form.Group controlId="direccion">
-              <Form.Label>Dirección</Form.Label>
+              <Form.Label className="required-field">Dirección</Form.Label>
               <Form.Control
                 type="text"
                 name="direccion"
@@ -224,7 +228,7 @@ function AgregarCliente() {
         <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="email">
-              <Form.Label>Email *</Form.Label>
+              <Form.Label className="required-field">Email</Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -237,7 +241,7 @@ function AgregarCliente() {
           </Col>
           <Col md={6}>
             <Form.Group controlId="numeroContacto">
-              <Form.Label>Teléfono</Form.Label>
+              <Form.Label className="required-field">Teléfono</Form.Label>
               <Form.Control
                 type="text"
                 name="numeroContacto"

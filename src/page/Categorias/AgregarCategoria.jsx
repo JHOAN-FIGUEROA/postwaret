@@ -112,6 +112,11 @@ function AgregarCategoria() {
       margin-left: 250px;
       width: calc(100% - 250px);
     }
+    .required-field::after {
+      content: "*";
+      color: red;
+      margin-left: 5px;
+    }
   `;
 
   return (
@@ -123,7 +128,7 @@ function AgregarCategoria() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="nombre">
-              <Form.Label>Nombre</Form.Label>
+              <Form.Label className="required-field">Nombre</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
@@ -138,7 +143,7 @@ function AgregarCategoria() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="descripcion">
-              <Form.Label>Descripción</Form.Label>
+              <Form.Label className="required-field">Descripción</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}

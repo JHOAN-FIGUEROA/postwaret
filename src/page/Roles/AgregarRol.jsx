@@ -73,7 +73,7 @@ function AgregarRol() {
     },
   ];
 
-  // Estilos CSS para el botón cancelar
+  // Estilos CSS para el botón cancelar y los asteriscos rojos
   const styles = `
     .cancel-button {
       background-color: #dc3545;
@@ -90,6 +90,10 @@ function AgregarRol() {
       justify-content: flex-end;
       gap: 10px;
     }
+    .required-field::after {
+      content: " *";
+      color: red;
+    }
   `;
 
   return (
@@ -101,7 +105,7 @@ function AgregarRol() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="nombre">
-              <Form.Label>Nombre del Rol</Form.Label>
+              <Form.Label className="required-field">Nombre del Rol</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
@@ -116,7 +120,7 @@ function AgregarRol() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="descripcion">
-              <Form.Label>Descripción</Form.Label>
+              <Form.Label className="required-field">Descripción</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
@@ -124,6 +128,7 @@ function AgregarRol() {
                 value={rol.descripcion}
                 onChange={handleChange}
                 placeholder="Ingrese una descripción del rol"
+                required
               />
             </Form.Group>
           </Col>

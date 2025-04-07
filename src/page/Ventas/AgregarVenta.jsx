@@ -398,6 +398,12 @@ function AgregarVenta() {
     },
   ];
 
+  // Estilo para el asterisco rojo que indica campo obligatorio
+  const requiredFieldStyle = {
+    color: 'red',
+    marginLeft: '3px',
+  };
+
   return (
     <div className="agregar-cliente-form" style={{ marginLeft: '250px', width: 'calc(100% - 250px)' }}>
       <h2>Crear Nueva Venta</h2>
@@ -406,7 +412,10 @@ function AgregarVenta() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="Cliente">
-              <Form.Label>Cliente</Form.Label>
+              <Form.Label>
+                Cliente
+                <span style={requiredFieldStyle}>*</span>
+              </Form.Label>
               <Form.Select
                 name="Cliente"
                 value={venta.Cliente}
@@ -424,7 +433,10 @@ function AgregarVenta() {
           </Col>
           <Col>
             <Form.Group controlId="fechaventa">
-              <Form.Label>Fecha de Venta</Form.Label>
+              <Form.Label>
+                Fecha de Venta
+                <span style={requiredFieldStyle}>*</span>
+              </Form.Label>
               <Form.Control
                 type="date"
                 name="fechaventa"
@@ -505,7 +517,7 @@ function AgregarVenta() {
         </Row>
         <Row className="mb-3">
           <Col className="text-end">
-          <Button variant="danger" onClick={handleCancelar} className="me-2" style={{ margin: '5px' }}>
+            <Button variant="danger" onClick={handleCancelar} className="me-2" style={{ margin: '5px' }}>
               Cancelar
             </Button>
             <Button variant="success" onClick={handleGuardarVenta}>
@@ -648,7 +660,20 @@ function AgregarVenta() {
                       </Form.Group>
                     </Col>
                     <Col md={6} className="d-flex align-items-end">
-                      <Button variant="success" onClick={handleAgregarProducto}>
+                      <Button 
+                        onClick={handleAgregarProducto}
+                        className="agregar-compra-btn"
+                        style={{
+                          backgroundColor: '#2eb85c',
+                          borderColor: '#2eb85c',
+                          color: 'white',
+                          fontWeight: 'bold',
+                          padding: '8px 16px',
+                          borderRadius: '4px',
+                          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                          width: '100%'
+                        }}
+                      >
                         Agregar a la Venta
                       </Button>
                     </Col>
@@ -665,7 +690,7 @@ function AgregarVenta() {
         </Modal.Footer>
       </Modal>
 
-      {/* CSS para el escáner de código de barras */}
+      {/* CSS para el escáner de código de barras y botón de compra */}
       <style jsx="true">{`
         .barcode-scanner-section {
           background-color: #ffffff;
@@ -690,6 +715,22 @@ function AgregarVenta() {
         
         .table-primary {
           background-color: #cfe2ff !important;
+        }
+        
+        .agregar-compra-btn {
+          background-color: #2eb85c !important;
+          border-color: #2eb85c !important;
+          color: white !important;
+          font-weight: bold !important;
+          padding: 8px 16px !important;
+          border-radius: 4px !important;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+          width: 100% !important;
+        }
+        
+        .agregar-compra-btn:hover {
+          background-color: #28a745 !important;
+          border-color: #28a745 !important;
         }
       `}</style>
     </div>

@@ -363,7 +363,7 @@ function AgregarCompra() {
     },
   ];
 
-  // Estilos CSS
+  // Estilos CSS actualizados para incluir los campos obligatorios
   const styles = `
     .cancel-button {
       background-color: #dc3545;
@@ -416,6 +416,25 @@ function AgregarCompra() {
       border-radius: 8px;
       margin-top: 15px;
     }
+    .required-field::after {
+      content: " *";
+      color: red;
+    }
+    .btn-success {
+      margin: 5px;
+      background-color: #28a745;
+      border-color: #28a745;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .btn-success:hover {
+      background-color: #218838;
+      border-color: #1e7e34;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
   `;
 
   return (
@@ -427,7 +446,7 @@ function AgregarCompra() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="numeroCompra">
-              <Form.Label>N° de Compra</Form.Label>
+              <Form.Label className="required-field">N° de Compra</Form.Label>
               <Form.Control
                 type="text"
                 name="numeroCompra"
@@ -440,7 +459,7 @@ function AgregarCompra() {
           </Col>
           <Col>
             <Form.Group controlId="fechaCompra">
-              <Form.Label>Fecha de Compra</Form.Label>
+              <Form.Label className="required-field">Fecha de Compra</Form.Label>
               <Form.Control
                 type="date"
                 name="fechaCompra"
@@ -454,7 +473,7 @@ function AgregarCompra() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="proveedor">
-              <Form.Label>Proveedor</Form.Label>
+              <Form.Label className="required-field">Proveedor</Form.Label>
               <Form.Select
                 name="proveedor"
                 value={compra.proveedor}
@@ -571,10 +590,11 @@ function AgregarCompra() {
             <Row className="mb-3">
               <Col>
                 <Form.Group controlId="categoria">
-                  <Form.Label>Categoría</Form.Label>
+                  <Form.Label className="required-field">Categoría</Form.Label>
                   <Form.Select
                     value={categoriaSeleccionada}
                     onChange={handleCategoriaChange}
+                    required
                   >
                     <option value="">Seleccione una categoría</option>
                     {categorias.map((categoria, index) => (

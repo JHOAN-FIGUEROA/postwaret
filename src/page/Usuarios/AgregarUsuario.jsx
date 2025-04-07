@@ -74,7 +74,7 @@ function AgregarUsuario() {
     },
   ];
 
-  // Estilos CSS para el botón cancelar
+  // Estilos CSS para el botón cancelar y los asteriscos rojos
   const styles = `
     .cancel-button {
       background-color: #dc3545;
@@ -91,6 +91,10 @@ function AgregarUsuario() {
       justify-content: flex-end;
       gap: 10px;
     }
+    .required-field::after {
+      content: " *";
+      color: red;
+    }
   `;
 
   return (
@@ -102,7 +106,7 @@ function AgregarUsuario() {
         <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="nombre">
-              <Form.Label>Nombre</Form.Label>
+              <Form.Label className="required-field">Nombre</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
@@ -115,7 +119,7 @@ function AgregarUsuario() {
           </Col>
           <Col md={6}>
             <Form.Group controlId="apellido">
-              <Form.Label>Apellido</Form.Label>
+              <Form.Label className="required-field">Apellido</Form.Label>
               <Form.Control
                 type="text"
                 name="apellido"
@@ -131,7 +135,7 @@ function AgregarUsuario() {
         <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="documentoIdentidad">
-              <Form.Label>Documento de Identidad</Form.Label>
+              <Form.Label className="required-field">Documento de Identidad</Form.Label>
               <Form.Control
                 type="text"
                 name="documentoIdentidad"
@@ -144,13 +148,14 @@ function AgregarUsuario() {
           </Col>
           <Col md={6}>
             <Form.Group controlId="telefono">
-              <Form.Label>Teléfono</Form.Label>
+              <Form.Label className="required-field">Teléfono</Form.Label>
               <Form.Control
                 type="tel"
                 name="telefono"
                 value={usuario.telefono}
                 onChange={handleChange}
                 placeholder="Ingrese el teléfono"
+                required
               />
             </Form.Group>
           </Col>
@@ -159,13 +164,14 @@ function AgregarUsuario() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="direccion">
-              <Form.Label>Dirección</Form.Label>
+              <Form.Label className="required-field">Dirección</Form.Label>
               <Form.Control
                 type="text"
                 name="direccion"
                 value={usuario.direccion}
                 onChange={handleChange}
                 placeholder="Ingrese la dirección"
+                required
               />
             </Form.Group>
           </Col>
@@ -174,7 +180,7 @@ function AgregarUsuario() {
         <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="email">
-              <Form.Label>Email</Form.Label>
+              <Form.Label className="required-field">Email</Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -187,7 +193,7 @@ function AgregarUsuario() {
           </Col>
           <Col md={6}>
             <Form.Group controlId="password">
-              <Form.Label>Contraseña</Form.Label>
+              <Form.Label className="required-field">Contraseña</Form.Label>
               <Form.Control
                 type="password"
                 name="password"
@@ -203,7 +209,7 @@ function AgregarUsuario() {
         <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="rol">
-              <Form.Label>Rol</Form.Label>
+              <Form.Label className="required-field">Rol</Form.Label>
               <Form.Select
                 name="rol"
                 value={usuario.rol}
