@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Table } from "react-bootstrap";
-import Sidebar from "./../Sidebar"; 
+import Sidebar from "./../Sidebar";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function GenerarPDF() {
-  const { id } = useParams(); // Obtiene el ID de la compra desde la URL
+  const { id } = useParams();
   const navigate = useNavigate();
+  const pdfRef = useRef(); // Referencia al contenido
 
-  // Datos ficticios de la compra
   const compra = {
     id: id,
     numeroCompra: 1001,
@@ -36,10 +38,21 @@ function GenerarPDF() {
     total: 303.45,
   };
 
-  // Función para regresar a la página de compras
- const handleRegresar = () => {
-    alert("PDF Generado (simulación)");
-    navigate("/compras"); // Redirige a la página de compras
+  const handleGenerarPDF = () => {
+    const input = pdfRef.current;
+    html2canvas(input, { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`compra_${compra.numeroCompra}.pdf`);
+    });
+  };
+  const handleCancelar = () => {
+    navigate("/compras");
   };
 
   const modules = [
@@ -52,7 +65,6 @@ function GenerarPDF() {
       submenus: [
         { name: "Usuarios", path: "/usuarios" },
         { name: "Roles", path: "/roles" },
-        
       ],
     },
     {
@@ -73,64 +85,59 @@ function GenerarPDF() {
     },
   ];
 
+  
+
   return (
     <div className="main-content with-sidebar">
-      <h2>Detalle de la Compra</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
-      <div>
-        <h4>Información General</h4>
-        <p>
-          <strong>N° de Compra:</strong> {compra.numeroCompra}
-        </p>
-        <p>
-          <strong>Fecha de Compra:</strong> {compra.fechaCompra}
-        </p>
-        <p>
-          <strong>Proveedor:</strong> {compra.proveedor}
-        </p>
-      </div>
-      <div>
-        <h4>Productos</h4>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio Unitario</th>
-              <th>Subtotal</th>
-              <th>IVA (19%)</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {compra.productos.map((producto, index) => (
-              <tr key={index}>
-                <td>{producto.nombre}</td>
-                <td>{producto.cantidad}</td>
-                <td>${producto.precioUnitario.toFixed(2)}</td>
-                <td>${producto.subtotal.toFixed(2)}</td>
-                <td>${producto.iva.toFixed(2)}</td>
-                <td>${producto.total.toFixed(2)}</td>
+      <Sidebar modules={modules} />
+      <div ref={pdfRef} style={{ padding: "20px", backgroundColor: "white", color: "black" }}>
+        <h2>Detalle de la Compra</h2>
+        <div>
+          <h4>Información General</h4>
+          <p><strong>N° de Compra:</strong> {compra.numeroCompra}</p>
+          <p><strong>Fecha de Compra:</strong> {compra.fechaCompra}</p>
+          <p><strong>Proveedor:</strong> {compra.proveedor}</p>
+        </div>
+        <div>
+          <h4>Productos</h4>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+                <th>IVA (19%)</th>
+                <th>Total</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {compra.productos.map((producto, index) => (
+                <tr key={index}>
+                  <td>{producto.nombre}</td>
+                  <td>{producto.cantidad}</td>
+                  <td>${producto.precioUnitario.toFixed(2)}</td>
+                  <td>${producto.subtotal.toFixed(2)}</td>
+                  <td>${producto.iva.toFixed(2)}</td>
+                  <td>${producto.total.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+        <div>
+          <h4>Resumen de la Compra</h4>
+          <p><strong>Subtotal:</strong> ${compra.subtotal.toFixed(2)}</p>
+          <p><strong>IVA (19%):</strong> ${compra.iva.toFixed(2)}</p>
+          <p><strong>Total:</strong> ${compra.total.toFixed(2)}</p>
+        </div>
       </div>
-      <div>
-        <h4>Resumen de la Compra</h4>
-        <p>
-          <strong>Subtotal:</strong> ${compra.subtotal.toFixed(2)}
-        </p>
-        <p>
-          <strong>IVA (19%):</strong> ${compra.iva.toFixed(2)}
-        </p>
-        <p>
-          <strong>Total:</strong> ${compra.total.toFixed(2)}
-        </p>
-      </div>
-      <Button variant="secondary" onClick={handleRegresar}>
+      <Button variant="secondary" onClick={handleGenerarPDF} className="mt-3">
         Generar PDF
       </Button>
+       <Button variant="danger" className="cancel-button" onClick={handleCancelar}>
+                    Cancelar
+                  </Button>
     </div>
   );
 }

@@ -87,14 +87,7 @@ function Compras() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'PDF Generado',
-          'El PDF se ha generado correctamente',
-          'success'
-        ).then(() => {
-          // Aquí podrías agregar la lógica para generar el PDF real
-          console.log(`Generando PDF para compra ID: ${id}`);
-        });
+        navigate(`/compras/GenerarPDF/`);
       }
     });
   };
@@ -197,6 +190,7 @@ function Compras() {
                   <Button variant="warning" size="sm" onClick={() => handleGenerarPDF(compra.id)}>
                     Generar PDF
                   </Button>
+                
                 </td>
               </tr>
             ))}

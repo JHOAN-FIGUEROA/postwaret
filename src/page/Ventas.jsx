@@ -112,7 +112,7 @@ function Ventas() {
     );
   };
 
-  const handleGenerarPDF = (id) => {
+  const handleGenerarPDF = () => {
     Swal.fire({
       title: 'Generar PDF',
       text: '¿Deseas generar un PDF de esta venta?',
@@ -124,13 +124,7 @@ function Ventas() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'PDF Generado',
-          'El PDF se ha generado correctamente',
-          'success'
-        ).then(() => {
-          console.log(`Generando PDF para Venta ID: ${id}`);
-        });
+        navigate(`/ventas/GenerarPDF/`);
       }
     });
   };

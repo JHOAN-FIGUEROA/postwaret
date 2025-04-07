@@ -252,19 +252,7 @@ function AgregarCliente() {
             </Form.Group>
           </Col>
         </Row>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="estado">
-              <Form.Check
-                type="checkbox"
-                label="Cliente activo"
-                name="estado"
-                checked={cliente.estado}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
+        
         <Row className="mb-3">
           <Col className="button-container">
             <Button variant="danger" className="cancel-button" onClick={handleCancelar}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
-import Sidebar from "./../Sidebar"; 
+import Sidebar from "./../Sidebar";
 
 function AgregarProducto() {
   const navigate = useNavigate();
@@ -11,8 +11,9 @@ function AgregarProducto() {
   const [producto, setProducto] = useState({
     nombre: "",
     categoria: "",
-    codigoBarras: "", 
+    codigoBarras: "",
     precioUnitarioCOP: "",
+    porcentajeGanancia: "",
     descripcion: "",
   });
 
@@ -24,15 +25,19 @@ function AgregarProducto() {
 
   // Función para manejar el botón cancelar
   const handleCancelar = () => {
-    navigate("/productos"); // Redirige a la página de productos sin guardar
+    navigate("/productos");
   };
 
-  // Función para simular el guardado del producto con SweetAlert2
+  // Función para simular el guardado del producto
   const handleGuardarProducto = () => {
-    // Validación con lógica condicional
-    const { nombre, categoria, codigoBarras, precioUnitarioCOP, descripcion } = producto;
+    const {
+      nombre,
+      categoria,
+      codigoBarras,
+      precioUnitarioCOP,
+      descripcion,
+    } = producto;
 
-    // Si hay código de barras, los demás campos son opcionales
     if (codigoBarras) {
       Swal.fire({
         title: '¿Guardar producto?',
@@ -42,7 +47,7 @@ function AgregarProducto() {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Sí, guardar',
-        cancelButtonText: 'Cancelar'
+        cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
@@ -60,7 +65,6 @@ function AgregarProducto() {
       return;
     }
 
-    // Si NO hay código de barras, validar campos obligatorios
     if (!nombre || !precioUnitarioCOP) {
       Swal.fire({
         icon: "error",
@@ -79,7 +83,6 @@ function AgregarProducto() {
       return;
     }
 
-    // Si pasa la validación
     Swal.fire({
       title: '¿Guardar producto?',
       text: "¿Estás seguro de que deseas guardar este producto?",
@@ -88,7 +91,7 @@ function AgregarProducto() {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, guardar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
@@ -135,7 +138,6 @@ function AgregarProducto() {
     },
   ];
 
-  // Estilos CSS
   const styles = `
     .cancel-button {
       background-color: #dc3545;
@@ -207,7 +209,6 @@ function AgregarProducto() {
                 value={producto.codigoBarras}
                 onChange={handleChange}
                 placeholder="Escanear o ingresar código de barras"
-                required
               />
             </Form.Group>
           </Col>
@@ -220,6 +221,21 @@ function AgregarProducto() {
                 value={producto.precioUnitarioCOP}
                 onChange={handleChange}
                 placeholder="Ingrese el precio unitario en COP"
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="porcentajeGanancia">
+              <Form.Label className="required-field">Porcentaje de Ganancia</Form.Label>
+              <Form.Control
+                type="number"
+                name="porcentajeGanancia"
+                value={producto.porcentajeGanancia}
+                onChange={handleChange}
+                placeholder="Ingresa el porcentaje de ganancia del producto"
                 required
               />
             </Form.Group>

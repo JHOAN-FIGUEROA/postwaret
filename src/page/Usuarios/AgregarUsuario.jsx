@@ -7,26 +7,77 @@ import Sidebar from "./../Sidebar";
 function AgregarUsuario() {
   const navigate = useNavigate();
 
-  // Estado para almacenar los datos del usuario
   const [usuario, setUsuario] = useState({
     nombre: "",
     apellido: "",
-    documentoIdentidad: "", 
+    documentoIdentidad: "",
     telefono: "",
     direccion: "",
     email: "",
     password: "",
-    rol: "Cajero" // Valor por defecto
+    rol: "Cajero",
   });
 
-  // Función para manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUsuario({ ...usuario, [name]: value });
   };
 
-  // Función para simular el guardado del usuario con SweetAlert2
+  const validarFormulario = () => {
+    const {
+      nombre,
+      apellido,
+      documentoIdentidad,
+      telefono,
+      direccion,
+      email,
+      password,
+      rol,
+    } = usuario;
+
+    if (
+      !nombre.trim() ||
+      !apellido.trim() ||
+      !documentoIdentidad.trim() ||
+      !telefono.trim() ||
+      !direccion.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !rol.trim()
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Campos incompletos",
+        text: "Por favor, completa todos los campos requeridos",
+      });
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Email inválido",
+        text: "Por favor, ingresa un correo electrónico válido",
+      });
+      return false;
+    }
+
+    if (password.length < 6) {
+      Swal.fire({
+        icon: "error",
+        title: "Contraseña muy corta",
+        text: "La contraseña debe tener al menos 6 caracteres",
+      });
+      return false;
+    }
+
+    return true;
+  };
+
   const handleGuardarUsuario = () => {
+    if (!validarFormulario()) return;
+
     Swal.fire({
       icon: "success",
       title: "Usuario guardado exitosamente",
@@ -35,13 +86,12 @@ function AgregarUsuario() {
       timerProgressBar: true,
       showConfirmButton: false,
     }).then(() => {
-      navigate("/usuarios"); // Redirige a la página de usuarios
+      navigate("/usuarios");
     });
   };
 
-  // Función para manejar el botón cancelar
   const handleCancelar = () => {
-    navigate("/usuarios"); // Redirige a la página de usuarios sin guardar
+    navigate("/usuarios");
   };
 
   const modules = [
@@ -74,7 +124,6 @@ function AgregarUsuario() {
     },
   ];
 
-  // Estilos CSS para el botón cancelar y los asteriscos rojos
   const styles = `
     .cancel-button {
       background-color: #dc3545;
