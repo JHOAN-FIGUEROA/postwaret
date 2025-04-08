@@ -365,21 +365,6 @@ function AgregarCompra() {
 
   // Estilos CSS actualizados para incluir los campos obligatorios
   const styles = `
-    .cancel-button {
-      background-color: #dc3545;
-      border-color: #dc3545;
-      color: white;
-      margin-right: 10px;
-    }
-    .cancel-button:hover {
-      background-color: #c82333;
-      border-color: #bd2130;
-    }
-    .button-container {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
     .barcode-scanner-section {
       background-color: #ffffff;
       padding: 15px;
@@ -420,31 +405,19 @@ function AgregarCompra() {
       content: " *";
       color: red;
     }
-    .btn-success {
-      margin: 5px;
-      background-color: #28a745;
-      border-color: #28a745;
-      color: white;
-      padding: 8px 15px;
-      border-radius: 5px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-    .btn-success:hover {
-      background-color: #218838;
-      border-color: #1e7e34;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    .botones-container {
+      margin-right: 100px;
     }
   `;
 
   return (
-    <div className="agregar-cliente-form" style={{ marginLeft: '250px', width: 'calc(100% - 250px)' }}>
+    <div className="agregar-cliente-form" style={{ marginLeft: '250px', width: 'calc(100% - 280px)', padding: '20px' }}>
       <style>{styles}</style>
       <h2>Crear Nueva Compra</h2>
       <Sidebar modules={modules} />
       <Form>
         <Row className="mb-3">
-          <Col>
+          <Col md={4}>
             <Form.Group controlId="numeroCompra">
               <Form.Label className="required-field">N° de Compra</Form.Label>
               <Form.Control
@@ -457,7 +430,7 @@ function AgregarCompra() {
               />
             </Form.Group>
           </Col>
-          <Col>
+          <Col md={4}>
             <Form.Group controlId="fechaCompra">
               <Form.Label className="required-field">Fecha de Compra</Form.Label>
               <Form.Control
@@ -469,32 +442,33 @@ function AgregarCompra() {
               />
             </Form.Group>
           </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
+          <Col md={4}>
             <Form.Group controlId="proveedor">
               <Form.Label className="required-field">Proveedor</Form.Label>
-              <Form.Select
-                name="proveedor"
-                value={compra.proveedor}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Seleccione un proveedor</option>
-                {proveedores.map((proveedor, index) => (
-                  <option key={index} value={proveedor}>
-                    {proveedor}
-                  </option>
-                ))}
-              </Form.Select>
+              <div className="d-flex">
+                <Form.Select
+                  name="proveedor"
+                  value={compra.proveedor}
+                  onChange={handleChange}
+                  required
+                  className="me-2"
+                >
+                  <option value="">Seleccione un proveedor</option>
+                  {proveedores.map((proveedor, index) => (
+                    <option key={index} value={proveedor}>
+                      {proveedor}
+                    </option>
+                  ))}
+                </Form.Select>
+                <Button 
+                  variant="primary" 
+                  onClick={handleAgregarProductos} 
+                  style={{ marginTop: '10px' }}
+                >
+                  Agregar Productos
+                </Button>
+              </div>
             </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <Button variant="primary" onClick={handleAgregarProductos}>
-              Agregar Productos
-            </Button>
           </Col>
         </Row>
 
@@ -540,35 +514,46 @@ function AgregarCompra() {
         )}
 
         <Row className="mb-3 totales-compra">
-          <Col>
-            <InputGroup>
-              <InputGroup.Text>Subtotal</InputGroup.Text>
-              <Form.Control
-                type="text"
-                value={`$${compra.subtotal.toLocaleString('es-CO')}`}
-                readOnly
-              />
-            </InputGroup>
+          <Col md={8}>
+            <Row>
+              <Col md={6}>
+                <InputGroup>
+                  <InputGroup.Text>Subtotal</InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    value={`$${compra.subtotal.toLocaleString('es-CO')}`}
+                    readOnly
+                  />
+                </InputGroup>
+              </Col>
+              <Col md={6}>
+                <InputGroup>
+                  <InputGroup.Text>Total</InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    value={`$${compra.total.toLocaleString('es-CO')}`}
+                    readOnly
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
           </Col>
-          <Col>
-            <InputGroup>
-              <InputGroup.Text>Total</InputGroup.Text>
-              <Form.Control
-                type="text"
-                value={`$${compra.total.toLocaleString('es-CO')}`}
-                readOnly
-              />
-            </InputGroup>
+          <Col md={4} className="text-end d-flex align-items-start justify-content-end">
+            {/* Los botones se han eliminado de aquí */}
           </Col>
         </Row>
+        
+        {/* Botones movidos con margen derecho para desplazarlos 100px a la izquierda */}
         <Row className="mb-3">
-          <Col className="button-container">
-            <Button variant="danger" className="cancel-button" onClick={handleCancelar}>
-              Cancelar
-            </Button>
-            <Button variant="success" onClick={handleGuardarCompra}>
-              Guardar Compra
-            </Button>
+          <Col className="text-end">
+            <div className="botones-container" style={{ marginRight: '150px' }}>
+              <Button variant="danger" onClick={handleCancelar} style={{ marginRight: '10px' }}>
+                Cancelar
+              </Button>
+              <Button variant="success" onClick={handleGuardarCompra}>
+                Guardar Compra
+              </Button>
+            </div>
           </Col>
         </Row>
       </Form>
