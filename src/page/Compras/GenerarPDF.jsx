@@ -8,7 +8,7 @@ import jsPDF from "jspdf";
 function GenerarPDF() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const pdfRef = useRef(); // Referencia al contenido
+  const pdfRef = useRef();
 
   const compra = {
     id: id,
@@ -51,6 +51,7 @@ function GenerarPDF() {
       pdf.save(`compra_${compra.numeroCompra}.pdf`);
     });
   };
+
   const handleCancelar = () => {
     navigate("/compras");
   };
@@ -85,59 +86,83 @@ function GenerarPDF() {
     },
   ];
 
-  
-
   return (
     <div className="main-content with-sidebar">
       <Sidebar modules={modules} />
-      <div ref={pdfRef} style={{ padding: "20px", backgroundColor: "white", color: "black" }}>
-        <h2>Detalle de la Compra</h2>
-        <div>
-          <h4>Información General</h4>
-          <p><strong>N° de Compra:</strong> {compra.numeroCompra}</p>
-          <p><strong>Fecha de Compra:</strong> {compra.fechaCompra}</p>
-          <p><strong>Proveedor:</strong> {compra.proveedor}</p>
+      <div style={{ padding: "20px", backgroundColor: "white", color: "black" }}>
+        <div style={{ marginBottom: "20px" }}>
+          <Button
+            onClick={handleGenerarPDF}
+            style={{
+              width: "120px",
+              height: "38px",
+              marginRight: "10px",
+              borderRadius: "4px",
+              fontSize: "14px",
+              backgroundColor: "#28a745",
+              borderColor: "#28a745",
+              color: "white",
+            }}
+          >
+            Generar PDF
+          </Button>
+          <Button
+            variant="danger"
+            onClick={handleCancelar}
+            style={{
+              width: "120px",
+              height: "38px",
+              borderRadius: "4px",
+              fontSize: "14px",
+            }}
+          >
+            Cancelar
+          </Button>
         </div>
-        <div>
-          <h4>Productos</h4>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-                <th>IVA (19%)</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {compra.productos.map((producto, index) => (
-                <tr key={index}>
-                  <td>{producto.nombre}</td>
-                  <td>{producto.cantidad}</td>
-                  <td>${producto.precioUnitario.toFixed(2)}</td>
-                  <td>${producto.subtotal.toFixed(2)}</td>
-                  <td>${producto.iva.toFixed(2)}</td>
-                  <td>${producto.total.toFixed(2)}</td>
+
+        <div ref={pdfRef}>
+          <h2>Detalle de la Compra</h2>
+          <div>
+            <h4>Información General</h4>
+            <p><strong>N° de Compra:</strong> {compra.numeroCompra}</p>
+            <p><strong>Fecha de Compra:</strong> {compra.fechaCompra}</p>
+            <p><strong>Proveedor:</strong> {compra.proveedor}</p>
+          </div>
+          <div>
+            <h4>Productos</h4>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Subtotal</th>
+                  <th>IVA (19%)</th>
+                  <th>Total</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        </div>
-        <div>
-          <h4>Resumen de la Compra</h4>
-          <p><strong>Subtotal:</strong> ${compra.subtotal.toFixed(2)}</p>
-          <p><strong>IVA (19%):</strong> ${compra.iva.toFixed(2)}</p>
-          <p><strong>Total:</strong> ${compra.total.toFixed(2)}</p>
+              </thead>
+              <tbody>
+                {compra.productos.map((producto, index) => (
+                  <tr key={index}>
+                    <td>{producto.nombre}</td>
+                    <td>{producto.cantidad}</td>
+                    <td>${producto.precioUnitario.toFixed(2)}</td>
+                    <td>${producto.subtotal.toFixed(2)}</td>
+                    <td>${producto.iva.toFixed(2)}</td>
+                    <td>${producto.total.toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+          <div>
+            <h4>Resumen de la Compra</h4>
+            <p><strong>Subtotal:</strong> ${compra.subtotal.toFixed(2)}</p>
+            <p><strong>IVA (19%):</strong> ${compra.iva.toFixed(2)}</p>
+            <p><strong>Total:</strong> ${compra.total.toFixed(2)}</p>
+          </div>
         </div>
       </div>
-      <Button variant="secondary" onClick={handleGenerarPDF} className="mt-3">
-        Generar PDF
-      </Button>
-       <Button variant="danger" className="cancel-button" onClick={handleCancelar}>
-                    Cancelar
-                  </Button>
     </div>
   );
 }

@@ -8,6 +8,7 @@ function AgregarCliente() {
   const navigate = useNavigate();
 
   const [cliente, setCliente] = useState({
+    tipoDocumento: "",
     documentoIdentidad: "",
     nombre: "",
     apellido: "",
@@ -26,6 +27,14 @@ function AgregarCliente() {
   };
 
   const validarFormulario = () => {
+    if (!cliente.tipoDocumento) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Campo requerido',
+        text: 'Debe seleccionar un tipo de documento',
+      });
+      return false;
+    }
     if (!cliente.documentoIdentidad) {
       Swal.fire({
         icon: 'error',
@@ -71,9 +80,8 @@ function AgregarCliente() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Simulación de guardado
         console.log("Cliente guardado:", cliente);
-        
+
         Swal.fire({
           title: '¡Guardado!',
           text: 'El cliente ha sido registrado exitosamente',
@@ -117,7 +125,6 @@ function AgregarCliente() {
     },
   ];
 
-  // Estilos CSS
   const styles = `
     .cancel-button {
       background-color: #dc3545;
@@ -173,6 +180,23 @@ function AgregarCliente() {
       <Form>
         <Row className="mb-3">
           <Col md={6}>
+            <Form.Group controlId="tipoDocumento">
+              <Form.Label className="required-field">Tipo de Documento</Form.Label>
+              <Form.Select
+                name="tipoDocumento"
+                value={cliente.tipoDocumento}
+                onChange={handleChange}
+                required
+              >
+         
+                <option value="CC">CC</option>
+                <option value="CE">CE</option>
+                <option value="TI">TI</option>
+            
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          <Col md={6}>
             <Form.Group controlId="documentoIdentidad">
               <Form.Label className="required-field">Documento de Identidad</Form.Label>
               <Form.Control
@@ -185,6 +209,8 @@ function AgregarCliente() {
               />
             </Form.Group>
           </Col>
+        </Row>
+        <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="nombre">
               <Form.Label className="required-field">Nombre</Form.Label>
@@ -198,8 +224,6 @@ function AgregarCliente() {
               />
             </Form.Group>
           </Col>
-        </Row>
-        <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="apellido">
               <Form.Label className="required-field">Apellido</Form.Label>
@@ -212,6 +236,8 @@ function AgregarCliente() {
               />
             </Form.Group>
           </Col>
+        </Row>
+        <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="direccion">
               <Form.Label className="required-field">Dirección</Form.Label>
@@ -224,8 +250,6 @@ function AgregarCliente() {
               />
             </Form.Group>
           </Col>
-        </Row>
-        <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="email">
               <Form.Label className="required-field">Email</Form.Label>
@@ -239,6 +263,8 @@ function AgregarCliente() {
               />
             </Form.Group>
           </Col>
+        </Row>
+        <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="numeroContacto">
               <Form.Label className="required-field">Teléfono</Form.Label>
@@ -252,7 +278,6 @@ function AgregarCliente() {
             </Form.Group>
           </Col>
         </Row>
-        
         <Row className="mb-3">
           <Col className="button-container">
             <Button variant="danger" className="cancel-button" onClick={handleCancelar}>
