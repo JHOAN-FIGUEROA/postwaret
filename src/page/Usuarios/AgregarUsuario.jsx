@@ -10,6 +10,7 @@ function AgregarUsuario() {
   const [usuario, setUsuario] = useState({
     nombre: "",
     apellido: "",
+    tipoDocumento: "CC",
     documentoIdentidad: "",
     telefono: "",
     direccion: "",
@@ -27,6 +28,7 @@ function AgregarUsuario() {
     const {
       nombre,
       apellido,
+      tipoDocumento,
       documentoIdentidad,
       telefono,
       direccion,
@@ -38,6 +40,7 @@ function AgregarUsuario() {
     if (
       !nombre.trim() ||
       !apellido.trim() ||
+      !tipoDocumento.trim() ||
       !documentoIdentidad.trim() ||
       !telefono.trim() ||
       !direccion.trim() ||
@@ -144,6 +147,10 @@ function AgregarUsuario() {
       content: " *";
       color: red;
     }
+    .tipo-documento-select {
+      background-color: #f8f9fa;
+      border: 1px solid #ced4da;
+    }
   `;
 
   return (
@@ -183,6 +190,22 @@ function AgregarUsuario() {
 
         <Row className="mb-3">
           <Col md={6}>
+            <Form.Group controlId="tipoDocumento">
+              <Form.Label className="required-field">Tipo de Documento</Form.Label>
+              <Form.Select
+                name="tipoDocumento"
+                value={usuario.tipoDocumento}
+                onChange={handleChange}
+                className="tipo-documento-select"
+                required
+              >
+                <option value="CC">CC</option>
+                <option value="CE">CE</option>
+                <option value="TI">TI</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          <Col md={6}>
             <Form.Group controlId="documentoIdentidad">
               <Form.Label className="required-field">Documento de Identidad</Form.Label>
               <Form.Control
@@ -195,6 +218,9 @@ function AgregarUsuario() {
               />
             </Form.Group>
           </Col>
+        </Row>
+
+        <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="telefono">
               <Form.Label className="required-field">Teléfono</Form.Label>
@@ -208,10 +234,7 @@ function AgregarUsuario() {
               />
             </Form.Group>
           </Col>
-        </Row>
-
-        <Row className="mb-3">
-          <Col>
+          <Col md={6}>
             <Form.Group controlId="direccion">
               <Form.Label className="required-field">Dirección</Form.Label>
               <Form.Control
