@@ -404,8 +404,56 @@ function AgregarVenta() {
     marginLeft: '3px',
   };
 
+  const styles = `
+    .barcode-scanner-section {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .barcode-scanner-section h5 {
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: 600;
+      border-left: 4px solid #007bff;
+      padding-left: 10px;
+    }
+    
+    .spinner-border {
+      width: 1rem;
+      height: 1rem;
+    }
+    
+    .table-primary {
+      background-color: #cfe2ff !important;
+    }
+    
+    .agregar-compra-btn {
+      background-color: #2eb85c !important;
+      border-color: #2eb85c !important;
+      color: white !important;
+      font-weight: bold !important;
+      padding: 8px 16px !important;
+      border-radius: 4px !important;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+      width: 100% !important;
+    }
+    
+    .agregar-compra-btn:hover {
+      background-color: #28a745 !important;
+      border-color: #28a745 !important;
+    }
+
+    .botones-container {
+      margin-right: 100px;
+    }
+  `;
+
   return (
     <div className="agregar-cliente-form" style={{ marginLeft: '250px', width: 'calc(100% - 250px)' }}>
+      <style>{styles}</style>
       <h2>Crear Nueva Venta</h2>
       <Sidebar modules={modules} />
       <Form>
@@ -449,13 +497,16 @@ function AgregarVenta() {
         </Row>
         <Row className="mb-3">
           <Col>
-            <Button variant="primary" onClick={handleAgregarProductos}>
+            <Button 
+              variant="primary" 
+              onClick={handleAgregarProductos}
+              style={{ marginTop: '10px' }}
+            >
               Agregar Productos
             </Button>
           </Col>
         </Row>
 
-        {/* Tabla de productos seleccionados */}
         {venta.productos.length > 0 && (
           <div className="table-responsive">
             <Table striped bordered hover className="mb-3">
@@ -494,35 +545,43 @@ function AgregarVenta() {
         )}
 
         <Row className="mb-3 totales-compra">
-          <Col>
-            <InputGroup>
-              <InputGroup.Text>Subtotal</InputGroup.Text>
-              <Form.Control
-                type="text"
-                value={`$${venta.subtotal.toLocaleString('es-CO')}`}
-                readOnly
-              />
-            </InputGroup>
-          </Col>
-          <Col>
-            <InputGroup>
-              <InputGroup.Text>Total</InputGroup.Text>
-              <Form.Control
-                type="text"
-                value={`$${venta.total.toLocaleString('es-CO')}`}
-                readOnly
-              />
-            </InputGroup>
+          <Col md={8}>
+            <Row>
+              <Col md={6}>
+                <InputGroup>
+                  <InputGroup.Text>Subtotal</InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    value={`$${venta.subtotal.toLocaleString('es-CO')}`}
+                    readOnly
+                  />
+                </InputGroup>
+              </Col>
+              <Col md={6}>
+                <InputGroup>
+                  <InputGroup.Text>Total</InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    value={`$${venta.total.toLocaleString('es-CO')}`}
+                    readOnly
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
           </Col>
         </Row>
+
+        {/* Botones movidos con margen derecho para desplazarlos 100px a la izquierda */}
         <Row className="mb-3">
           <Col className="text-end">
-            <Button variant="danger" onClick={handleCancelar} className="me-2" style={{ margin: '5px' }}>
-              Cancelar
-            </Button>
-            <Button variant="success" onClick={handleGuardarVenta}>
-              Guardar Venta
-            </Button>
+            <div className="botones-container" style={{ marginRight: '150px' }}>
+              <Button variant="danger" onClick={handleCancelar} style={{ marginRight: '10px' }}>
+                Cancelar
+              </Button>
+              <Button variant="success" onClick={handleGuardarVenta}>
+                Guardar Venta
+              </Button>
+            </div>
           </Col>
         </Row>
       </Form>
@@ -689,50 +748,6 @@ function AgregarVenta() {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      {/* CSS para el escáner de código de barras y botón de compra */}
-      <style jsx="true">{`
-        .barcode-scanner-section {
-          background-color: #ffffff;
-          padding: 15px;
-          border-radius: 8px;
-          margin-bottom: 20px;
-          border: 1px solid #e0e0e0;
-        }
-        
-        .barcode-scanner-section h5 {
-          color: #333;
-          margin-bottom: 15px;
-          font-weight: 600;
-          border-left: 4px solid #007bff;
-          padding-left: 10px;
-        }
-        
-        .spinner-border {
-          width: 1rem;
-          height: 1rem;
-        }
-        
-        .table-primary {
-          background-color: #cfe2ff !important;
-        }
-        
-        .agregar-compra-btn {
-          background-color: #2eb85c !important;
-          border-color: #2eb85c !important;
-          color: white !important;
-          font-weight: bold !important;
-          padding: 8px 16px !important;
-          border-radius: 4px !important;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-          width: 100% !important;
-        }
-        
-        .agregar-compra-btn:hover {
-          background-color: #28a745 !important;
-          border-color: #28a745 !important;
-        }
-      `}</style>
     </div>
   );
 }
