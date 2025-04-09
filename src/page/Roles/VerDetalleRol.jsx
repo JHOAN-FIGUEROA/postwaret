@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Table, Card } from "react-bootstrap";
 import Sidebar from "./../Sidebar";
+import "./rol.css";
 
 function VerDetalleRol() {
   const navigate = useNavigate();
@@ -75,68 +76,48 @@ function VerDetalleRol() {
 
   return (
     <div className="main-content with-sidebar">
-      <h2>Detalle del Rol: {rol.nombre}</h2>
       <Sidebar modules={modules} />
-      
-      <Card className="mb-4">
-        <Card.Body>
-          <Card.Title>Información Básica</Card.Title>
-          <p><strong>Nombre:</strong> {rol.nombre}</p>
-          <p><strong>Descripción:</strong> {rol.descripcion}</p>
-        </Card.Body>
-      </Card>
-
-      <Card className="mb-4">
-        <Card.Body>
-          <Card.Title>Permisos Asignados</Card.Title>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Módulo</th>
-                <th>Acciones Permitidas</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rol.permisos.map((permiso, index) => (
-                <tr key={index}>
-                  <td>{permiso.modulo}</td>
-                  <td>{permiso.acciones.join(", ")}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Card.Body>
-      </Card>
-
-      <Card className="mb-4">
-        <Card.Body>
-          <Card.Title>Usuarios con este Rol</Card.Title>
-          {rol.usuariosAsociados.length > 0 ? (
+      <div className="detail-container">
+        <h2 className="detail-title">Detalle del Rol: {rol.nombre}</h2>
+        
+        <Card className="detail-card">
+          <Card.Body>
+            <Card.Title className="card-title">Información Básica</Card.Title>
+            <p><strong>ID:</strong> {rol.id}</p>
+            <p><strong>Nombre:</strong> {rol.nombre}</p>
+            <p><strong>Descripción:</strong> {rol.descripcion}</p>
+          </Card.Body>
+          <Card.Body>
+            <Card.Title className="card-title">Permisos Asignados</Card.Title>
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Nombre</th>
+                  <th>Módulo</th>
+                  <th>Acciones Permitidas</th>
                 </tr>
               </thead>
               <tbody>
-                {rol.usuariosAsociados.map((usuario, index) => (
+                {rol.permisos.map((permiso, index) => (
                   <tr key={index}>
-                    <td>{usuario.id}</td>
-                    <td>{usuario.nombre}</td>
+                    <td>{permiso.modulo}</td>
+                    <td>{permiso.acciones.join(", ")}</td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-          ) : (
-            <p>No hay usuarios asignados a este rol</p>
-          )}
-        </Card.Body>
-      </Card>
+          </Card.Body>
+        </Card>
 
-      <Button variant="secondary" onClick={handleRegresar}>
-        Regresar
-      </Button>
+      
+
+        <Button 
+          variant="primary" 
+          className="detail-button" 
+          onClick={handleRegresar}
+        >
+          Regresar
+        </Button>
+      </div>
     </div>
   );
 }

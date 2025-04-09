@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
+import "./rol.css"; 
 
 function PermisosAsociados() {
   const navigate = useNavigate();
@@ -110,197 +111,91 @@ function PermisosAsociados() {
 
   return (
     <div className="main-content with-sidebar">
-      <h2>Permisos</h2>
       <Sidebar modules={modules} />
       
-      <Card>
-        <Card.Body>
-          <Card.Title>Permisos Asociados</Card.Title>
+      <Card className="permisos-card">
+        <Card.Body className="permisos-card-body">
+          <Card.Title className="permisos-card-title">Permisos Asociados</Card.Title>
           
-          <div className="checkbox-group">
-            <h5>Sistema</h5>
+          <div className="permisos-checkbox-group">
+            <h5>Postware</h5>
             <Form.Check
+              className="permisos-form-check"
               type="checkbox"
-              label="Entrar Al Sistema"
+              label="Dashboard"
               checked={permisos.sistema.entrar}
               onChange={() => handleCheckboxChange('sistema', 'entrar')}
             />
             <Form.Check
+              className="permisos-form-check"
               type="checkbox"
-              label="Editar al sistema"
-              checked={permisos.sistema.editar}
-              onChange={() => handleCheckboxChange('sistema', 'editar')}
+              label="Configuracion"
+              checked={permisos.sistema.entrar}
+              onChange={() => handleCheckboxChange('sistema', 'entrar')}
+            />
+            <Form.Check
+              className="permisos-form-check"
+              type="checkbox"
+              label="Roles"
+              checked={permisos.sistema.entrar}
+              onChange={() => handleCheckboxChange('sistema', 'entrar')}
+            />
+            <Form.Check
+              className="permisos-form-check"
+              type="checkbox"
+              label="Usuarios"
+              checked={permisos.sistema.entrar}
+              onChange={() => handleCheckboxChange('sistema', 'entrar')}
+            />
+            <Form.Check
+              className="permisos-form-check"
+              type="checkbox"
+              label="Compras"
+              checked={permisos.sistema.entrar}
+              onChange={() => handleCheckboxChange('sistema', 'entrar')}
+            />
+            <Form.Check
+              className="permisos-form-check"
+              type="checkbox"
+              label="Proveedores"
+              checked={permisos.sistema.entrar}
+              onChange={() => handleCheckboxChange('sistema', 'entrar')}
+            />
+            <Form.Check
+              className="permisos-form-check"
+              type="checkbox"
+              label="Productos"
+              checked={permisos.sistema.entrar}
+              onChange={() => handleCheckboxChange('sistema', 'entrar')}
+            />
+            <Form.Check
+              className="permisos-form-check"
+              type="checkbox"
+              label="Categoria"
+              checked={permisos.sistema.entrar}
+              onChange={() => handleCheckboxChange('sistema', 'entrar')}
+            />
+            <Form.Check
+              className="permisos-form-check"
+              type="checkbox"
+              label="Ventas"
+              checked={permisos.sistema.entrar}
+              onChange={() => handleCheckboxChange('sistema', 'entrar')}
+            />
+            <Form.Check
+              className="permisos-form-check"
+              type="checkbox"
+              label="Clientes"
+              checked={permisos.sistema.entrar}
+              onChange={() => handleCheckboxChange('sistema', 'entrar')}
             />
           </div>
 
-          <div className="checkbox-group">
-            <h5>Usuarios</h5>
-            <Form.Check
-              type="checkbox"
-              label="Eliminar usuario"
-              checked={permisos.usuarios.eliminar}
-              onChange={() => handleCheckboxChange('usuarios', 'eliminar')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Editar usuario"
-              checked={permisos.usuarios.editar}
-              onChange={() => handleCheckboxChange('usuarios', 'editar')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Agregar usuario"
-              checked={permisos.usuarios.agregar}
-              onChange={() => handleCheckboxChange('usuarios', 'agregar')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Descargar PDF"
-              checked={permisos.usuarios.descargarPdf}
-              onChange={() => handleCheckboxChange('usuarios', 'descargarPdf')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Anular usuario"
-              checked={permisos.usuarios.anular}
-              onChange={() => handleCheckboxChange('usuarios', 'anular')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Buscar usuario"
-              checked={permisos.usuarios.buscar}
-              onChange={() => handleCheckboxChange('usuarios', 'buscar')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Ver detalle de usuario"
-              checked={permisos.usuarios.verDetalle}
-              onChange={() => handleCheckboxChange('usuarios', 'verDetalle')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Cambiar estado de usuario"
-              checked={permisos.usuarios.cambiarEstado}
-              onChange={() => handleCheckboxChange('usuarios', 'cambiarEstado')}
-            />
-          </div>
-
-          <div className="checkbox-group">
-            <h5>Configuración</h5>
-            <Form.Check
-              type="checkbox"
-              label="Acceder a Configuración"
-              checked={permisos.configuracion.acceder}
-              onChange={() => handleCheckboxChange('configuracion', 'acceder')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Crear Rol"
-              checked={permisos.configuracion.crearRol}
-              onChange={() => handleCheckboxChange('configuracion', 'crearRol')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Editar Rol"
-              checked={permisos.configuracion.editarRol}
-              onChange={() => handleCheckboxChange('configuracion', 'editarRol')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Anular Rol"
-              checked={permisos.configuracion.anularRol}
-              onChange={() => handleCheckboxChange('configuracion', 'anularRol')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Eliminar Rol"
-              checked={permisos.configuracion.eliminarRol}
-              onChange={() => handleCheckboxChange('configuracion', 'eliminarRol')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Ver Detalle De Rol"
-              checked={permisos.configuracion.verDetalleRol}
-              onChange={() => handleCheckboxChange('configuracion', 'verDetalleRol')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Ver Roles Enlistados"
-              checked={permisos.configuracion.verRoles}
-              onChange={() => handleCheckboxChange('configuracion', 'verRoles')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Cambiar Estado De rol"
-              checked={permisos.configuracion.cambiarEstadoRol}
-              onChange={() => handleCheckboxChange('configuracion', 'cambiarEstadoRol')}
-            />
-          </div>
-
-          <div className="checkbox-group">
-            <h5>Permisos</h5>
-            <Form.Check
-              type="checkbox"
-              label="Ver Permisos Asociados"
-              checked={permisos.permisos.verAsociados}
-              onChange={() => handleCheckboxChange('permisos', 'verAsociados')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Escolar Permisos Al Rol"
-              checked={permisos.permisos.escolar}
-              onChange={() => handleCheckboxChange('permisos', 'escolar')}
-            />
-          </div>
-
-          <div className="checkbox-group">
-            <h5>Compras</h5>
-            <Form.Check
-              type="checkbox"
-              label="Entrar Al módulo de Compras"
-              checked={permisos.compras.entrar}
-              onChange={() => handleCheckboxChange('compras', 'entrar')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Ver Compras Enlistadas"
-              checked={permisos.compras.verLista}
-              onChange={() => handleCheckboxChange('compras', 'verLista')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Agregar Compras"
-              checked={permisos.compras.agregar}
-              onChange={() => handleCheckboxChange('compras', 'agregar')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Ver Detalle De Compras"
-              checked={permisos.compras.verDetalle}
-              onChange={() => handleCheckboxChange('compras', 'verDetalle')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Anular Compras"
-              checked={permisos.compras.anular}
-              onChange={() => handleCheckboxChange('compras', 'anular')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Cambiar Estado De Compras"
-              checked={permisos.compras.cambiarEstado}
-              onChange={() => handleCheckboxChange('compras', 'cambiarEstado')}
-            />
-            <Form.Check
-              type="checkbox"
-              label="Buscar Compras"
-              checked={permisos.compras.buscar}
-              onChange={() => handleCheckboxChange('compras', 'buscar')}
-            />
-          </div>
-
-          <div className="text-end mt-4">
-            <Button variant="primary" onClick={handleGuardarPermisos}>
+          <div className="permisos-actions">
+            <Button 
+              className="permisos-save-btn" 
+              onClick={handleGuardarPermisos}
+            >
               Guardar Permisos
             </Button>
           </div>

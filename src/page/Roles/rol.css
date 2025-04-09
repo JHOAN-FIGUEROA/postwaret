@@ -1,0 +1,411 @@
+.rol-form-container {
+    flex: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.08);
+  }
+  
+  .rol-form-title {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+    text-align: center;
+  }
+  
+  /* Campos */
+  .rol-form-field {
+    margin-bottom: 1rem;
+  }
+  
+  .rol-form-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    color: #34495e;
+    font-size: 0.85rem;
+  }
+  
+  .rol-form-label.required::after {
+    content: " *";
+    color: #e74c3c;
+  }
+  
+  /* Inputs */
+  .rol-form-input,
+  .rol-form-textarea {
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    background-color: #fff;
+    transition: all 0.2s ease;
+  }
+  
+  .rol-form-input:focus,
+  .rol-form-textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+  }
+  
+  .rol-form-textarea {
+    resize: none;
+  }
+  
+  /* Botones */
+  .rol-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid #ecf0f1;
+  }
+  
+  .rol-form-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    min-width: 100px;
+  }
+  
+  .rol-form-btn.cancel {
+    background-color: #dc3545; /* Color rojo de los botones de usuarios */
+    color: #fff;
+    border: none;
+  }
+  
+  .rol-form-btn.cancel:hover {
+    background-color: #c82333; /* Color rojo oscuro al pasar el cursor */
+  }
+  
+  .rol-form-btn.save {
+    background-color: #007bff; /* Color azul de los botones de usuarios */
+    color: #fff;
+    border: none;
+  }
+  
+  .rol-form-btn.save:hover {
+    background-color: #0056b3; /* Color azul oscuro al pasar el cursor */
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .rol-form-container {
+      padding: 1.5rem;
+    }
+  
+    .rol-form-actions {
+      flex-direction: column;
+    }
+  
+    .rol-form-btn {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .rol-form-container {
+      padding: 1rem;
+    }
+  
+    .rol-form-title {
+      font-size: 1.2rem;
+    }
+  }
+
+
+
+
+  .detail-container {
+    padding: 0.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+  }
+  
+  .detail-title {
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .detail-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .detail-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detail-card .card-title {
+    color: #3498db;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .detail-card .card-body {
+    padding: 1rem;
+  }
+  
+  .detail-button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.6rem;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .detail-button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Responsividad */
+  @media (max-width: 768px) {
+    .detail-container {
+      padding: 0.5rem;
+    }
+  
+    .detail-title {
+      font-size: 1.4rem;
+    }
+  
+    .detail-card .card-title {
+      font-size: 1rem;
+      padding: 0.6rem 0.8rem;
+    }
+  
+    .detail-card .card-body {
+      padding: 0.8rem;
+    }
+  }
+
+
+
+/* Estilos para el formulario de rol */
+.rol-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+}
+
+.rol-form-btn {
+  padding: 0.7rem 1.2rem;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  min-width: 100px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rol-form-btn.cancel {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.rol-form-btn.cancel:hover {
+  background-color: #c82333;
+}
+
+.rol-form-btn.save {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+}
+
+.rol-form-btn.save:hover {
+  background-color:#2980b9;
+}
+
+/* Estilos para la lista de permisos */
+.list-group-item {
+  padding: 0.75rem 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.list-group-item:last-child {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+/* Estilos para los checkboxes de permisos */
+.form-check {
+  display: flex;
+  align-items: center;
+}
+
+.form-check-input {
+  margin-right: 0.5rem;
+}
+
+.form-check-label {
+  font-weight: 500;
+  color: #2c3e50;
+  cursor: pointer;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .rol-form-actions {
+    flex-direction: column;
+  }
+  
+  .rol-form-btn {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* Estilos para la tarjeta de permisos */
+.permisos-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  width: calc(100% - 40px);
+}
+
+.permisos-card-body {
+  padding: 2rem;
+}
+
+.permisos-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #3498db;
+}
+
+/* Grupo de checkboxes */
+.permisos-checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.permisos-checkbox-group h5 {
+  grid-column: 1 / -1;
+  color: #3498db;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* Estilos para los checkboxes */
+.permisos-form-check {
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+
+.permisos-form-check-input {
+  width: 1.2em;
+  height: 1.2em;
+  margin-top: 0.2em;
+  margin-left: -2rem;
+  border: 2px solid #adb5bd;
+}
+
+.permisos-form-check-input:checked {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.permisos-form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+}
+
+.permisos-form-check-label {
+  font-size: 1rem;
+  color: #495057;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.permisos-form-check:hover .permisos-form-check-label {
+  color: #2c3e50;
+}
+
+/* Botón de guardar */
+.permisos-actions {
+  text-align: right;
+  margin-top: 1.5rem;
+}
+
+.permisos-save-btn {
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s;
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.permisos-save-btn:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .permisos-checkbox-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .permisos-card-body {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .permisos-card {
+    margin: 10px;
+    width: calc(100% - 20px);
+  }
+  
+  .permisos-card-body {
+    padding: 1rem;
+  }
+}

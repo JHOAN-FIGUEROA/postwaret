@@ -93,17 +93,9 @@ function Compras() {
   };
 
   const handleAgregarCompra = () => {
-    Swal.fire({
-      title: 'Agregar Compra',
-      text: 'Serás redirigido al formulario para agregar una nueva compra',
-      icon: 'info',
-      confirmButtonText: 'Continuar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/compras/agregar");
-      }
-    });
+    navigate("/compras/agregar");
   };
+  
 
   const modules = [
     { name: "Dashboard", submenus: [{ name: "Dashboard", path: "/dasboard" }] },
@@ -149,7 +141,7 @@ function Compras() {
                   setCurrentPage(1);
                 }}
               />
-              <Button variant="outline-secondary">Buscar</Button>
+              
             </InputGroup>
           </Col>
           <Col className="text-end">

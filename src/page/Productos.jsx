@@ -180,7 +180,7 @@ function Productos() {
                   setCurrentPage(1);
                 }}
               />
-              <Button variant="outline-secondary">Buscar</Button>
+              
             </InputGroup>
           </Col>
           <Col className="text-end">

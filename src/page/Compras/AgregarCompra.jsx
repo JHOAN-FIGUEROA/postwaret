@@ -408,6 +408,20 @@ function AgregarCompra() {
     .botones-container {
       margin-right: 100px;
     }
+    .agregar-productos-container {
+      margin-top: 10px;
+    }
+    .agregar-productos-btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .agregar-productos-btn:hover {
+      background-color: #0056b3;
+    }
   `;
 
   return (
@@ -441,35 +455,39 @@ function AgregarCompra() {
                 required
               />
             </Form.Group>
+            
           </Col>
+          
           <Col md={4}>
+          
             <Form.Group controlId="proveedor">
               <Form.Label className="required-field">Proveedor</Form.Label>
-              <div className="d-flex">
-                <Form.Select
-                  name="proveedor"
-                  value={compra.proveedor}
-                  onChange={handleChange}
-                  required
-                  className="me-2"
-                >
-                  <option value="">Seleccione un proveedor</option>
-                  {proveedores.map((proveedor, index) => (
-                    <option key={index} value={proveedor}>
-                      {proveedor}
-                    </option>
-                  ))}
-                </Form.Select>
-                <Button 
-                  variant="primary" 
-                  onClick={handleAgregarProductos} 
-                  style={{ marginTop: '10px' }}
-                >
-                  Agregar Productos
-                </Button>
-              </div>
+              <Form.Select
+                name="proveedor"
+                value={compra.proveedor}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Seleccione un proveedor</option>
+                {proveedores.map((proveedor, index) => (
+                  <option key={index} value={proveedor}>
+                    {proveedor}
+                  </option>
+                ))}
+              </Form.Select>
             </Form.Group>
           </Col>
+          </Row>
+          <Row className="mt-3"> {/* Nueva fila con margen superior */}
+
+          <div className="agregar-productos-container">
+            <Button 
+              className="agregar-productos-btn" 
+              onClick={handleAgregarProductos}
+            >
+              Agregar Productos
+            </Button>
+          </div>
         </Row>
 
         {compra.productos.length > 0 && (

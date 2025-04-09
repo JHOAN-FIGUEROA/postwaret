@@ -14,20 +14,22 @@ function LoginForm({ onBackToHome, onLogin }) {
           onLogin();
         }}
       >
-        <div>
+        <div className="form-group">
           <label>Correo electrónico:</label>
-          <input type="email" required />
+          <input type="email" required className="form-input" />
         </div>
-        <div>
+        <div className="form-group">
           <label>Contraseña:</label>
-          <input type="password" required />
+          <input type="password" required className="form-input" />
         </div>
-        <button className="logii" type="submit">Iniciar Sesión</button>
+        <div className="button-group-vertical">
+          <button className="btn login-btn" type="submit">Iniciar Sesión</button>
+          <button className="btn back-btn" onClick={() => navigate("/")}>Volver al Inicio</button>
+          <button className="btn forgot-btn" onClick={() => navigate("/reset-password")}>
+            ¿Olvidaste tu contraseña?
+          </button>
+        </div>
       </form>
-      <button className="btn" onClick={() => navigate("/")}>Volver al Inicio</button>
-      <button className="forgot-password" onClick={() => navigate("/reset-password")}>
-        ¿Olvidaste tu contraseña?
-      </button>
     </div>
   );
 }

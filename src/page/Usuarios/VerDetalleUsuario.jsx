@@ -1,7 +1,9 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Card } from "react-bootstrap";
 import Sidebar from "./../Sidebar";
+
+import "./agregarusuario.css";
 
 function VerDetalleUsuario() {
   const navigate = useNavigate();
@@ -12,28 +14,13 @@ function VerDetalleUsuario() {
     id: 1,
     nombre: "Juan",
     apellido: "Pérez",
+    tipoDocumento: "CC",
     documentoIdentidad: "12345678",
     telefono: "987654321",
-    direccion: "Av. Principal 123",
+    direccionCompleta: "Av. Principal 123",
     email: "juan.perez@example.com",
     rol: "Admin",
-    actividadesRecientes: [
-      {
-        fecha: "2023-10-15",
-        accion: "Inició sesión",
-        hora: "08:30 AM"
-      },
-      {
-        fecha: "2023-10-14",
-        accion: "Actualizó información de producto",
-        hora: "04:15 PM"
-      },
-      {
-        fecha: "2023-10-13",
-        accion: "Realizó venta",
-        hora: "11:20 AM"
-      }
-    ]
+
   };
 
   // Función para regresar a la página de usuarios
@@ -73,56 +60,47 @@ function VerDetalleUsuario() {
 
   return (
     <div className="main-content with-sidebar">
-      <h2>Detalle del Usuario</h2>
       <Sidebar modules={modules} />
+      <div className="detail-container">
+        <h2 className="detail-title">Detalle del Usuario</h2>
+
+        <Card className="detail-card">
+          <Card.Body>
+            <Card.Title>Información Personal</Card.Title>
+            <Card.Text>
+              <strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}
+            </Card.Text>
+            <Card.Text>
+              <strong>Tipo de Documento:</strong> {usuario.tipoDocumento}
+            </Card.Text>
+            <Card.Text>
+              <strong>Documento de Identidad:</strong> {usuario.documentoIdentidad}
+            </Card.Text>
+            <Card.Text>
+              <strong>Teléfono:</strong> {usuario.telefono}
+            </Card.Text>
+            <Card.Text>
+              <strong>Dirección:</strong> {usuario.direccionCompleta}
+            </Card.Text>
+            <Card.Text>
+              <strong>Email:</strong> {usuario.email}
+            </Card.Text>
+            <Card.Text>
+              <strong>Rol:</strong> {usuario.rol}
+            </Card.Text>
+          </Card.Body>
+        </Card>
+
       
-      <div>
-        <h4>Información Personal</h4>
-        <p>
-          <strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}
-        </p>
-        <p>
-          <strong>Documento de Identidad:</strong> {usuario.documentoIdentidad}
-        </p>
-        <p>
-          <strong>Teléfono:</strong> {usuario.telefono}
-        </p>
-        <p>
-          <strong>Dirección:</strong> {usuario.direccion}
-        </p>
-        <p>
-          <strong>Email:</strong> {usuario.email}
-        </p>
-        <p>
-          <strong>Rol:</strong> {usuario.rol}
-        </p>
-      </div>
 
-      <div className="mt-4">
-        <h4>Actividades Recientes</h4>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Acción</th>
-              <th>Hora</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usuario.actividadesRecientes.map((actividad, index) => (
-              <tr key={index}>
-                <td>{actividad.fecha}</td>
-                <td>{actividad.accion}</td>
-                <td>{actividad.hora}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <Button
+          variant="secondary"
+          onClick={handleRegresar}
+          className="mt-3 detail-button"
+        >
+          Regresar
+        </Button>
       </div>
-
-      <Button variant="secondary" onClick={handleRegresar} className="mt-3">
-        Regresar
-      </Button>
     </div>
   );
 }
