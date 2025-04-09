@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
+import "./rol.css"; // Importar el archivo CSS
 
 function AgregarRol() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function AgregarRol() {
   };
 
   const validarFormulario = () => {
-    if (!rol.nombre.trim() ) {
+    if (!rol.nombre.trim()) {
       Swal.fire({
         icon: "error",
         title: "Campos incompletos",
@@ -81,76 +82,54 @@ function AgregarRol() {
     },
   ];
 
-  const styles = `
-    .cancel-button {
-      background-color: #dc3545;
-      border-color: #dc3545;
-      color: white;
-      margin-right: 10px;
-    }
-    .cancel-button:hover {
-      background-color: #c82333;
-      border-color: #bd2130;
-    }
-    .button-container {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-    .required-field::after {
-      content: " *";
-      color: red;
-    }
-  `;
-
   return (
-    <div className="agregar-cliente-form">
-      <style>{styles}</style>
-      <h2>Agregar Nuevo Rol</h2>
+    <div className="main-content with-sidebar">
       <Sidebar modules={modules} />
-      <Form>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="nombre">
-              <Form.Label className="required-field">Nombre del Rol</Form.Label>
-              <Form.Control
-                type="text"
-                name="nombre"
-                value={rol.nombre}
-                onChange={handleChange}
-                placeholder="Ingrese el nombre del rol"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="descripcion">
-              <Form.Label>Descripción</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="descripcion"
-                value={rol.descripcion}
-                onChange={handleChange}
-                placeholder="Ingrese una descripción del rol"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="button-container">
-            <Button variant="danger" className="cancel-button" onClick={handleCancelar}>
+      <div className="rol-form-container">
+        <h2 className="rol-form-title">Agregar Nuevo Rol</h2>
+        <Form>
+          <Row className="mb-3">
+            <Col>
+              <Form.Group controlId="nombre">
+                <Form.Label className="rol-form-label required">Nombre del Rol</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="nombre"
+                  value={rol.nombre}
+                  onChange={handleChange}
+                  placeholder="Ingrese el nombre del rol"
+                  className="rol-form-input"
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col>
+              <Form.Group controlId="descripcion">
+                <Form.Label className="rol-form-label">Descripción</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="descripcion"
+                  value={rol.descripcion}
+                  onChange={handleChange}
+                  placeholder="Ingrese una descripción del rol"
+                  className="rol-form-textarea"
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <div className="rol-form-actions">
+            <Button variant="danger" className="rol-form-btn cancel" onClick={handleCancelar}>
               Cancelar
             </Button>
-            <Button variant="success" onClick={handleGuardarRol}>
+            <Button variant="success" className="rol-form-btn save" onClick={handleGuardarRol}>
               Guardar Rol
             </Button>
-          </Col>
-        </Row>
-      </Form>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }

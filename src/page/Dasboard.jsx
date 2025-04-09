@@ -75,14 +75,13 @@ function Dashboard() {
     { name: "Mayo", ventas: 4800 },
   ]
 
-  const userData = [
-    { name: "Enero", usuarios: 300 },
-    { name: "Febrero", usuarios: 500 },
-    { name: "Marzo", usuarios: 700 },
-    { name: "Abril", usuarios: 650 },
-    { name: "Mayo", usuarios: 900 },
-  ]
-
+  const purchaseData = [
+    { name: "Enero", compras: 3200 },
+    { name: "Febrero", compras: 2100 },
+    { name: "Marzo", compras: 4500 },
+    { name: "Abril", compras: 3800 },
+    { name: "Mayo", compras: 5200 },
+  ];
   const isDashboardPath = location.pathname === "/dasboard"
 
   return (
@@ -141,20 +140,20 @@ function Dashboard() {
               </ResponsiveContainer>
             </div>
 
-            {/* Gráfica de usuarios registrados */}
-            <div className="chart-container">
-              <h2>Gráfica de Usuarios Registrados</h2>
-              <ResponsiveContainer width="100%" height={200}>
-                <LineChart data={userData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="usuarios" stroke="#ffc658" />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+           {/* Gráfica de compras */}
+<div className="chart-container">
+  <h2>Gráfica de Compras</h2>
+  <ResponsiveContainer width="100%" height={200}>
+    <AreaChart data={purchaseData}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Area type="monotone" dataKey="compras" stroke="#82ca9d" fill="#82ca9d" />
+    </AreaChart>
+  </ResponsiveContainer>
+</div>
           </div>
         </div>
       )}

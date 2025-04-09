@@ -150,7 +150,7 @@ function Proveedores() {
                   setCurrentPage(1); // Reset to first page on search
                 }}
               />
-              <Button variant="outline-secondary">Buscar</Button>
+
             </InputGroup>
           </Col>
           <Col className="text-end">

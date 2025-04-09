@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Card, ListGroup } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
-
+import "./rol.css"; 
 function EditarRol() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -125,25 +125,22 @@ function EditarRol() {
         <Card.Body>
           <Form>
             <Form.Group className="mb-3">
-              <Form.Label>
-                <strong>Nombre</strong>
-              </Form.Label>
+              <Form.Label className="rol-form-label required">Nombre del Rol</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
                 value={rol.nombre}
                 onChange={handleChange}
-                className="mb-2"
+                className="rol-form-input"
               />
-              <Form.Label>
-                <strong>Descripción Del Rol</strong>
-              </Form.Label>
+              <Form.Label className="rol-form-label">Descripción del Rol</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
                 name="descripcion"
                 value={rol.descripcion}
                 onChange={handleChange}
+                className="rol-form-textarea"
               />
             </Form.Group>
           </Form>
@@ -155,33 +152,19 @@ function EditarRol() {
           <Card.Title>Permisos Asociados</Card.Title>
           <ListGroup variant="flush">
             {Object.entries({
-              "Entrar Al Sistema": "entrarSistema",
-              "Cambiar estado de usuario": "cambiarEstadoUsuario",
-              "Ver Permisos Asociados": "verPermisosAsociados",
-              "Salir del sistema": "salirSistema",
-              "Acceder a Configuración": "accederConfiguracion",
-              "Asociar Permisos Al Rol": "asociarPermisos",
-              "Eliminar usuario": "eliminarUsuario",
-              "Crear Rol": "crearRol",
-              "Entrar Al modulo de Compras": "entrarCompras",
-              "Editar usuario": "editarUsuario",
-              "Editar Rol": "editarRol",
-              "Ver Compras Enlistadas": "verCompras",
-              "Agregar usuario": "agregarUsuario",
-              "Anular Rol": "anularRol",
-              "Agregar Compra": "agregarCompra",
-              "Descargar pdf": "descargarPDF",
-              "Eliminar Rol": "eliminarRol",
-              "Ver Detalle De Compra": "verDetalleCompra",
-              "Anular usuario": "anularUsuario",
-              "Ver Detalle De Rol": "verDetalleRol",
-              "Anular Compra": "anularCompra",
-              "Buscar usuario": "buscarUsuario",
-              "Ver Roles Enlistados": "verRoles",
-              "Cambiar Estado De Compra": "cambiarEstadoCompra",
-              "Ver detalle de usuario": "verDetalleUsuario",
-              "Cambiar Estado De rol": "cambiarEstadoRol",
-              "Buscar Compra": "buscarCompra",
+              
+              "Dashboard": "Ver La Dashboard",
+              "Configuracion": "Ver La Configuracion",
+              "Usuarios": "Ver los usuarios",
+              "Roles": "Ver los roles",
+              "Compras": "Ver Las Compras",
+              "Productos": "Ver Los productos",
+              "Categoria": "Ver Las categorias",
+              "Proveedores": "Ver los proveedores",
+              "Ventas": "Ver Las ventas",
+              "Clientes": "Ver los clientes",
+
+              
             }).map(([label, permisoKey]) => (
               <ListGroup.Item key={permisoKey}>
                 <Form.Check
@@ -197,12 +180,12 @@ function EditarRol() {
         </Card.Body>
       </Card>
 
-      <div className="d-flex justify-content-end mt-4">
-        <Button variant="primary" onClick={handleGuardar} className="me-2">
-          Guardar Cambios
-        </Button>
-        <Button variant="secondary" onClick={handleCancelar}>
+      <div className="rol-form-actions">
+        <Button variant="danger" className="rol-form-btn cancel" onClick={handleCancelar}>
           Cancelar
+        </Button>
+        <Button variant="success" className="rol-form-btn save" onClick={handleGuardar}>
+          Guardar Cambios
         </Button>
       </div>
     </div>

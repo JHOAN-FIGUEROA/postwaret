@@ -1,3 +1,6 @@
+/* ==================== */
+/* ESTILOS GENERALES */
+/* ==================== */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
@@ -11,7 +14,27 @@ body {
   padding: 20px;
 }
 
-/* Navbar */
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+strong {
+  color: #333;
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* ==================== */
+/* NAVBAR */
+/* ==================== */
 nav {
   display: flex;
   justify-content: space-between;
@@ -46,7 +69,9 @@ nav .btn:hover {
   background-color: #333333;
 }
 
-/* Carrusel */
+/* ==================== */
+/* CARRUSEL */
+/* ==================== */
 .carousel-container {
   margin: 20px 0;
 }
@@ -58,7 +83,9 @@ nav .btn:hover {
   border-radius: 10px;
 }
 
-/* Sección Misión, Visión e Historia */
+/* ==================== */
+/* SECCIONES DE CONTENIDO */
+/* ==================== */
 section {
   margin: 40px 0;
 }
@@ -96,7 +123,9 @@ section h2 {
   color: #666666;
 }
 
-/* Footer */
+/* ==================== */
+/* FOOTER */
+/* ==================== */
 footer {
   text-align: center;
   padding: 20px;
@@ -111,12 +140,14 @@ footer p {
   font-size: 14px;
 }
 
-/* Estilos para los formularios */
+/* ==================== */
+/* FORMULARIOS */
+/* ==================== */
 .form-container {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -158,13 +189,12 @@ footer p {
   background-color: #333333;
 }
 
-/* Fondo de supermercado para los formularios */
 .form-container::before {
   content: "";
-  background-image: url("/postwaret/src/img/pasillo.jpg"); /* Ruta de la imagen de fondo */
+  background-image: url("/postwaret/src/img/pasillo.jpg");
   background-size: cover;
   background-position: center;
-  opacity: 0.3; /* Opacidad de la imagen de fondo */
+  opacity: 0.3;
   position: absolute;
   top: 0;
   left: 0;
@@ -174,7 +204,9 @@ footer p {
   border-radius: 10px;
 }
 
-/* Estilos para el contenedor principal */
+/* ==================== */
+/* PANEL DE ADMINISTRACIÓN */
+/* ==================== */
 .admin-panel {
   display: flex;
   flex-direction: column;
@@ -186,69 +218,73 @@ footer p {
   flex: 1;
 }
 
-/* Estilos para el sidebar */
+/* ==================== */
+/* SIDEBAR */
+/* ==================== */
 .sidebar {
-  width: 250px; /* Ancho del sidebar */
-  background-color: #34495e; /* Color de fondo */
-  color: #ffffff; /* Color del texto */
-  padding: 20px; /* Espaciado interno */
-  position: fixed; /* Fija el sidebar */
+  width: 250px;
+  background-color: #34495e;
+  color: #ffffff;
+  padding: 20px;
+  position: fixed;
   top: 0;
   left: 0;
-  height: 100vh; /* Altura completa */
-  overflow-y: auto; /* Scroll si el contenido es largo */
-  z-index: 1000; /* Asegura que esté por encima del contenido */
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 .sidebar h2, .sidebar h3 {
-  margin-bottom: 20px; /* Espaciado inferior para el título */
+  margin-bottom: 20px;
 }
 
 .sidebar ul {
-  list-style: none; /* Elimina los estilos de lista */
-  padding: 0; /* Elimina el padding por defecto */
+  list-style: none;
+  padding: 0;
 }
 
 .sidebar ul li {
-  margin-bottom: 10px; /* Espaciado entre elementos de la lista */
+  margin-bottom: 10px;
 }
 
 .sidebar .module-item {
-  padding: 10px; /* Espaciado interno para los módulos */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
-  transition: background-color 0.3s ease; /* Transición suave */
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .sidebar .module-item:hover {
-  background-color: #2c3e50; /* Cambia el color de fondo al pasar el mouse */
+  background-color: #2c3e50;
 }
 
 .sidebar .submenu {
-  margin-left: 20px; /* Indentación para los submenús */
-  list-style: none; /* Elimina los estilos de lista */
+  margin-left: 20px;
+  list-style: none;
 }
 
 .sidebar .submenu li {
-  padding: 5px; /* Espaciado interno para los submenús */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
-  transition: background-color 0.3s ease; /* Transición suave */
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .sidebar .submenu li:hover {
-  background-color: #2c3e50; /* Cambia el color de fondo al pasar el mouse */
+  background-color: #2c3e50;
 }
 
-/* Estilos para el contenido principal */
+/* ==================== */
+/* CONTENIDO PRINCIPAL */
+/* ==================== */
 .main-content {
-  margin-left: 250px; /* Margen izquierdo igual al ancho del sidebar */
+  margin-left: 250px;
   padding: 20px;
-  width: calc(100% - 250px); /* Ajusta el ancho del contenido */
-  background-color: #ecf0f1; /* Color de fondo del contenido principal */
-  min-height: 100vh; /* Altura mínima igual a la altura de la ventana */
+  width: calc(100% - 250px);
+  background-color: #ecf0f1;
+  min-height: 100vh;
 }
 
 .main-content.with-sidebar {
-  margin-left: 250px; /* Match your sidebar width */
+  margin-left: 250px;
   padding: 20px;
   width: calc(100% - 250px);
   box-sizing: border-box;
@@ -256,58 +292,114 @@ footer p {
   min-height: 100vh;
 }
 
-/* Estilos generales para el contenedor */
-.container {
-  padding: 20px;
-}
-
-/* Estilos para el título */
-h2 {
+.main-content h2 {
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-weight: 600;
   font-size: 24px;
-  font-weight: bold;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
 }
 
-/* Estilos para la barra de búsqueda */
-.input-group {
-  margin-bottom: 20px;
+.main-content h4 {
+  color: #333;
+  margin: 25px 0 15px 0;
+  font-weight: 500;
+  font-size: 20px;
+  border-left: 4px solid #007bff;
+  padding-left: 10px;
 }
 
-.input-group .form-control {
+
+/* ==================== */
+/* ESTILOS GLOBALES PARA BUSCADORES Y BOTONES AGREGAR */
+/* ==================== */
+
+/* Agregar estas líneas nuevas */
+.row.mb-3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.row.mb-3 > .col {
+  padding: 0;
+  margin: 0;
+}
+
+.row.mb-3 > .col:first-child {
+  flex-grow: 1;
+}
+
+.row.mb-3 > .col.text-end {
+  flex-shrink: 0;
+}
+
+/* Mantener todo lo anterior sin cambios */
+.input-group .form-control[type="text"][placeholder*="Buscar"],
+.input-group .form-control[type="search"] {
+  width: 90%;
+  height: 40px;
+  padding: 8px 35px 8px 12px;
+  border: 1px solid #ced4da;
   border-radius: 4px;
-  border: 1px solid #ccc;
-  box-shadow: none;
+  font-size: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
 }
 
-.input-group .btn {
-  border-radius: 4px;
-  background-color: #6c757d;
-  border: 1px solid #6c757d;
-  color: white;
-  margin: 5px;
+.btn[onclick*="Agregar"],
+.btn[onclick*="Add"],
+.btn:has(> :first-child:contains("Agregar")) {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  height: 40px !important;
+  white-space: nowrap !important;
+  border-radius: 4px !important;
 }
 
-.input-group .btn:hover {
-  background-color: #5a6268;
-  border-color: #545b62;
+.input-group .form-control[type="text"][placeholder*="Buscar"]:focus,
+.input-group .form-control[type="search"]:focus {
+  border-color: #80bdff;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23007bff' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
 }
 
-/* Estilos para el botón "Agregar Usuario" */
-.text-end .btn-primary {
-  background-color: #007bff;
-  border: 1px solid #007bff;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
+.btn[onclick*="Agregar"]:hover,
+.btn[onclick*="Add"]:hover,
+.btn:has(> :first-child:contains("Agregar")):hover {
+  background-color: #0069d9 !important;
+  border-color: #0062cc !important;
 }
 
-.text-end .btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #004085;
+/* Responsive - Agregar al media query existente */
+@media (max-width: 768px) {
+  .row.mb-3 {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .input-group .form-control[type="text"][placeholder*="Buscar"],
+  .input-group .form-control[type="search"] {
+    width: 100%;
+  }
+  
+  .btn[onclick*="Agregar"],
+  .btn[onclick*="Add"],
+  .btn:has(> :first-child:contains("Agregar")) {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
-
-/* Estilos para la tabla */
+/* ==================== */
+/* TABLAS */
+/* ==================== */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -341,12 +433,56 @@ h2 {
   background-color: #f1f1f1;
 }
 
-/* Estilos para los botones de acciones */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* ==================== */
+/* BOTONES */
+/* ==================== */
+.btn {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
 .btn-sm {
   padding: 5px 10px;
   font-size: 12px;
   margin-right: 5px;
   border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: 1px solid #6c757d;
+  color: white;
+  padding: 8px 16px;
+  font-weight: 500;
+  margin-top: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
 }
 
 .btn-info {
@@ -383,132 +519,36 @@ h2 {
   border-color: #bd2130;
 }
 
-/* Page title */
-.main-content h2 {
-  color: #333;
-  margin-bottom: 25px;
-  font-weight: 600;
-  font-size: 24px;
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 10px;
-}
-
-/* Section headings */
-.main-content h4 {
-  color: #333;
-  margin: 25px 0 15px 0;
-  font-weight: 500;
-  font-size: 20px;
-  border-left: 4px solid #007bff;
-  padding-left: 10px;
-}
-
-/* Information text */
-.main-content p {
-  margin-bottom: 10px;
-  line-height: 1.6;
-  color: #333;
-}
-
-.main-content strong {
-  color: #333;
-  font-weight: 600;
-}
-
-/* Resumen de la Venta section */
-.main-content > div:nth-child(4) {
-  background-color: #f8f9fa;
-  border-left: 4px solid #28a745;
-}
-
-.main-content > div:nth-child(4) p:last-child {
-  font-size: 1.2rem;
-  color: #333;
-  font-weight: 600;
-}
-
-.main-content > div:nth-child(4) p:last-child strong {
-  color: #28a745;
-}
-
-/* Button styling - integrating with your button styles */
-.btn-secondary {
-  background-color: #6c757d;
-  border: 1px solid #6c757d;
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
   color: white;
-  padding: 8px 16px;
-  font-weight: 500;
-  margin-top: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.btn-secondary:hover {
-  background-color: #5a6268;
-  border-color: #545b62;
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
 }
 
-.table-responsive {
-  overflow-x: auto;
-}
-
-.main-content > div {
-  padding: 15px;
-}
-
-/* Contenedor de la paginación */
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.btn-guardar {
   margin-top: 20px;
-  gap: 10px;
-}
-
-/* Botones de paginación */
-.pagination-container button {
-  background-color: #007bff;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #28a745;
+  border-color: #28a745;
   color: white;
-  border: none;
-  padding: 8px 16px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
 }
 
-.pagination-container button:hover {
-  background-color: #0056b3;
+.btn-guardar:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
 }
 
-/* Deshabilitar botones */
-.pagination-container button:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
-}
-
-/* Texto de la paginación */
-.pagination-text {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-}
-
-.list-group {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Dos columnas */
-  gap: 10px; /* Espacio entre elementos */
-}
-
-@media (max-width: 768px) {
-  .list-group {
-    grid-template-columns: 1fr; /* Solo una columna en pantallas pequeñas */
-  }
-}
-
+/* ==================== */
+/* FORMULARIOS ESPECÍFICOS */
+/* ==================== */
 .agregarproducto {
-  background-color: #f8f9fa; /* Fondo claro */
+  background-color: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
   max-width: 70%;
@@ -517,210 +557,131 @@ h2 {
 
 .agregarproducto h2 {
   text-align: center;
-  color: #0d6efd; /* Azul Bootstrap */
+  color: #0d6efd;
   margin-bottom: 20px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Estilos para AgregarCompra */
 .agregar-cliente-form {
-  padding: 20px;
-  max-width: 1400px;
-  margin: 0 0 0 250px; /* margen izquierdo de 250px */
-  width: calc(100% - 250px);
+  padding: 50px;
+  max-width: 70%;
+  margin: auto;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .agregar-cliente-form h2 {
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   color: #333;
   font-weight: 600;
   text-align: left;
   border-bottom: 2px solid #007bff;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
 }
 
-/* Estilos para el formulario */
-.agregar-cliente-form form {
+/* Contenedor principal de campos */
+.form-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
+  gap: 25px 30px; /* 25px vertical, 30px horizontal */
+}
+
+/* Campos que ocupan ambas columnas */
+.full-width-field {
+  grid-column: span 2;
+}
+
+/* Campos que ocupan media columna (como en tu imagen) */
+.half-width-field {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
-.agregar-cliente-form .form-group {
-  flex: 0 0 calc(33.333% - 15px); /* Tres columnas con espacio entre ellas */
-  margin-bottom: 15px;
+/* Contenedor de campos pequeños lado a lado */
+.split-fields-container {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
 }
 
 .agregar-cliente-form .form-label {
   font-weight: 500;
-  color: #333;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.agregar-cliente-form .form-control,
-.agregar-cliente-form .form-select,
-.agregar-cliente-form input {
-  border-radius: 4px;
-  border: 1px solid #ced4da;
-  padding: 8px 12px;
-  width: 100%;
+  color: #444;
+  margin-bottom: 8px;
   font-size: 14px;
 }
 
-.agregar-cliente-form .form-control:focus,
-.agregar-cliente-form .form-select:focus,
-.agregar-cliente-form input:focus {
-  border-color: #80bdff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+/* Estilos consistentes para todos los inputs */
+.agregar-cliente-form .form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  height: 46px;
+  box-sizing: border-box;
 }
 
-/* Estilos para botones */
-.agregar-cliente-form .form-actions {
-  flex: 0 0 100%;
+/* Acciones del formulario */
+.form-actions {
+  grid-column: span 2;
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid #eee;
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  gap: 15px;
 }
 
-.agregar-cliente-form .btn {
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.agregar-cliente-form .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.agregar-cliente-form .btn-primary:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
-}
-
-.agregar-cliente-form .btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
-  color: white;
-}
-
-.agregar-cliente-form .btn-success:hover {
-  background-color: #218838;
-  border-color: #1e7e34;
-}
-
-.agregar-cliente-form .btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-  color: white;
-}
-
-.agregar-cliente-form .btn-danger:hover {
-  background-color: #c82333;
-  border-color: #bd2130;
-}
-
-/* Estilos para la tabla */
-.agregar-cliente-form table {
-  font-size: 14px;
-  width: 100%;
-  margin-bottom: 20px;
-  border-collapse: collapse;
-  background-color: white;
-}
-
-.agregar-cliente-form table th {
-  background-color: #ffffff;
-  color: #495057;
-  font-weight: 600;
-  text-align: center;
-  vertical-align: middle;
-  padding: 12px 8px;
-  border: 1px solid #dee2e6;
-}
-
-.agregar-cliente-form table td {
-  vertical-align: middle;
-  padding: 10px 8px;
-  border: 1px solid #dee2e6;
-  text-align: center;
-}
-
-/* Responsive adjustments */
-@media (max-width: 992px) {
-  .agregar-cliente-form .form-group {
-    flex: 0 0 calc(50% - 15px); /* Two columns on medium screens */
-  }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  .agregar-cliente-form .form-group {
-    flex: 0 0 100%; /* One column on small screens */
+  .form-fields-grid,
+  .split-fields-container {
+    grid-template-columns: 1fr;
   }
-
+  
+  .full-width-field,
+  .split-fields-container {
+    grid-column: span 1;
+  }
+  
   .agregar-cliente-form {
-    margin: 0;
-    width: 100%;
+    padding: 30px;
+    max-width: 90%;
   }
 }
 
+/* ==================== */
+/* MODALES */
+/* ==================== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
 
+.modal.show {
+  display: block;
+}
 
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Estilos para el modal */
 .modal-dialog {
   max-width: 900px;
   margin: 30px auto;
@@ -760,117 +721,6 @@ h2 {
   border-bottom-right-radius: 8px;
 }
 
-/* Estilos específicos para el modal de productos */
-.modal h5 {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  font-weight: 600;
-  color: #495057;
-  border-left: 4px solid #007bff;
-  padding-left: 10px;
-}
-
-/* Estilos para los input groups */
-.input-group-text {
-  background-color: #ffffff;
-  font-weight: 500;
-  width: 100px;
-  justify-content: center;
-  border: 1px solid #ced4da;
-}
-
-/* Estilos para elementos seleccionados en el modal */
-.producto-seleccionado {
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 4px;
-  margin-top: 15px;
-  border: 1px solid #dee2e6;
-}
-
-/* Estilos para ayudar a visualizar mejor los totales */
-.totales-compra {
-  background-color: #ffffff;
-  border-radius: 4px;
-  padding: 15px;
-  margin-top: 20px;
-  border: 1px solid #dee2e6;
-}
-
-/* Estilo para resaltar el botón de guardar */
-.btn-guardar {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #28a745;
-  border-color: #28a745;
-  color: white;
-}
-
-.btn-guardar:hover {
-  background-color: #218838;
-  border-color: #1e7e34;
-}
-
-/* Estilos responsivos */
-@media (max-width: 768px) {
-  .agregar-cliente-form {
-    padding: 15px;
-  }
-  
-  .modal-dialog {
-    max-width: 95%;
-    margin: 10px auto;
-  }
-  
-  .agregar-cliente-form table {
-    font-size: 12px;
-  }
-  
-  .agregar-cliente-form .btn {
-    padding: 6px 12px;
-    font-size: 14px;
-  }
-}
-
-/* Estilos para optimizar visualización de la tabla en pantallas pequeñas */
-@media (max-width: 992px) {
-  .table-responsive {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-/* Asegurarse de que el modal aparezca correctamente */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1050;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal.show {
-  display: block;
-}
-
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1040;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Estilos para el botón de cerrar del modal */
 .modal .close {
   color: #aaa;
   float: right;
@@ -883,4 +733,145 @@ h2 {
 .modal .close:focus {
   color: black;
   text-decoration: none;
+}
+
+.producto-seleccionado {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 15px;
+  border: 1px solid #dee2e6;
+}
+
+.totales-compra {
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 15px;
+  margin-top: 20px;
+  border: 1px solid #dee2e6;
+}
+
+/* ==================== */
+/* LISTAS Y GRIDS */
+/* ==================== */
+.list-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+/* ==================== */
+/* PAGINACIÓN */
+/* ==================== */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.pagination-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-container button:hover {
+  background-color: #0056b3;
+}
+
+.pagination-container button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.pagination-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ==================== */
+/* MEDIA QUERIES */
+/* ==================== */
+@media (max-width: 992px) {
+  .agregar-cliente-form .form-group {
+    flex: 0 0 calc(50% - 15px);
+  }
+}
+
+@media (max-width: 768px) {
+  .list-group {
+    grid-template-columns: 1fr;
+  }
+
+  .agregar-cliente-form .form-group {
+    flex: 0 0 100%;
+  }
+  
+  .agregar-cliente-form {
+    margin: 0;
+    width: 100%;
+  }
+  
+  .main-content,
+  .main-content.with-sidebar {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+}
+
+
+/* Estilo para el select */
+form select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+form select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Centrar el botón "Agregar Productos" */
+.agregar-productos-container {
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  margin-top: 1rem;
+  padding: 1rem 0; /* Reducir padding vertical */
+}
+
+.agregar-productos-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem; /* Ajustar padding para un botón más compacto */
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 auto; /* Centrado adicional */
+}
+
+.agregar-productos-btn:hover {
+  background-color: #0056b3;
 }

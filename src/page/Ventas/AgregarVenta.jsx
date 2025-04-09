@@ -497,13 +497,14 @@ function AgregarVenta() {
         </Row>
         <Row className="mb-3">
           <Col>
-            <Button 
-              variant="primary" 
-              onClick={handleAgregarProductos}
-              style={{ marginTop: '10px' }}
-            >
-              Agregar Productos
-            </Button>
+            <div className="agregar-productos-container">
+                        <Button 
+                          className="agregar-productos-btn" 
+                          onClick={handleAgregarProductos}
+                        >
+                          Agregar Productos
+                        </Button>
+                      </div>
           </Col>
         </Row>
 

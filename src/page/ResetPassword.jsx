@@ -25,9 +25,13 @@ function ResetPassword() {
             required
           />
         </div>
-        <button className="logii" type="submit">Enviar Token</button>
+        <div className="button-group-vertical">
+          <button className="btn login-btn" type="submit">Enviar Token</button>
+          <button className="btn back-btn" onClick={() => navigate("/login")}>
+            Volver a Iniciar Sesión
+          </button>
+        </div>
       </form>
-      <button className="btn" onClick={() => navigate("/login")}>Volver a Iniciar Sesión</button>
     </div>
   );
 }

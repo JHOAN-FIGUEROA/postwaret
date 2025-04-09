@@ -184,23 +184,7 @@ function Categoria() {
                 setCurrentPage(1);
               }}
             />
-            <Button 
-              variant="outline-secondary" 
-              onClick={() => {
-                if (busqueda.trim() === "") {
-                  Swal.fire({
-                    icon: "info",
-                    title: "Campo vacío",
-                    text: "Por favor ingrese un término de búsqueda.",
-                    timer: 2000,
-                    timerProgressBar: true,
-                    showConfirmButton: false,
-                  });
-                }
-              }}
-            >
-              Buscar
-            </Button>
+           
           </InputGroup>
         </Col>
         <Col className="text-end">
