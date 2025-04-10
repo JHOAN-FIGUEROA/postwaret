@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Card } from "react-bootstrap";
 import Sidebar from "./../Sidebar";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import "./compra.css"; // Asegúrate de importar el CSS que compartiste
+import "./compra.css";
 
 function GenerarPDF() {
   const { id } = useParams();
@@ -43,31 +43,35 @@ function GenerarPDF() {
 
   const handleGenerarPDF = () => {
     const input = pdfRef.current;
-    const options = {
+    html2canvas(input, {
       scale: 3,
       useCORS: true,
-      letterRendering: true,
-      allowTaint: true,
-      scrollX: 0,
-      scrollY: 0,
+      scrollY: -window.scrollY,
       windowWidth: input.scrollWidth,
       windowHeight: input.scrollHeight,
-    };
-
-    html2canvas(input, options).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png", 1.0);
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
+
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const pageHeight = pdf.internal.pageSize.getHeight();
 
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight) * 0.95;
+      const imgWidth = pdfWidth;
+      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
-      const imgX = (pdfWidth - imgWidth * ratio) / 2;
-      const imgY = 10;
+      let heightLeft = imgHeight;
+      let position = 0;
 
-      pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
       pdf.save(`compra_${compra.numeroCompra}.pdf`);
     });
   };
@@ -79,7 +83,7 @@ function GenerarPDF() {
   const modules = [
     {
       name: "Dashboard",
-      submenus: [{ name: "Dashboard", path: "/dasboard" }],
+      submenus: [{ name: "Dashboard", path: "/dashboard" }],
     },
     {
       name: "Configuración",
@@ -119,70 +123,68 @@ function GenerarPDF() {
           </button>
         </div>
 
-        <div className="detail-card" ref={pdfRef}>
-          <h2 className="detail-title">Detalle de la Compra</h2>
-          <div className="card-body">
-            <div className="card-section">
-              <h4 className="card-title">Información General</h4>
-              <div className="compact-row" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.5rem" }}>
-                <p><strong>N° de Compra:</strong> {compra.numeroCompra}</p>
-                <p><strong>Fecha:</strong> {compra.fechaCompra}</p>
-                <p><strong>Proveedor:</strong> {compra.proveedor}</p>
-                <p><strong>Teléfono:</strong> {compra.telefono}</p>
-                <p><strong>Email:</strong> {compra.email}</p>
-              </div>
-            </div>
+        <div
+          ref={pdfRef}
+          style={{ backgroundColor: "#fff", padding: "1rem", overflow: "visible", minHeight: "1000px" }}
+        >
+          <h2 className="detail-title">Soporte De Compra #{compra.numeroCompra}</h2>
 
-            <div className="card-section">
-              <h4 className="card-title">Productos</h4>
-              <div className="table-responsive">
-                <Table striped bordered hover className="compact-table">
-                  <thead>
-                    <tr>
-                      <th>Producto</th>
-                      <th>Cantidad</th>
-                      <th>Precio Unitario</th>
-                      <th>Subtotal</th>
-                      <th>IVA (19%)</th>
-                      <th>Total</th>
+          <Card className="detail-card">
+            <Card.Body>
+              <Card.Title className="card-title mb-2">Información General</Card.Title>
+              <div className="row">
+                <div className="col-md-4 col-sm-6 mb-2"><strong>N° de Compra:</strong> {compra.numeroCompra}</div>
+                <div className="col-md-4 col-sm-6 mb-2"><strong>Fecha:</strong> {compra.fechaCompra}</div>
+                <div className="col-md-4 col-sm-6 mb-2"><strong>Proveedor:</strong> {compra.proveedor}</div>
+                <div className="col-md-4 col-sm-6 mb-2"><strong>Teléfono:</strong> {compra.telefono}</div>
+                <div className="col-md-4 col-sm-6 mb-2"><strong>Email:</strong> {compra.email}</div>
+              </div>
+
+              <Card.Title className="card-title mt-3 mb-2">Productos</Card.Title>
+              <Table striped bordered hover responsive className="compact-table mb-2">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                    <th>IVA (19%)</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {compra.productos.map((producto, index) => (
+                    <tr key={index}>
+                      <td>{producto.nombre}</td>
+                      <td>{producto.cantidad}</td>
+                      <td>${producto.precioUnitario.toFixed(2)}</td>
+                      <td>${producto.subtotal.toFixed(2)}</td>
+                      <td>${producto.iva.toFixed(2)}</td>
+                      <td>${producto.total.toFixed(2)}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {compra.productos.map((producto, i) => (
-                      <tr key={i}>
-                        <td>{producto.nombre}</td>
-                        <td>{producto.cantidad}</td>
-                        <td>${producto.precioUnitario.toFixed(2)}</td>
-                        <td>${producto.subtotal.toFixed(2)}</td>
-                        <td>${producto.iva.toFixed(2)}</td>
-                        <td>${producto.total.toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              </div>
-            </div>
+                  ))}
+                </tbody>
+              </Table>
 
-            <div className="card-section" style={{ marginTop: "1rem", borderTop: "1px solid #ddd", paddingTop: "1rem" }}>
-              <h4 className="card-title">Resumen de la Compra</h4>
-              <div style={{ display: "flex", justifyContent: "space-around", textAlign: "center" }}>
-                <div>
-                  <p><strong>Subtotal:</strong></p>
+              <Card.Title className="card-title mt-3 mb-2">Resumen</Card.Title>
+              <div className="row compact-row text-center">
+                <div className="col-sm-4">
+                  <p className="mb-1"><strong>Subtotal:</strong></p>
                   <p>${compra.subtotal.toFixed(2)}</p>
                 </div>
-                <div>
-                  <p><strong>IVA:</strong></p>
+                <div className="col-sm-4">
+                  <p className="mb-1"><strong>IVA (19%):</strong></p>
                   <p>${compra.iva.toFixed(2)}</p>
                 </div>
-                <div>
-                  <p><strong>Total:</strong></p>
+                <div className="col-sm-4">
+                  <p className="mb-1"><strong>Total:</strong></p>
                   <p><strong>${compra.total.toFixed(2)}</strong></p>
                 </div>
               </div>
-            </div>
-          </div>
+            </Card.Body>
+          </Card>
         </div>
-      </div>      
+      </div>
     </div>
   );
 }

@@ -248,34 +248,36 @@ function AgregarProveedor() {
           </div>
         </div>
 
-        {/* Tercera columna */}
-        <div className="proveedor-form-column">
-          <div className="proveedor-form-field">
-            <Form.Label className="proveedor-form-label required">Email</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              value={proveedor.email}
-              onChange={handleChange}
-              placeholder="correo@proveedor.com"
-              className="proveedor-form-input"
-              required
-            />
-          </div>
+      {/* Tercera columna */}
+<div className="proveedor-form-column">
+  <div className="d-flex gap-3">
+    <div className="proveedor-form-field flex-fill">
+      <Form.Label className="proveedor-form-label required">Email</Form.Label>
+      <Form.Control
+        type="email"
+        name="email"
+        value={proveedor.email}
+        onChange={handleChange}
+        placeholder="correo@proveedor.com"
+        className="proveedor-form-input"
+        required
+      />
+    </div>
 
-          <div className="proveedor-form-field">
-            <Form.Label className="proveedor-form-label required">Teléfono</Form.Label>
-            <Form.Control
-              type="text"
-              name="numeroContacto"
-              value={proveedor.numeroContacto}
-              onChange={handleChange}
-              placeholder="Número de contacto"
-              className="proveedor-form-input"
-              required
-            />
-          </div>
-        </div>
+    <div className="proveedor-form-field flex-fill">
+      <Form.Label className="proveedor-form-label required">Teléfono</Form.Label>
+      <Form.Control
+        type="text"
+        name="numeroContacto"
+        value={proveedor.numeroContacto}
+        onChange={handleChange}
+        placeholder="Número de contacto"
+        className="proveedor-form-input"
+        required
+      />
+    </div>
+  </div>
+</div>
       </div>
             {/* Campo de dirección */}
             <div className="proveedor-form-fullwidth">
