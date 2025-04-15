@@ -35,16 +35,11 @@ function Clientes() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   const handleAgregar = () => {
-    Swal.fire({
-      title: 'Agregar Cliente',
-      text: 'Serás redirigido al formulario para agregar un nuevo cliente',
-      icon: 'info',
-      confirmButtonText: 'Continuar'
-    }).then((result) => {
-      if (result.isConfirmed) {
+   
+     {
         navigate("/clientes/agregar")
       }
-    })
+    
   }
 
   const handleEditar = (id) => {
@@ -67,10 +62,12 @@ function Clientes() {
     Swal.fire({
       title: `Detalle del Cliente: ${cliente.nombre}`,
       html: `
-        <p><strong>Documento:</strong> ${cliente.Documento}</p>
-        <p><strong>Contacto:</strong> ${cliente.contacto}</p>
-        <p><strong>Teléfono:</strong> ${cliente.telefono}</p>
-        <p><strong>Estado:</strong> ${cliente.Estado}</p>
+        <div style="text-align: left;">
+          <p><strong>Documento:</strong> ${cliente.Documento}</p>
+          <p><strong>Contacto:</strong> ${cliente.contacto}</p>
+          <p><strong>Teléfono:</strong> ${cliente.telefono}</p>
+          <p><strong>Estado:</strong> ${cliente.Estado}</p>
+        </div>
       `,
       icon: 'info',
       confirmButtonText: 'Cerrar'

@@ -1,0 +1,123 @@
+.categoria-form-container {
+    flex: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.08);
+  }
+  
+  .categoria-form-title {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+    text-align: center;
+  }
+  
+  /* Campos */
+  .categoria-form-field {
+    margin-bottom: 1rem;
+  }
+  
+  .categoria-form-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    color: #34495e;
+    font-size: 0.85rem;
+  }
+  
+  .categoria-form-label.required::after {
+    content: " *";
+    color: #e74c3c;
+  }
+  
+  /* Inputs */
+  .categoria-form-input,
+  .categoria-form-textarea {
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    background-color: #fff;
+    transition: all 0.2s ease;
+  }
+  
+  .categoria-form-input:focus,
+  .categoria-form-textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+  }
+  
+  .categoria-form-textarea {
+    resize: none;
+  }
+  
+  /* Botones */
+  .categoria-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid #ecf0f1;
+  }
+  
+  .categoria-form-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    min-width: 100px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .categoria-form-btn.cancel {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .categoria-form-btn.cancel:hover {
+    background-color: #c82333;
+  }
+  
+  .categoria-form-btn.save {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+  }
+  
+  .categoria-form-btn.save:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .categoria-form-container {
+      padding: 1.5rem;
+    }
+  
+    .categoria-form-actions {
+      flex-direction: column;
+    }
+  
+    .categoria-form-btn {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .categoria-form-container {
+      padding: 1rem;
+    }
+  
+    .categoria-form-title {
+      font-size: 1.2rem;
+    }
+  } 

@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
+import "./categoria.css"; // Importar el archivo CSS de categoría
 
 function EditarCategoria() {
   const navigate = useNavigate();
@@ -92,49 +93,84 @@ function EditarCategoria() {
     },
   ];
 
+  // Estilos CSS
+  const styles = `
+    .cancel-button {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      color: white;
+      margin-right: 10px;
+    }
+    .cancel-button:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .agregar-cliente-form {
+      padding: 20px;
+      margin-left: 250px;
+      width: calc(100% - 250px);
+    }
+    .required-field::after {
+      content: "*";
+      color: red;
+      margin-left: 5px;
+    }
+  `;
+
   return (
-    <div className="agregar-cliente-form">
-      <h2>Editar Categoría</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
-      <Form>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="nombre">
-              <Form.Label>Nombre</Form.Label>
-              <Form.Control
-                type="text"
-                name="nombre"
-                value={categoria.nombre}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="descripcion">
-              <Form.Label>Descripción</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="descripcion"
-                value={categoria.descripcion}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="text-end">
-            <Button variant="success" onClick={handleEditar}>
-              Guardar Cambios
-            </Button>{" "}
-            <Button variant="secondary" onClick={handleCancelar}>
+    <div className="main-content with-sidebar">
+      <style>{styles}</style>
+      <Sidebar modules={modules} />
+      <div className="categoria-form-container">
+        <h2 className="categoria-form-title">Editar Categoría</h2>
+        <Form>
+          <Row className="mb-3">
+            <Col>
+              <Form.Group controlId="nombre">
+                <Form.Label className="categoria-form-label required">Nombre</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="nombre"
+                  value={categoria.nombre}
+                  onChange={handleChange}
+                  placeholder="Ingrese el nombre de la categoría"
+                  className="categoria-form-input"
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col>
+              <Form.Group controlId="descripcion">
+                <Form.Label className="categoria-form-label">Descripción</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="descripcion"
+                  value={categoria.descripcion}
+                  onChange={handleChange}
+                  placeholder="Ingrese una descripción de la categoría"
+                  className="categoria-form-textarea"
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <div className="categoria-form-actions">
+            <Button variant="danger" className="categoria-form-btn cancel" onClick={handleCancelar}>
               Cancelar
             </Button>
-          </Col>
-        </Row>
-      </Form>
+            <Button variant="success" className="categoria-form-btn save" onClick={handleEditar}>
+              Guardar Cambios
+            </Button>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }

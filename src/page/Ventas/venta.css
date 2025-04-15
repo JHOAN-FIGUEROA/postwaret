@@ -1,0 +1,141 @@
+.main-content.with-sidebar {
+  padding: 20px;
+}
+
+.detail-title {
+  margin: 0.5rem 0;
+  color: #2c3e50;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 0.5rem 0;
+}
+
+.detail-container {
+  padding: 0.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  height: calc(100vh - 60px);
+  box-sizing: border-box;
+}
+
+.detail-card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 0.8rem;
+  background-color: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+  max-height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-card .card-title {
+  color: #3498db;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.detail-card .card-body {
+  padding: 0.6rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.detail-button {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.6rem;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.detail-button:hover {
+  background-color: #2980b9;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  max-height: 300px;
+  margin-bottom: 0.5rem;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.85rem;
+  padding: 0.4rem;
+  position: sticky;
+  top: 0;
+}
+
+.table tbody td {
+  font-size: 0.8rem;
+  padding: 0.3rem;
+}
+
+.compact-row > div {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
+
+.compact-table {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .detail-container {
+    padding: 0.6rem;
+    height: calc(100vh - 50px);
+  }
+
+  .detail-title {
+    font-size: 1.2rem;
+  }
+
+  .detail-card {
+    max-height: calc(100vh - 180px);
+  }
+
+  .detail-card .card-title {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .detail-card .card-body {
+    padding: 0.5rem;
+  }
+
+  .table thead th,
+  .table tbody td {
+    font-size: 0.75rem;
+    padding: 0.3rem;
+  }
+
+  .detail-button {
+    font-size: 0.8rem;
+  }
+  
+  .table-responsive {
+    max-height: 200px;
+  }
+} 
