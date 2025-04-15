@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar";
+import "./producto.css";
 
 function AgregarProducto() {
   const navigate = useNavigate();
@@ -138,136 +139,100 @@ function AgregarProducto() {
     },
   ];
 
-  const styles = `
-    .cancel-button {
-      background-color: #dc3545;
-      border-color: #dc3545;
-      color: white;
-      margin-right: 10px;
-    }
-    .cancel-button:hover {
-      background-color: #c82333;
-      border-color: #bd2130;
-    }
-    .button-container {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-    .agregar-cliente-form {
-      padding: 20px;
-      margin-left: 250px;
-      width: calc(100% - 250px);
-    }
-    .required-field::after {
-      content: " *";
-      color: #dc3545;
-    }
-  `;
-
   return (
-    <div className="agregar-cliente-form">
-      <style>{styles}</style>
-      <h2>Agregar Nuevo Producto</h2>
+    <div className="main-content with-sidebar">
       <Sidebar modules={modules} />
-      <Form>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="nombre">
-              <Form.Label className="required-field">Nombre</Form.Label>
-              <Form.Control
-                type="text"
-                name="nombre"
-                value={producto.nombre}
-                onChange={handleChange}
-                placeholder="Ingrese el nombre del producto"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="categoria">
-              <Form.Label className="required-field">Categoría</Form.Label>
-              <Form.Control
-                type="text"
-                name="categoria"
-                value={producto.categoria}
-                onChange={handleChange}
-                placeholder="Ingrese la categoría del producto"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="codigoBarras">
-              <Form.Label className="required-field">Código de Barras</Form.Label>
-              <Form.Control
-                type="text"
-                name="codigoBarras"
-                value={producto.codigoBarras}
-                onChange={handleChange}
-                placeholder="Escanear o ingresar código de barras"
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="precioUnitarioCOP">
-              <Form.Label className="required-field">Precio Unitario (COP)</Form.Label>
-              <Form.Control
-                type="number"
-                name="precioUnitarioCOP"
-                value={producto.precioUnitarioCOP}
-                onChange={handleChange}
-                placeholder="Ingrese el precio unitario en COP"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="porcentajeGanancia">
-              <Form.Label className="required-field">Porcentaje de Ganancia</Form.Label>
-              <Form.Control
-                type="number"
-                name="porcentajeGanancia"
-                value={producto.porcentajeGanancia}
-                onChange={handleChange}
-                placeholder="Ingresa el porcentaje de ganancia del producto"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="descripcion">
-              <Form.Label className="required-field">Descripción</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="descripcion"
-                value={producto.descripcion}
-                onChange={handleChange}
-                placeholder="Ingrese una descripción del producto"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="button-container">
-            <Button variant="danger" className="cancel-button" onClick={handleCancelar}>
-              Cancelar
-            </Button>
-            <Button variant="success" onClick={handleGuardarProducto}>
-              Guardar Producto
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+      <div className="product-form-container">
+        <h2 className="product-form-title">Agregar Nuevo Producto</h2>
+        <Form>
+          <div className="product-form-layout">
+            <div className="product-form-column">
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Nombre</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="nombre"
+                  value={producto.nombre}
+                  onChange={handleChange}
+                  placeholder="Ingrese el nombre del producto"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Categoría</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="categoria"
+                  value={producto.categoria}
+                  onChange={handleChange}
+                  placeholder="Ingrese la categoría del producto"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Código de Barras</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="codigoBarras"
+                  value={producto.codigoBarras}
+                  onChange={handleChange}
+                  placeholder="Escanear o ingresar código de barras"
+                  className="product-form-input"
+                />
+              </div>
+            </div>
+            <div className="product-form-column">
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Precio Unitario (COP)</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="precioUnitarioCOP"
+                  value={producto.precioUnitarioCOP}
+                  onChange={handleChange}
+                  placeholder="Ingrese el precio unitario en COP"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Porcentaje de Ganancia</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="porcentajeGanancia"
+                  value={producto.porcentajeGanancia}
+                  onChange={handleChange}
+                  placeholder="Ingresa el porcentaje de ganancia del producto"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Descripción</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="descripcion"
+                  value={producto.descripcion}
+                  onChange={handleChange}
+                  placeholder="Ingrese una descripción del producto"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+            </div>
+            <div className="product-form-actions">
+              <Button variant="outline-danger" onClick={handleCancelar} className="product-form-btn">
+                Cancelar
+              </Button>
+              <Button variant="primary" onClick={handleGuardarProducto} className="product-form-btn">
+                Guardar Producto
+              </Button>
+            </div>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }

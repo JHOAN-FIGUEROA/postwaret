@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Sidebar from "./../Sidebar"; 
+import "./producto.css";
 
 function EditarProductoo() {
   const navigate = useNavigate();
@@ -77,72 +78,99 @@ function EditarProductoo() {
   ];
 
   return (
-    <div className="agregar-cliente-form">
-      <h2>Editar Producto</h2>
-      <Sidebar modules={modules} /> {/* Agrega el Sidebar aquí */}
-      <Form>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="nombre">
-              <Form.Label>Nombre</Form.Label>
-              <Form.Control
-                type="text"
-                name="nombre"
-                value={producto.nombre}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="categoria">
-              <Form.Label>Categoría</Form.Label>
-              <Form.Control
-                type="text"
-                name="categoria"
-                value={producto.categoria}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="precioUnitarioCOP">
-              <Form.Label>Precio Unitario (COP)</Form.Label>
-              <Form.Control
-                type="number"
-                name="precioUnitarioCOP"
-                value={producto.precioUnitarioCOP}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col>
-            <Form.Group controlId="descripcion">
-              <Form.Label>Descripción</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="descripcion"
-                value={producto.descripcion}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-3">
-          <Col className="text-end">
-            <Button variant="success" onClick={handleEditar}>
-              Guardar Cambios
-            </Button>{" "}
-            <Button variant="secondary" onClick={handleCancelar}>
-              Cancelar
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+    <div className="main-content with-sidebar">
+      <Sidebar modules={modules} />
+      <div className="product-form-container">
+        <h2 className="product-form-title">Editar Producto</h2>
+        <Form>
+          <div className="product-form-layout">
+            <div className="product-form-column">
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Nombre</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="nombre"
+                  value={producto.nombre}
+                  onChange={handleChange}
+                  placeholder="Ingrese el nombre del producto"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Categoría</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="categoria"
+                  value={producto.categoria}
+                  onChange={handleChange}
+                  placeholder="Ingrese la categoría del producto"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Código de Barras</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="codigoBarras"
+                  value={producto.codigoBarras}
+                  onChange={handleChange}
+                  placeholder="Escanear o ingresar código de barras"
+                  className="product-form-input"
+                />
+              </div>
+            </div>
+            <div className="product-form-column">
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Precio Unitario (COP)</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="precioUnitarioCOP"
+                  value={producto.precioUnitarioCOP}
+                  onChange={handleChange}
+                  placeholder="Ingrese el precio unitario en COP"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Porcentaje de Ganancia</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="porcentajeGanancia"
+                  value={producto.porcentajeGanancia}
+                  onChange={handleChange}
+                  placeholder="Ingresa el porcentaje de ganancia del producto"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+              <div className="product-form-field">
+                <Form.Label className="product-form-label required">Descripción</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="descripcion"
+                  value={producto.descripcion}
+                  onChange={handleChange}
+                  placeholder="Ingrese una descripción del producto"
+                  className="product-form-input"
+                  required
+                />
+              </div>
+            </div>
+            <div className="product-form-actions">
+              <Button variant="outline-danger" onClick={handleCancelar} className="product-form-btn">
+                Cancelar
+              </Button>
+              <Button variant="primary" onClick={handleEditar} className="product-form-btn">
+                Guardar Cambios
+              </Button>
+            </div>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }

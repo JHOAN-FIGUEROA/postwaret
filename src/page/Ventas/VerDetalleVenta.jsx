@@ -1,7 +1,8 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Card } from "react-bootstrap";
 import Sidebar from "../Sidebar";
+import "./venta.css";
 
 function VerDetalleVenta() {
   const { id } = useParams(); // Obtiene el ID de la venta desde la URL
@@ -69,58 +70,60 @@ function VerDetalleVenta() {
 
   return (
     <div className="main-content with-sidebar">
-      <h2>Detalle de la Venta</h2>
+      <h2 className="detail-title">Detalle de la Venta</h2>
       <Sidebar modules={modules} />
-      <div>
-        <h4>Información General</h4>
-        <p>
-          <strong>N° de Venta:</strong> {venta.numeroVenta}
-        </p>
-        <p>
-          <strong>Fecha de Venta:</strong> {venta.fechaVenta}
-        </p>
-        <p>
-          <strong>Cliente:</strong> {venta.cliente}
-        </p>
+      <div className="detail-container">
+        <Card className="detail-card">
+          <Card.Body>
+            <Card.Title className="card-title mb-2">Información General</Card.Title>
+            <div className="row">
+              <div className="col-md-4 col-sm-6 mb-2">
+                <strong>N° de Venta:</strong> {venta.numeroVenta}
+              </div>
+              <div className="col-md-4 col-sm-6 mb-2">
+                <strong>Fecha de Venta:</strong> {venta.fechaVenta}
+              </div>
+              <div className="col-md-4 col-sm-6 mb-2">
+                <strong>Cliente:</strong> {venta.cliente}
+              </div>
+            </div>
+            <Card.Title className="card-title mt-3 mb-2">Productos Vendidos</Card.Title>
+            <Table striped bordered hover responsive className="compact-table mb-2">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {venta.productos.map((producto, index) => (
+                  <tr key={index}>
+                    <td>{producto.nombre}</td>
+                    <td>{producto.cantidad}</td>
+                    <td>${producto.precioUnitario.toFixed(2)}</td>
+                    <td>${producto.subtotal.toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <Card.Title className="card-title mt-3 mb-2">Resumen de la Venta</Card.Title>
+            <div className="row compact-row text-center">
+              <div className="col-sm-4">
+                <p className="mb-1"><strong>Subtotal:</strong><br />${venta.subtotal.toFixed(2)}</p>
+              </div>
+             
+              <div className="col-sm-4">
+                <p className="mb-1"><strong>Total:</strong><br /><strong>${venta.total.toFixed(2)}</strong></p>
+              </div>
+            </div>
+          </Card.Body>
+        </Card>
+        <Button variant="secondary" className="detail-button mt-3" onClick={handleRegresar}>
+          Regresar
+        </Button>
       </div>
-      <div>
-        <h4>Productos Vendidos</h4>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio Unitario</th>
-              <th>Subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
-            {venta.productos.map((producto, index) => (
-              <tr key={index}>
-                <td>{producto.nombre}</td>
-                <td>{producto.cantidad}</td>
-                <td>${producto.precioUnitario.toFixed(2)}</td>
-                <td>${producto.subtotal.toFixed(2)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
-      <div>
-        <h4>Resumen de la Venta</h4>
-        <p>
-          <strong>Subtotal:</strong> ${venta.subtotal.toFixed(2)}
-        </p>
-        <p>
-          <strong>IVA (19%):</strong> ${venta.iva.toFixed(2)}
-        </p>
-        <p>
-          <strong>Total:</strong> ${venta.total.toFixed(2)}
-        </p>
-      </div>
-      <Button variant="secondary" onClick={handleRegresar}>
-        Regresar
-      </Button>
     </div>
   );
 }

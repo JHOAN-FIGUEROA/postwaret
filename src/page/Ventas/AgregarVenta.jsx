@@ -434,11 +434,7 @@ function AgregarVenta() {
       background-color: #2eb85c !important;
       border-color: #2eb85c !important;
       color: white !important;
-      font-weight: bold !important;
-      padding: 8px 16px !important;
-      border-radius: 4px !important;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-      width: 100% !important;
+      cursor: pointer !important;
     }
     
     .agregar-compra-btn:hover {
@@ -723,16 +719,6 @@ function AgregarVenta() {
                       <Button 
                         onClick={handleAgregarProducto}
                         className="agregar-compra-btn"
-                        style={{
-                          backgroundColor: '#2eb85c',
-                          borderColor: '#2eb85c',
-                          color: 'white',
-                          fontWeight: 'bold',
-                          padding: '8px 16px',
-                          borderRadius: '4px',
-                          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                          width: '100%'
-                        }}
                       >
                         Agregar a la Venta
                       </Button>

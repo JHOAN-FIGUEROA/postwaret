@@ -128,10 +128,12 @@ function Categoria() {
     Swal.fire({
       title: `Detalle de ${categoria.nombre}`,
       html: `
-        <p><strong>ID:</strong> ${categoria.id}</p>
-        <p><strong>Nombre:</strong> ${categoria.nombre}</p>
-        <p><strong>Descripción:</strong> ${categoria.Descripcion}</p>
-        <p><strong>Estado:</strong> ${categoria.Estado}</p>
+        <div style="text-align: left;">
+          <p><strong>ID:</strong> ${categoria.id}</p>
+          <p><strong>Nombre:</strong> ${categoria.nombre}</p>
+          <p><strong>Descripción:</strong> ${categoria.Descripcion}</p>
+          <p><strong>Estado:</strong> ${categoria.Estado}</p>
+        </div>
       `,
       icon: "info",
       confirmButtonText: "Cerrar",

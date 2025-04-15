@@ -276,7 +276,7 @@ footer p {
 /* CONTENIDO PRINCIPAL */
 /* ==================== */
 .main-content {
-  margin-left: 250px;
+  margin-left: 200px;
   padding: 20px;
   width: calc(100% - 250px);
   background-color: #ecf0f1;
@@ -286,10 +286,10 @@ footer p {
 .main-content.with-sidebar {
   margin-left: 250px;
   padding: 20px;
-  width: calc(100% - 250px);
+  width: calc(90% - 250px);
   box-sizing: border-box;
   background-color: #ecf0f1;
-  min-height: 100vh;
+  min-height: 86vh;
 }
 
 .main-content h2 {
@@ -543,7 +543,6 @@ footer p {
   background-color: #218838;
   border-color: #1e7e34;
 }
-
 /* ==================== */
 /* FORMULARIOS ESPECÍFICOS */
 /* ==================== */
@@ -560,99 +559,6 @@ footer p {
   color: #0d6efd;
   margin-bottom: 20px;
 }
-
-.agregar-cliente-form {
-  padding: 50px;
-  max-width: 70%;
-  margin: auto;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-.agregar-cliente-form h2 {
-  margin-bottom: 30px;
-  color: #333;
-  font-weight: 600;
-  text-align: left;
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 12px;
-}
-
-/* Contenedor principal de campos */
-.form-fields-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
-  gap: 25px 30px; /* 25px vertical, 30px horizontal */
-}
-
-/* Campos que ocupan ambas columnas */
-.full-width-field {
-  grid-column: span 2;
-}
-
-/* Campos que ocupan media columna (como en tu imagen) */
-.half-width-field {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Contenedor de campos pequeños lado a lado */
-.split-fields-container {
-  grid-column: span 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-}
-
-.agregar-cliente-form .form-label {
-  font-weight: 500;
-  color: #444;
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-/* Estilos consistentes para todos los inputs */
-.agregar-cliente-form .form-control {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 15px;
-  height: 46px;
-  box-sizing: border-box;
-}
-
-/* Acciones del formulario */
-.form-actions {
-  grid-column: span 2;
-  margin-top: 30px;
-  padding-top: 25px;
-  border-top: 1px solid #eee;
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .form-fields-grid,
-  .split-fields-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .full-width-field,
-  .split-fields-container {
-    grid-column: span 1;
-  }
-  
-  .agregar-cliente-form {
-    padding: 30px;
-    max-width: 90%;
-  }
-}
-
 /* ==================== */
 /* MODALES */
 /* ==================== */
