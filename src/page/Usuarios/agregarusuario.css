@@ -48,7 +48,7 @@
   .user-form-label {
     display: block;
     margin-bottom: 0.4rem;
-    font-weight: 500;
+    font-weight: bold;
     color: #34495e;
     font-size: 0.82rem;
   }
@@ -116,6 +116,18 @@
     font-size: 0.85rem;
     border-radius: 8px;
     min-width: 100px;
+  }
+  
+  /* Estilos para el botón Cancelar */
+  .user-form-btn-cancelar {
+    background-color: #dc3545; /* Rojo */
+    border-color: #dc3545;
+    color: white;
+  }
+  
+  .user-form-btn-cancelar:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
   }
   
   /* Modal específico para dirección */

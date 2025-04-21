@@ -143,3 +143,80 @@
       max-height: 200px;
     }
   }
+
+/* Estilos para resaltar el contenedor de AgregarCompra con un margen más elegante */
+.Agregar-Compra {
+  margin: 60px auto; /* Aumentar el margen superior e inferior */
+  max-width: 800px;
+  border: 2px solid #ddd;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Aumentar la sombra para un efecto más suave */
+  padding: 20px; /* Añadir padding para separar el contenido del borde */
+}
+
+.Agregar-Compra h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.Agregar-Compra .form-control {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.Agregar-Compra .form-label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.Agregar-Compra .btn {
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.Agregar-Compra .btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.Agregar-Compra .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.Agregar-Compra .btn-cancelar {
+  background-color: #dc3545; /* Rojo */
+  border-color: #dc3545;
+  color: white;
+}
+
+.Agregar-Compra .btn-cancelar:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.Agregar-Compra .table {
+  margin-top: 20px;
+}
+
+.Agregar-Compra .table th, .Agregar-Compra .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.Agregar-Compra .modal-content {
+  border-radius: 8px;
+}
+
+.Agregar-Compra .modal-header {
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ddd;
+}
+
+.Agregar-Compra .modal-title {
+  color: #333;
+}

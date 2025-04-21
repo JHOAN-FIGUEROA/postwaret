@@ -67,8 +67,6 @@ function AgregarCliente() {
 
   const validarFormulario = () => {
     const campos = [
-      tipoDocumento,
-      documento,
       { campo: "nombre", mensaje: "El nombre es requerido" },
       { campo: "apellido", mensaje: "El apellido es requerido" },
       { campo: "email", mensaje: "El email es requerido" },
