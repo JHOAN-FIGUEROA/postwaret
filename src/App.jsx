@@ -98,7 +98,7 @@ function App() {
   return (
     <div className="container">
       {/* Navbar only visible on home page */}
-      {isHomePage && (
+      {isHomePage && !showLogin && !showRegister && (
         <nav>
           <Link to="/" className="logo">
             🛒 POSTWARE

@@ -448,7 +448,7 @@ function AgregarVenta() {
   `;
 
   return (
-    <div className="agregar-cliente-form" style={{ marginLeft: '250px', width: 'calc(100% - 250px)' }}>
+    <div className="Agregar-Compra">
       <style>{styles}</style>
       <h2>Crear Nueva Venta</h2>
       <Sidebar modules={modules} />
@@ -456,11 +456,12 @@ function AgregarVenta() {
         <Row className="mb-3">
           <Col>
             <Form.Group controlId="Cliente">
-              <Form.Label>
+              <Form.Label className="form-label">
                 Cliente
                 <span style={requiredFieldStyle}>*</span>
               </Form.Label>
               <Form.Select
+                className="form-control"
                 name="Cliente"
                 value={venta.Cliente}
                 onChange={handleChange}
@@ -477,11 +478,12 @@ function AgregarVenta() {
           </Col>
           <Col>
             <Form.Group controlId="fechaventa">
-              <Form.Label>
+              <Form.Label className="form-label">
                 Fecha de Venta
                 <span style={requiredFieldStyle}>*</span>
               </Form.Label>
               <Form.Control
+                className="form-control"
                 type="date"
                 name="fechaventa"
                 value={venta.fechaventa}

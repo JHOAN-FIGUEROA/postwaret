@@ -1,12 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
+import logo from "../../public/postwarelogo.png";
 
 function LoginForm({ onBackToHome, onLogin }) {
   const navigate = useNavigate();
 
   return (
     <div className="form-container">
+      <img src={logo} alt="PostWare Logo" className="logo" style={{ width: '100px', margin: '0 auto', display: 'block' }} />
       <h2>Iniciar Sesión</h2>
       <form
         onSubmit={(e) => {

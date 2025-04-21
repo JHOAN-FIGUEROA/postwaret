@@ -134,16 +134,7 @@ function Ventas() {
   };
 
   const handleAgregarVenta = () => {
-    Swal.fire({
-      title: 'Agregar Venta',
-      text: 'Serás redirigido al formulario para crear una nueva venta',
-      icon: 'info',
-      confirmButtonText: 'Continuar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/ventas/agregar");
-      }
-    });
+    navigate("/ventas/agregar");
   };
 
   const modules = [
